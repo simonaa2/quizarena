@@ -3,213 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz Arena — Live Classroom Challenge</title>
+  <title>Quiz Arena — Student Join</title>
   <link rel="stylesheet" href="style.css">
-  <!-- MQTT & PeerJS CDN scripts for seamless zero-server real-time networking -->
-  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-  <script src="config.js"></script>
-  <script src="quizzes.js"></script>
   <script src="sound.js"></script>
 </head>
-<body>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 1.5rem;">
 
-  <!-- Navigation -->
-  <header class="arena-nav">
-    <a href="index.html" class="brand-badge">
-      <div class="brand-icon">⚡</div>
-      <div>
-        <div class="brand-title">QUIZ ARENA</div>
-        <div class="brand-sub">Live Classroom Challenge • Mr Anderson</div>
+  <!-- Sound Toggle in Corner -->
+  <div style="position: absolute; top: 1.25rem; right: 1.25rem; z-index: 10;">
+    <button class="btn-icon" id="sound-toggle-btn" title="Toggle Sound">🔊</button>
+  </div>
+
+  <main style="max-width: 440px; width: 100%;">
+    <!-- Main Student Join Card -->
+    <div class="action-card" style="padding: 2.5rem 2rem; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+      
+      <!-- Brand Logo -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <div class="brand-icon" style="width: 48px; height: 48px; font-size: 1.5rem;">⚡</div>
+        <div style="text-align: left;">
+          <div class="brand-title" style="font-size: 1.6rem; letter-spacing: -0.02em;">QUIZ ARENA</div>
+          <div class="brand-sub" style="font-size: 0.8rem; color: #94a3b8;">Live Classroom Challenge</div>
+        </div>
       </div>
-    </a>
-    <div class="nav-actions">
-      <button class="btn-icon" id="sound-toggle-btn" title="Toggle Sound">🔊</button>
-      <a href="host.html" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.5rem 1rem;">
-        👨‍🏫 Host Arena
-      </a>
-    </div>
-  </header>
 
-  <!-- Main Container -->
-  <main class="container">
-    
-    <!-- Hero Banner -->
-    <div class="hero-box">
-      <h1 class="hero-title">Live HSC Quiz Arena</h1>
-      <p class="hero-desc">
-        High-energy, real-time multiplayer competition for NSW HSC Economics, Business Studies & Commerce. Join on your phone or laptop!
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.75rem;">
+        Enter the Game PIN shown on the board to join the live arena.
       </p>
-      <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;">
-        <span class="card-tag tag-student">⚡ Sub-50ms Real-Time</span>
-        <span class="card-tag tag-teacher">📊 Syllabus Aligned</span>
-        <span class="card-tag tag-solo">🏆 Instant Leaderboards</span>
-      </div>
-    </div>
 
-    <!-- Quick Action Cards Grid -->
-    <div class="grid-2">
-
-      <!-- Student Join Card -->
-      <div class="action-card">
-        <span class="card-tag tag-student">Student Arena</span>
-        <h2 class="card-title">Join Live Game</h2>
-        <p class="card-desc">Enter the 6-digit Game PIN displayed on the teacher's projector screen.</p>
-
-        <form id="join-form" onsubmit="handleStudentJoin(event)">
-          <div class="form-group">
-            <label class="form-label">GAME PIN</label>
-            <input type="text" id="join-pin" class="pin-input" placeholder="000000" maxlength="6" inputmode="numeric" required autofocus>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">YOUR NAME</label>
-            <div style="display: flex; gap: 0.5rem; flex-direction: column;">
-              <select id="roster-select" class="select-input" onchange="handleRosterSelect(this.value)">
-                <option value="">-- Quick select from Class Roster --</option>
-              </select>
-              <input type="text" id="join-name" class="text-input" placeholder="Or type your name / nickname" required>
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-kahoot btn-block" style="margin-top: 0.5rem;">
-            ENTER ARENA 🚀
-          </button>
-        </form>
-      </div>
-
-      <!-- Teacher Host Card -->
-      <div class="action-card">
-        <span class="card-tag tag-teacher">Teacher / Projector</span>
-        <h2 class="card-title">Host a Live Arena</h2>
-        <p class="card-desc">Launch a live multiplayer match on your smartboard or projector for the class.</p>
-
-        <div class="form-group">
-          <label class="form-label">SELECT CURRICULUM QUIZ DECK</label>
-          <select id="host-quiz-select" class="select-input">
-            <!-- Populated via JS -->
-          </select>
+      <!-- Student Join Form -->
+      <form id="join-form" onsubmit="handleStudentJoin(event)">
+        <div class="form-group" style="margin-bottom: 1.25rem; text-align: left;">
+          <label class="form-label" style="text-align: center;">GAME PIN</label>
+          <input type="text" id="join-pin" class="pin-input" placeholder="000000" maxlength="6" inputmode="numeric" required autofocus autocomplete="off">
         </div>
 
-        <div class="form-group">
-          <label class="form-label">TIMER PER QUESTION</label>
-          <select id="host-timer-select" class="select-input">
-            <option value="10">⚡ 10 Seconds (Speed Round)</option>
-            <option value="15">⏱️ 15 Seconds (Rapid)</option>
-            <option value="20" selected>⏱️ 20 Seconds (Standard Kahoot)</option>
-            <option value="30">⏱️ 30 Seconds (In-Depth)</option>
-            <option value="45">⏱️ 45 Seconds (Calculations)</option>
-          </select>
+        <div class="form-group" style="margin-bottom: 1.75rem; text-align: left;">
+          <label class="form-label" style="text-align: center;">YOUR NICKNAME</label>
+          <input type="text" id="join-name" class="text-input" placeholder="Enter your name or nickname" maxlength="25" required autocomplete="off" style="text-align: center; font-size: 1.15rem; font-weight: 700;">
         </div>
 
-        <button onclick="launchHost()" class="btn btn-primary btn-block" style="margin-top: 0.5rem;">
-          LAUNCH ARENA (PROJECTOR) 🖥️
+        <button type="submit" class="btn btn-kahoot btn-block" style="font-size: 1.25rem; padding: 1rem;">
+          ENTER ARENA 🚀
         </button>
-      </div>
+      </form>
 
     </div>
 
-    <!-- Practice & Quiz Bank Section -->
-    <div class="action-card" style="margin-bottom: 2rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
-        <div>
-          <span class="card-tag tag-solo">Solo Revision</span>
-          <h2 class="card-title" style="margin-bottom: 0.25rem;">Self-Paced Practice Mode</h2>
-          <p class="card-desc" style="margin-bottom: 0;">Study anytime at home with instant syllabus explanations and timed streak challenges.</p>
-        </div>
-        <a href="solo.html" class="btn btn-secondary">
-          START PRACTICE SESSION 🎯
-        </a>
-      </div>
-
-      <!-- Quiz Bank Grid -->
-      <h3 style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">
-        📚 Curated Question Packs
-      </h3>
-      <div id="quiz-list-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-        <!-- Populated via JS -->
-      </div>
+    <div style="text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.8rem;">
+      Quiz Arena • Live Classroom Student Portal
     </div>
-
-    <!-- Footer -->
-    <footer style="text-align: center; color: var(--text-sub); font-size: 0.85rem; padding: 2rem 0; border-top: 1px solid var(--border-glass);">
-      <p>Quiz Arena • Live Classroom Competition & Revision Platform</p>
-      <p style="margin-top: 0.35rem;">
-        Engineered for zero-lag classroom competition • <a href="host.html" style="color: #818cf8; text-decoration: none;">Teacher Console</a>
-      </p>
-    </footer>
-
   </main>
 
   <script>
-    // Initialize UI
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Sound toggle button
+      // Sound button
       const soundBtn = document.getElementById('sound-toggle-btn');
       soundBtn.textContent = Sound.enabled ? '🔊' : '🔇';
       soundBtn.onclick = () => {
-        const isNowOn = Sound.toggleSound();
-        soundBtn.textContent = isNowOn ? '🔊' : '🔇';
+        const on = Sound.toggleSound();
+        soundBtn.textContent = on ? '🔊' : '🔇';
       };
 
-      // 2. Populate Class Roster
-      const rosterSelect = document.getElementById('roster-select');
-      if (CONFIG.STUDENTS && Array.isArray(CONFIG.STUDENTS)) {
-        CONFIG.STUDENTS.forEach(st => {
-          const opt = document.createElement('option');
-          opt.value = st.name;
-          opt.textContent = st.name;
-          rosterSelect.appendChild(opt);
-        });
-      }
-
-      // Check URL parameters for pre-filled PIN (e.g. ?pin=123456 from QR code)
+      // Check URL parameters (e.g. from QR code ?pin=123456)
       const urlParams = new URLSearchParams(window.location.search);
       const paramPin = urlParams.get('pin');
       if (paramPin) {
         document.getElementById('join-pin').value = paramPin.trim();
         document.getElementById('join-name').focus();
       }
-
-      // 3. Populate Quizzes Dropdown and Cards
-      const quizzes = QuizRepository.getAllQuizzes();
-      const hostSelect = document.getElementById('host-quiz-select');
-      const quizGrid = document.getElementById('quiz-list-grid');
-
-      quizzes.forEach(quiz => {
-        // Dropdown option
-        const opt = document.createElement('option');
-        opt.value = quiz.id;
-        opt.textContent = `${quiz.badge ? '[' + quiz.badge + '] ' : ''}${quiz.title} (${quiz.questions.length} Qs)`;
-        hostSelect.appendChild(opt);
-
-        // Preview Card
-        const card = document.createElement('div');
-        card.style.background = 'rgba(15, 23, 42, 0.7)';
-        card.style.border = '1px solid rgba(255,255,255,0.08)';
-        card.style.borderRadius = 'var(--radius-lg)';
-        card.style.padding = '1.25rem';
-        card.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-            <span style="font-size: 0.7rem; font-weight: 800; background: rgba(99,102,241,0.2); color: #a5b4fc; padding: 0.2rem 0.6rem; border-radius: 9999px;">${quiz.badge || 'QUIZ'}</span>
-            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">${quiz.questions.length} Questions</span>
-          </div>
-          <h4 style="font-size: 1.05rem; margin-bottom: 0.4rem;">${quiz.title}</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1rem;">${quiz.description}</p>
-          <div style="display: flex; gap: 0.5rem;">
-            <a href="solo.html?quiz=${quiz.id}" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem; flex: 1;">Solo Practice</a>
-            <a href="host.html?quiz=${quiz.id}" class="btn btn-primary" style="font-size: 0.8rem; padding: 0.4rem 0.8rem; flex: 1;">Host Live</a>
-          </div>
-        `;
-        quizGrid.appendChild(card);
-      });
     });
-
-    function handleRosterSelect(val) {
-      if (val) {
-        document.getElementById('join-name').value = val;
-      }
-    }
 
     function handleStudentJoin(e) {
       e.preventDefault();
@@ -226,15 +89,7 @@
         return;
       }
 
-      // Redirect to play controller
       window.location.href = `play.html?pin=${encodeURIComponent(pin)}&name=${encodeURIComponent(name)}`;
-    }
-
-    function launchHost() {
-      Sound.roundStart();
-      const quizId = document.getElementById('host-quiz-select').value;
-      const timer = document.getElementById('host-timer-select').value;
-      window.location.href = `host.html?quiz=${encodeURIComponent(quizId)}&timer=${encodeURIComponent(timer)}`;
     }
   </script>
 </body>

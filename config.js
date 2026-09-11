@@ -6,7 +6,7 @@
 const CONFIG = {
   // App branding
   APP_TITLE: 'Quiz Arena',
-  APP_SUBTITLE: 'Live Interactive Classroom Quiz Challenge',
+  APP_SUBTITLE: 'Live Interactive Classroom Challenge',
   ARENA_TAGLINE: 'Live Quiz Arena • Powered by Mr Anderson',
 
   // Google Apps Script Web App URL (Optional - paste here to auto-save results to Google Sheets)
@@ -15,7 +15,7 @@ const CONFIG = {
   // Teacher dashboard & host master password:
   TEACHER_PASSWORD: 'teacher2026',
 
-  // Fallback class code for student self-enrolment:
+  // Fallback class code:
   CLASS_CODE: 'QUIZ2026',
 
   // Default game parameters
@@ -24,21 +24,8 @@ const CONFIG = {
   STREAK_BONUS_MULTIPLIER: 100, // +100 bonus pts per consecutive correct answer (capped at +500)
   ENABLE_SOUND_BY_DEFAULT: true,
 
-  // -----------------------------------------------
-  // STUDENT ROSTER
-  // Students can quickly pick their name from this list or type their own nickname.
-  // Add/edit students as needed:
-  // -----------------------------------------------
-  STUDENTS: [
-    { name: 'Simon Anderson' },
-    { name: 'Austin Crump' },
-    { name: 'Aidan Tresister' },
-    { name: 'Adam Avdalis' },
-    { name: 'Zach Hull' },
-    { name: 'Lucas Helacas' },
-    { name: 'Seb Sacilotto' },
-    { name: 'William Rebel' },
-  ],
+  // Student roster left empty: students enter their own name or nickname on the join screen
+  STUDENTS: [],
 
   // Real-time communication broker endpoints
   // Triple-redundancy: HiveMQ Public TLS WSS + EMQX WSS fallback + WebRTC PeerJS + BroadcastChannel
