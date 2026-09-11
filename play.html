@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Player Controller — HSC Sando 1603</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Real-time networking CDNs -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="config.js"></script>
+  <script src="quizzes.js"></script>
+  <script src="sound.js"></script>
+  <script src="network.js"></script>
+</head>
+<body class="controller-body" style="background: #0b0f19;">
+
+  <!-- Controller Top Header -->
+  <header class="controller-header">
+    <div class="student-badge">
+      <span style="font-size: 1.25rem;">👤</span>
+      <span id="player-display-name">Joining...</span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <div id="streak-pill" style="display: none; font-size: 0.85rem; font-weight: 800; background: rgba(234, 179, 8, 0.2); color: #facc15; padding: 0.25rem 0.6rem; border-radius: 9999px;">
+        🔥 <span id="streak-count">0</span>
+      </div>
+      <div class="student-score-pill" id="player-score-pill">0 pts</div>
+      <button class="btn-icon" id="sound-btn" style="width: 32px; height: 32px; font-size: 0.9rem;" title="Sound">🔊</button>
+    </div>
+  </header>
+
+  <!-- ==============================================
+       SCREEN 1: JOIN FORM (If visited without params)
+       ============================================== -->
+  <div id="screen-join" class="container" style="display: none; max-width: 450px; margin: auto;">
+    <div class="action-card">
+      <span class="card-tag tag-student">Enter Arena</span>
+      <h2 class="card-title">Join Live Match</h2>
+      <form id="direct-join-form" onsubmit="handleDirectJoin(event)">
+        <div class="form-group">
+          <label class="form-label">Game PIN</label>
+          <input type="text" id="input-pin" class="pin-input" placeholder="000000" maxlength="6" inputmode="numeric" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" id="input-name" class="text-input" placeholder="Enter full name or nickname" required>
+        </div>
+        <button type="submit" class="btn btn-kahoot btn-block">JOIN GAME ➔</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SCREEN 2: LOBBY WAITING ROOM
+       ============================================== -->
+  <div id="screen-lobby" class="feedback-screen" style="display: none; background: transparent;">
+    <div class="brand-icon" style="width: 70px; height: 70px; font-size: 2.2rem; margin-bottom: 1.25rem;">
+      ⚡
+    </div>
+    <h1 style="font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem;">You're In!</h1>
+    <p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem;">
+      Look for <strong id="lobby-confirmed-name" style="color: #fff;">...</strong> on the teacher's screen.
+    </p>
+
+    <div style="background: rgba(15,23,42,0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-xl); padding: 1.5rem 2rem; max-width: 340px; width: 100%;">
+      <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #38bdf8; font-weight: 700;">
+        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #38bdf8; animation: pulse 1s infinite alternate;"></span>
+        Waiting for teacher to start...
+      </div>
+      <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 0.75rem; text-align: center;">
+        Room PIN: <span id="lobby-room-pin" style="font-weight: 800; color: #fff;">------</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SCREEN 3: 4-QUADRANT TACTILE GAME PAD
+       ============================================== -->
+  <div id="screen-gamepad" class="controller-content" style="display: none;">
+    <!-- Small Question banner on top of mobile controller -->
+    <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 0.75rem; text-align: center;">
+      <div style="font-size: 0.8rem; font-weight: 700; color: #818cf8; margin-bottom: 0.2rem;" id="q-number-pill">
+        Question 1 of 8
+      </div>
+      <div style="font-size: 1.05rem; font-weight: 800; color: #fff; line-height: 1.3;" id="q-brief-text">
+        Question text...
+      </div>
+    </div>
+
+    <!-- 4 Big Responsive Touch Quadrants -->
+    <div class="controller-grid">
+      <button class="btn-answer-quad quad-red" id="btn-quad-0" onclick="chooseAnswer(0)">
+        <span class="quad-symbol">▲</span>
+        <span class="quad-text-mobile" id="text-quad-0">Option 1</span>
+      </button>
+
+      <button class="btn-answer-quad quad-blue" id="btn-quad-1" onclick="chooseAnswer(1)">
+        <span class="quad-symbol">◆</span>
+        <span class="quad-text-mobile" id="text-quad-1">Option 2</span>
+      </button>
+
+      <button class="btn-answer-quad quad-yellow" id="btn-quad-2" onclick="chooseAnswer(2)">
+        <span class="quad-symbol">●</span>
+        <span class="quad-text-mobile" id="text-quad-2">Option 3</span>
+      </button>
+
+      <button class="btn-answer-quad quad-green" id="btn-quad-3" onclick="chooseAnswer(3)">
+        <span class="quad-symbol">■</span>
+        <span class="quad-text-mobile" id="text-quad-3">Option 4</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SCREEN 4: ANSWER LOCKED IN STATE
+       ============================================== -->
+  <div id="screen-locked" class="feedback-screen feedback-locked" style="display: none;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🔒</div>
+    <h2 class="feedback-title">Answer Locked In!</h2>
+    <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 1.5rem;">
+      Did you get it right? Watching teacher's screen...
+    </p>
+    <div style="font-size: 0.95rem; background: rgba(0,0,0,0.25); padding: 0.5rem 1.25rem; border-radius: 9999px;">
+      Selected: <span id="locked-choice-symbol" style="font-weight: 900; font-size: 1.2rem;">▲</span>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SCREEN 5: ROUND RESULT FEEDBACK (CORRECT / WRONG)
+       ============================================== -->
+  <div id="screen-correct" class="feedback-screen feedback-correct" style="display: none;">
+    <div style="font-size: 4.5rem; margin-bottom: 0.5rem;">🎉</div>
+    <h2 class="feedback-title">CORRECT!</h2>
+    <div class="feedback-pts" id="feedback-pts-gained">+950 pts</div>
+    <div class="feedback-streak" id="feedback-streak-label">🔥 2 in a row!</div>
+    <div style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
+      Look at the big screen for explanations & rankings.
+    </div>
+  </div>
+
+  <div id="screen-wrong" class="feedback-screen feedback-wrong" style="display: none;">
+    <div style="font-size: 4.5rem; margin-bottom: 0.5rem;">❌</div>
+    <h2 class="feedback-title">NOT QUITE!</h2>
+    <div class="feedback-pts">+0 pts</div>
+    <div class="feedback-streak" style="background: rgba(0,0,0,0.35);">
+      Streak reset • Next question coming up!
+    </div>
+    <div style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
+      Check the teacher's board for the syllabus rationale.
+    </div>
+  </div>
+
+  <!-- ==============================================
+       SCREEN 6: GAME OVER SUMMARY
+       ============================================== -->
+  <div id="screen-gameover" class="feedback-screen" style="display: none; background: #070b14;">
+    <div style="font-size: 4.5rem; margin-bottom: 0.5rem;">🏆</div>
+    <h1 style="font-size: 2.75rem; font-weight: 900; margin-bottom: 0.25rem;">Game Over!</h1>
+    <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem;">You completed the HSC Quiz Arena match!</p>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-xl); padding: 2rem; max-width: 380px; width: 100%;">
+      <div style="font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">Your Final Score</div>
+      <div id="final-score-val" style="font-size: 2.75rem; font-weight: 900; color: #38bdf8; margin-bottom: 1rem;">
+        0 pts
+      </div>
+      <div id="final-rank-val" style="font-size: 1.3rem; font-weight: 800; color: #facc15; margin-bottom: 1.5rem;">
+        Ranking...
+      </div>
+      <a href="index.html" class="btn btn-primary btn-block">Return to Lobby 🏠</a>
+    </div>
+  </div>
+
+  <script>
+    // --- STUDENT CONTROLLER LOGIC ---
+    let network = null;
+    let studentPin = '';
+    let studentName = '';
+    let currentScore = 0;
+    let currentStreak = 0;
+    let hasAnsweredCurrentRound = false;
+
+    const quadSymbols = ['▲', '◆', '●', '■'];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sound toggle
+      const soundBtn = document.getElementById('sound-btn');
+      soundBtn.textContent = Sound.enabled ? '🔊' : '🔇';
+      soundBtn.onclick = () => {
+        const on = Sound.toggleSound();
+        soundBtn.textContent = on ? '🔊' : '🔇';
+      };
+
+      // Extract URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramPin = urlParams.get('pin');
+      const paramName = urlParams.get('name');
+
+      if (paramPin && paramName) {
+        connectStudent(paramPin, paramName);
+      } else {
+        // Show manual join form
+        showScreen('screen-join');
+        if (paramPin) {
+          document.getElementById('input-pin').value = paramPin.trim();
+        }
+      }
+    });
+
+    function handleDirectJoin(e) {
+      e.preventDefault();
+      const pin = document.getElementById('input-pin').value.trim();
+      const name = document.getElementById('input-name').value.trim();
+      if (!pin || !name) return;
+      connectStudent(pin, name);
+    }
+
+    function connectStudent(pin, name) {
+      studentPin = pin.trim();
+      studentName = name.trim();
+
+      document.getElementById('player-display-name').textContent = studentName;
+      document.getElementById('lobby-confirmed-name').textContent = studentName;
+      document.getElementById('lobby-room-pin').textContent = studentPin;
+
+      showScreen('screen-lobby');
+
+      // Initialize Network client
+      network = new ArenaNetwork();
+      network.initClient(studentPin, studentName);
+
+      // Listen for Host broadcasts
+      network.on('round_start', handleRoundStart);
+      network.on('round_end_for_student', handleRoundEndForStudent);
+      network.on('round_end', handleGeneralRoundEnd);
+      network.on('game_over', handleGameOver);
+    }
+
+    function handleRoundStart(msg) {
+      const data = msg.payload;
+      if (!data) return;
+
+      hasAnsweredCurrentRound = false;
+
+      // Update question text and buttons
+      document.getElementById('q-number-pill').textContent = `Question ${(data.questionIndex || 0) + 1} of ${data.totalQuestions || 8}`;
+      document.getElementById('q-brief-text').textContent = data.question || '';
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`btn-quad-${i}`);
+        const text = document.getElementById(`text-quad-${i}`);
+        btn.classList.remove('selected', 'disabled');
+        text.textContent = (data.options && data.options[i]) || '';
+      }
+
+      showScreen('screen-gamepad');
+      Sound.roundStart();
+
+      // Trigger short tactile vibration if available
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(40); } catch(e){}
+      }
+    }
+
+    function chooseAnswer(index) {
+      if (hasAnsweredCurrentRound) return;
+      hasAnsweredCurrentRound = true;
+
+      // Visual feedback
+      const btn = document.getElementById(`btn-quad-${index}`);
+      btn.classList.add('selected');
+
+      // Sound & Haptic
+      Sound.lockIn();
+      if ('vibrate' in navigator) {
+        try { navigator.vibrate(60); } catch(e){}
+      }
+
+      // Send to host
+      network.sendToHost('STUDENT_ANSWER', {
+        clientId: network.clientId,
+        studentName: studentName,
+        answerIndex: index,
+        timestamp: Date.now()
+      });
+
+      // Show locked in screen
+      document.getElementById('locked-choice-symbol').textContent = quadSymbols[index] || '✓';
+      showScreen('screen-locked');
+    }
+
+    function handleRoundEndForStudent(msg) {
+      const data = msg.payload;
+      if (!data || data.clientId !== network.clientId) return;
+
+      currentScore = data.totalScore || 0;
+      currentStreak = data.streak || 0;
+
+      // Update header score pill
+      document.getElementById('player-score-pill').textContent = `${currentScore.toLocaleString()} pts`;
+      const streakPill = document.getElementById('streak-pill');
+      const streakCount = document.getElementById('streak-count');
+
+      if (currentStreak >= 2) {
+        streakPill.style.display = 'inline-block';
+        streakCount.textContent = currentStreak;
+      } else {
+        streakPill.style.display = 'none';
+      }
+
+      if (data.isCorrect) {
+        document.getElementById('feedback-pts-gained').textContent = `+${data.pointsEarned || 0} pts`;
+        const streakLabel = document.getElementById('feedback-streak-label');
+        if (currentStreak >= 2) {
+          streakLabel.textContent = `🔥 ${currentStreak} in a row!`;
+          streakLabel.style.display = 'inline-block';
+        } else {
+          streakLabel.style.display = 'none';
+        }
+        showScreen('screen-correct');
+        Sound.correct();
+      } else {
+        showScreen('screen-wrong');
+        Sound.wrong();
+      }
+    }
+
+    function handleGeneralRoundEnd(msg) {
+      // If student hadn't answered before timer ran out
+      if (!hasAnsweredCurrentRound) {
+        currentStreak = 0;
+        document.getElementById('streak-pill').style.display = 'none';
+        showScreen('screen-wrong');
+        Sound.wrong();
+      }
+    }
+
+    function handleGameOver(msg) {
+      const data = msg.payload;
+      showScreen('screen-gameover');
+      Sound.podiumFanfare();
+
+      document.getElementById('final-score-val').textContent = `${currentScore.toLocaleString()} pts`;
+
+      if (data && data.rankings && Array.isArray(data.rankings)) {
+        const myRankEntry = data.rankings.find(r => r.name === studentName);
+        if (myRankEntry) {
+          document.getElementById('final-rank-val').textContent = `Finished Rank #${myRankEntry.rank} of ${data.rankings.length}!`;
+        }
+      }
+    }
+
+    function showScreen(screenId) {
+      const screens = [
+        'screen-join',
+        'screen-lobby',
+        'screen-gamepad',
+        'screen-locked',
+        'screen-correct',
+        'screen-wrong',
+        'screen-gameover'
+      ];
+      screens.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.style.display = (id === screenId) ? (id === 'screen-gamepad' ? 'flex' : 'flex') : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

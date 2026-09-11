@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Projector Arena — HSC Sando 1603</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- CDN dependencies -->
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="config.js"></script>
+  <script src="quizzes.js"></script>
+  <script src="sound.js"></script>
+  <script src="network.js"></script>
+</head>
+<body style="background: #070b14;">
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Host Header -->
+  <header class="host-header">
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="index.html" class="brand-badge">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">HSC SANDO ARENA</div>
+          <div class="brand-sub" id="host-quiz-label">Loading quiz...</div>
+        </div>
+      </a>
+      <span id="connection-chip" style="font-size: 0.75rem; background: rgba(34,197,94,0.2); color: #4ade80; padding: 0.25rem 0.65rem; border-radius: 9999px; border: 1px solid rgba(74,222,128,0.3);">
+        ● Live Ready
+      </span>
+    </div>
+
+    <!-- Big PIN Display Banner -->
+    <div class="pin-display-banner" id="pin-banner">
+      <div>
+        <div class="pin-label">Join with PIN:</div>
+        <div class="pin-code-large" id="display-pin">------</div>
+      </div>
+      <div style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 1rem; font-size: 0.85rem; color: #c7d2fe;">
+        <div>Go to:</div>
+        <div style="font-weight: 800; color: #fff;" id="join-url-text">...</div>
+      </div>
+    </div>
+
+    <!-- Sound & Fullscreen controls -->
+    <div class="nav-actions">
+      <button class="btn-icon" id="sound-btn" title="Toggle Sound">🔊</button>
+      <button class="btn-icon" id="fullscreen-btn" title="Toggle Fullscreen" onclick="toggleFullscreen()">⛶</button>
+      <button class="btn btn-secondary" onclick="exitArena()" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">Exit</button>
+    </div>
+  </header>
+
+  <!-- ==============================================
+       STAGE 1: LOBBY
+       ============================================== -->
+  <div id="stage-lobby" class="arena-stage" style="display: block;">
+    <div class="lobby-grid">
+      
+      <!-- QR Code Box -->
+      <div class="lobby-qr-card">
+        <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">📱 Scan to Join</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Point phone camera to join arena instantly</p>
+        <div class="qr-code-box">
+          <img id="lobby-qr-img" src="" alt="QR Code">
+        </div>
+        <div style="font-size: 0.9rem; font-weight: 700; color: #a5b4fc; margin-top: 0.5rem;">
+          PIN: <span id="lobby-pin-sub" style="font-size: 1.4rem; color: #fff;">------</span>
+        </div>
+      </div>
+
+      <!-- Live Roster Box -->
+      <div class="lobby-roster-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <div class="player-count-badge">
+            👥 <span id="player-count">0</span> Students Ready
+          </div>
+          <button id="btn-start-game" onclick="startGame()" class="btn btn-kahoot" style="font-size: 1.25rem; padding: 0.9rem 2.25rem;">
+            START GAME ➔
+          </button>
+        </div>
+
+        <div style="background: rgba(15,23,42,0.5); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1rem; flex: 1; min-height: 250px;">
+          <div id="player-chips" class="player-chips-container">
+            <div id="lobby-empty-hint" style="color: var(--text-muted); font-size: 1rem; margin: auto; text-align: center; padding: 3rem 0;">
+              Waiting for students to connect...<br>
+              <small style="opacity: 0.7;">(Or open another browser window to test student controller)</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Demo Bot for instant preview -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+          <span>Tip: Press Start Game when ready.</span>
+          <button onclick="addDemoStudent()" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.3rem 0.75rem;">
+            + Add Demo Student
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==============================================
+       STAGE 2: QUESTION & TIMER
+       ============================================== -->
+  <div id="stage-question" class="arena-stage" style="display: none;">
+    
+    <!-- Top Question Stats -->
+    <div class="question-top-bar">
+      <div class="round-pill" id="question-round-pill">Question 1 of 8</div>
+      
+      <!-- Big Circular Countdown Timer -->
+      <div class="timer-circle" id="timer-circle">20</div>
+
+      <div class="answers-counter-box">
+        Answers: <span id="answer-count-val">0</span> / <span id="answer-total-val">0</span>
+      </div>
+    </div>
+
+    <!-- Question Banner -->
+    <div class="question-card">
+      <div class="question-text" id="question-title">
+        Loading question...
+      </div>
+    </div>
+
+    <!-- 4 Big Answer Quadrants -->
+    <div class="quad-grid" id="host-quad-grid">
+      <div class="quad-option quad-red" id="host-opt-0">
+        <span class="quad-shape">▲</span>
+        <span class="quad-label" id="host-text-0">Option 1</span>
+        <div class="quad-stat-bar" id="stat-bar-0" style="width: 0%;"></div>
+        <span class="quad-count-badge" id="count-badge-0" style="display: none;">0</span>
+      </div>
+      <div class="quad-option quad-blue" id="host-opt-1">
+        <span class="quad-shape">◆</span>
+        <span class="quad-label" id="host-text-1">Option 2</span>
+        <div class="quad-stat-bar" id="stat-bar-1" style="width: 0%;"></div>
+        <span class="quad-count-badge" id="count-badge-1" style="display: none;">0</span>
+      </div>
+      <div class="quad-option quad-yellow" id="host-opt-2">
+        <span class="quad-shape">●</span>
+        <span class="quad-label" id="host-text-2">Option 3</span>
+        <div class="quad-stat-bar" id="stat-bar-2" style="width: 0%;"></div>
+        <span class="quad-count-badge" id="count-badge-2" style="display: none;">0</span>
+      </div>
+      <div class="quad-option quad-green" id="host-opt-3">
+        <span class="quad-shape">■</span>
+        <span class="quad-label" id="host-text-3">Option 4</span>
+        <div class="quad-stat-bar" id="stat-bar-3" style="width: 0%;"></div>
+        <span class="quad-count-badge" id="count-badge-3" style="display: none;">0</span>
+      </div>
+    </div>
+
+    <!-- Results explanation drawer (shown after time ends) -->
+    <div id="explanation-box" style="display: none; background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: var(--radius-lg); padding: 1.5rem; margin-top: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <span style="font-weight: 800; color: #4ade80; font-size: 1.1rem;">💡 Syllabus Explanation & Analysis:</span>
+        <button id="btn-next-step" onclick="proceedFromQuestion()" class="btn btn-primary" style="font-size: 1.1rem; padding: 0.6rem 1.75rem;">
+          Show Leaderboard ➔
+        </button>
+      </div>
+      <p id="explanation-text" style="font-size: 1.05rem; color: var(--text-main); line-height: 1.5;">
+        Explanation text...
+      </p>
+    </div>
+
+    <!-- Teacher Skip / Force Finish Bar -->
+    <div id="question-controls" style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+      <button onclick="forceEndQuestion()" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.9rem;">
+        ⏭️ Skip Timer (Show Results)
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ==============================================
+       STAGE 3: LEADERBOARD
+       ============================================== -->
+  <div id="stage-leaderboard" class="arena-stage" style="display: none;">
+    <div class="leaderboard-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem;">
+        <h2 style="font-size: 2rem;">🏆 Live Arena Leaderboard</h2>
+        <button id="btn-next-question" onclick="proceedToNextQuestion()" class="btn btn-kahoot" style="font-size: 1.15rem; padding: 0.75rem 2rem;">
+          Next Question ➔
+        </button>
+      </div>
+
+      <div class="leaderboard-list" id="leaderboard-container">
+        <!-- Dynamic Leaderboard Rows -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       STAGE 4: GRAND FINALE PODIUM
+       ============================================== -->
+  <div id="stage-podium" class="arena-stage" style="display: none;">
+    <div style="text-align: center; margin-bottom: 1rem;">
+      <span class="card-tag tag-solo" style="font-size: 0.9rem; padding: 0.4rem 1.25rem;">HSC ARENA CHAMPIONS</span>
+      <h1 style="font-size: 3.5rem; margin-top: 0.5rem; background: linear-gradient(135deg, #facc15, #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Grand Finale Podium
+      </h1>
+    </div>
+
+    <!-- 3-Tier Olympic Podium -->
+    <div class="podium-stage" id="podium-container">
+      <!-- 2nd Place -->
+      <div class="podium-col podium-2nd" id="podium-col-2">
+        <div class="podium-avatar">🥈</div>
+        <div class="podium-name" id="podium-name-2">-</div>
+        <div class="podium-score" id="podium-score-2">-</div>
+        <div class="podium-block">2</div>
+      </div>
+      <!-- 1st Place -->
+      <div class="podium-col podium-1st" id="podium-col-1">
+        <div class="podium-avatar">👑</div>
+        <div class="podium-name" id="podium-name-1">-</div>
+        <div class="podium-score" id="podium-score-1">-</div>
+        <div class="podium-block">1</div>
+      </div>
+      <!-- 3rd Place -->
+      <div class="podium-col podium-3rd" id="podium-col-3">
+        <div class="podium-avatar">🥉</div>
+        <div class="podium-name" id="podium-name-3">-</div>
+        <div class="podium-score" id="podium-score-3">-</div>
+        <div class="podium-block">3</div>
+      </div>
+    </div>
+
+    <!-- Export & Action Controls -->
+    <div class="action-card" style="max-width: 900px; margin: 0 auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h3 style="font-size: 1.4rem;">Full Cohort Scorecard</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Save results to Google Sheet or export spreadsheet for class marks.</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button onclick="exportCSV()" class="btn btn-secondary">
+            📥 Download CSV
+          </button>
+          <button onclick="syncToGoogleSheet()" class="btn btn-primary" id="btn-sync-sheet">
+            ☁️ Sync Google Sheet
+          </button>
+          <a href="host.html" class="btn btn-kahoot">
+            🔄 New Match
+          </a>
+        </div>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid var(--border-glass); color: var(--text-muted);">
+              <th style="padding: 0.75rem 1rem;">Rank</th>
+              <th style="padding: 0.75rem 1rem;">Student</th>
+              <th style="padding: 0.75rem 1rem;">Final Score</th>
+              <th style="padding: 0.75rem 1rem;">Correct Qs</th>
+              <th style="padding: 0.75rem 1rem;">Accuracy</th>
+            </tr>
+          </thead>
+          <tbody id="podium-table-body">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- GAME HOST CONTROLLER ---
+    let network = null;
+    let quiz = null;
+    let roomPin = '';
+    let currentQuestionIndex = -1;
+    let questionTimerSeconds = 20;
+    let timerInterval = null;
+    let timeLeft = 0;
+    let questionStartTime = 0;
+
+    // Players state: { [clientId]: { id, name, score, streak, correctCount, answers: [] } }
+    let players = {};
+    let roundAnswers = {}; // { [clientId]: { answerIndex, responseTimeMs, points } }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sound button
+      const soundBtn = document.getElementById('sound-btn');
+      soundBtn.textContent = Sound.enabled ? '🔊' : '🔇';
+      soundBtn.onclick = () => {
+        const on = Sound.toggleSound();
+        soundBtn.textContent = on ? '🔊' : '🔇';
+      };
+
+      // 1. Determine Quiz and Timer parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const quizId = urlParams.get('quiz') || 'hsc-econ-core';
+      quiz = QuizRepository.getQuizById(quizId);
+      
+      const customTimer = parseInt(urlParams.get('timer'), 10);
+      if (customTimer && !isNaN(customTimer)) {
+        questionTimerSeconds = customTimer;
+      } else if (CONFIG.DEFAULT_TIMER_SECONDS) {
+        questionTimerSeconds = CONFIG.DEFAULT_TIMER_SECONDS;
+      }
+
+      document.getElementById('host-quiz-label').textContent = quiz.title;
+
+      // 2. Generate 6-digit Room PIN
+      roomPin = String(Math.floor(100000 + Math.random() * 900000));
+      document.getElementById('display-pin').textContent = roomPin;
+      document.getElementById('lobby-pin-sub').textContent = roomPin;
+
+      // Generate Join URL for display & QR code
+      const currentLoc = window.location.origin + window.location.pathname.replace('host.html', 'play.html');
+      const joinUrl = `${currentLoc}?pin=${roomPin}`;
+      document.getElementById('join-url-text').textContent = window.location.hostname || 'hscsando';
+
+      // QR Code image
+      const qrImg = document.getElementById('lobby-qr-img');
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
+
+      // 3. Initialize Network Host
+      network = new ArenaNetwork();
+      network.initHost(roomPin);
+
+      // Listen for network events
+      network.on('student_join', handleStudentJoin);
+      network.on('student_answer', handleStudentAnswer);
+      network.on('connection_status', (status) => {
+        document.getElementById('connection-chip').textContent = `● ${status.transport || 'Connected'}`;
+      });
+    });
+
+    // --- EVENT HANDLERS ---
+    function handleStudentJoin(msg) {
+      const data = msg.payload;
+      if (!data || !data.clientId) return;
+
+      if (!players[data.clientId]) {
+        players[data.clientId] = {
+          id: data.clientId,
+          name: data.name || 'Anonymous Student',
+          score: 0,
+          streak: 0,
+          correctCount: 0,
+          answers: []
+        };
+        Sound.lockIn();
+        updateLobbyUI();
+      }
+    }
+
+    function handleStudentAnswer(msg) {
+      const data = msg.payload;
+      if (!data || !data.clientId) return;
+      if (roundAnswers[data.clientId]) return; // already answered this round
+
+      const player = players[data.clientId];
+      if (!player) return;
+
+      const currentQ = quiz.questions[currentQuestionIndex];
+      const isCorrect = (data.answerIndex === currentQ.correctIndex);
+      const timeElapsedSec = (Date.now() - questionStartTime) / 1000;
+      const timeRemainingFraction = Math.max(0, (timeLeft / questionTimerSeconds));
+
+      let pointsEarned = 0;
+      if (isCorrect) {
+        // Speed bonus: up to 1000 points, minimum 500 for correct answer
+        const speedBonus = Math.round(500 * timeRemainingFraction);
+        pointsEarned = 500 + speedBonus;
+
+        // Streak bonus
+        player.streak += 1;
+        if (player.streak > 1 && CONFIG.STREAK_BONUS_MULTIPLIER) {
+          const streakPts = Math.min(500, (player.streak - 1) * CONFIG.STREAK_BONUS_MULTIPLIER);
+          pointsEarned += streakPts;
+        }
+
+        player.score += pointsEarned;
+        player.correctCount += 1;
+      } else {
+        player.streak = 0;
+      }
+
+      roundAnswers[data.clientId] = {
+        answerIndex: data.answerIndex,
+        isCorrect,
+        pointsEarned,
+        responseTimeMs: Math.round(timeElapsedSec * 1000)
+      };
+
+      player.answers.push({
+        questionIndex: currentQuestionIndex,
+        answerIndex: data.answerIndex,
+        isCorrect,
+        pointsEarned
+      });
+
+      Sound.tick(false);
+      updateAnswerCounterUI();
+
+      // Check if all joined players have answered
+      const totalPlayers = Object.keys(players).length;
+      const totalAnswered = Object.keys(roundAnswers).length;
+      if (totalPlayers > 0 && totalAnswered >= totalPlayers) {
+        forceEndQuestion();
+      }
+    }
+
+    // --- UI UPDATERS ---
+    function updateLobbyUI() {
+      const chipsContainer = document.getElementById('player-chips');
+      const countLabel = document.getElementById('player-count');
+      const emptyHint = document.getElementById('lobby-empty-hint');
+      const playerList = Object.values(players);
+
+      countLabel.textContent = playerList.length;
+
+      if (playerList.length > 0) {
+        if (emptyHint) emptyHint.style.display = 'none';
+      }
+
+      chipsContainer.innerHTML = '';
+      playerList.forEach(p => {
+        const chip = document.createElement('div');
+        chip.className = 'player-chip';
+        chip.innerHTML = `
+          <span>👤 ${escapeHtml(p.name)}</span>
+          <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove player">✕</button>
+        `;
+        chipsContainer.appendChild(chip);
+      });
+    }
+
+    function kickPlayer(clientId) {
+      if (players[clientId]) {
+        delete players[clientId];
+        updateLobbyUI();
+      }
+    }
+
+    function addDemoStudent() {
+      const demoNames = ['Simon Anderson', 'Austin Crump', 'Aidan Tresister', 'Adam Avdalis', 'Zach Hull'];
+      const unused = demoNames.filter(n => !Object.values(players).some(p => p.name === n));
+      const name = unused.length > 0 ? unused[0] : 'Demo Student ' + (Object.keys(players).length + 1);
+      const id = 'demo_' + Math.random().toString(36).substring(2, 7);
+
+      players[id] = {
+        id,
+        name,
+        score: 0,
+        streak: 0,
+        correctCount: 0,
+        answers: []
+      };
+      Sound.lockIn();
+      updateLobbyUI();
+    }
+
+    function updateAnswerCounterUI() {
+      const totalPlayers = Object.keys(players).length;
+      const answeredCount = Object.keys(roundAnswers).length;
+      document.getElementById('answer-count-val').textContent = answeredCount;
+      document.getElementById('answer-total-val').textContent = totalPlayers;
+    }
+
+    // --- GAME FLOW ---
+    function startGame() {
+      if (Object.keys(players).length === 0) {
+        if (confirm('No students have connected yet! Add a demo player so you can test the game?')) {
+          addDemoStudent();
+        } else {
+          return;
+        }
+      }
+
+      Sound.roundStart();
+      document.getElementById('stage-lobby').style.display = 'none';
+      document.getElementById('stage-question').style.display = 'block';
+
+      currentQuestionIndex = -1;
+      nextQuestion();
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex >= quiz.questions.length) {
+        showFinalPodium();
+        return;
+      }
+
+      const q = quiz.questions[currentQuestionIndex];
+      roundAnswers = {};
+
+      // Reset UI Elements
+      document.getElementById('stage-leaderboard').style.display = 'none';
+      document.getElementById('stage-question').style.display = 'block';
+      document.getElementById('explanation-box').style.display = 'none';
+      document.getElementById('question-controls').style.display = 'flex';
+
+      document.getElementById('question-round-pill').textContent = `Question ${currentQuestionIndex + 1} of ${quiz.questions.length}`;
+      document.getElementById('question-title').textContent = q.question;
+
+      // Render 4 answer blocks
+      for (let i = 0; i < 4; i++) {
+        const optEl = document.getElementById(`host-opt-${i}`);
+        const textEl = document.getElementById(`host-text-${i}`);
+        const statBar = document.getElementById(`stat-bar-${i}`);
+        const countBadge = document.getElementById(`count-badge-${i}`);
+
+        optEl.classList.remove('is-correct', 'dimmed');
+        statBar.style.width = '0%';
+        countBadge.style.display = 'none';
+        textEl.textContent = q.options[i] || '';
+      }
+
+      updateAnswerCounterUI();
+
+      // Broadcast question start to all students
+      network.broadcast('ROUND_START', {
+        questionIndex: currentQuestionIndex,
+        totalQuestions: quiz.questions.length,
+        question: q.question,
+        options: q.options,
+        timeLimit: questionTimerSeconds
+      });
+
+      // Start Countdown Timer
+      timeLeft = questionTimerSeconds;
+      questionStartTime = Date.now();
+      const timerEl = document.getElementById('timer-circle');
+      timerEl.textContent = timeLeft;
+      timerEl.classList.remove('urgent');
+
+      Sound.roundStart();
+
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+
+        if (timeLeft <= 5) {
+          timerEl.classList.add('urgent');
+          Sound.tick(true);
+        } else {
+          Sound.tick(false);
+        }
+
+        if (timeLeft <= 0) {
+          forceEndQuestion();
+        }
+      }, 1000);
+    }
+
+    function forceEndQuestion() {
+      clearInterval(timerInterval);
+      const timerEl = document.getElementById('timer-circle');
+      timerEl.textContent = '0';
+      timerEl.classList.remove('urgent');
+
+      const q = quiz.questions[currentQuestionIndex];
+
+      // Broadcast round end to students with individual feedback
+      Object.values(players).forEach(p => {
+        const ans = roundAnswers[p.id];
+        network.broadcast('ROUND_END_FOR_STUDENT', {
+          clientId: p.id,
+          isCorrect: ans ? ans.isCorrect : false,
+          pointsEarned: ans ? ans.pointsEarned : 0,
+          totalScore: p.score,
+          streak: p.streak,
+          correctIndex: q.correctIndex
+        });
+      });
+
+      // Also general round end
+      network.broadcast('ROUND_END', {
+        correctIndex: q.correctIndex,
+        explanation: q.explanation
+      });
+
+      // Show Results & Distribution
+      document.getElementById('question-controls').style.display = 'none';
+      const explanationBox = document.getElementById('explanation-box');
+      document.getElementById('explanation-text').textContent = q.explanation || 'Review syllabus guidelines for this question.';
+      explanationBox.style.display = 'block';
+
+      // Calculate counts per option
+      const totalAnswers = Object.keys(roundAnswers).length;
+      const optionCounts = [0, 0, 0, 0];
+      Object.values(roundAnswers).forEach(a => {
+        if (a.answerIndex >= 0 && a.answerIndex < 4) {
+          optionCounts[a.answerIndex]++;
+        }
+      });
+
+      for (let i = 0; i < 4; i++) {
+        const optEl = document.getElementById(`host-opt-${i}`);
+        const statBar = document.getElementById(`stat-bar-${i}`);
+        const countBadge = document.getElementById(`count-badge-${i}`);
+
+        const count = optionCounts[i];
+        const pct = totalAnswers > 0 ? Math.round((count / totalAnswers) * 100) : 0;
+
+        statBar.style.width = `${pct}%`;
+        countBadge.style.display = 'inline-block';
+        countBadge.textContent = `${count} (${pct}%)`;
+
+        if (i === q.correctIndex) {
+          optEl.classList.add('is-correct');
+        } else {
+          optEl.classList.add('dimmed');
+        }
+      }
+
+      Sound.correct();
+    }
+
+    function proceedFromQuestion() {
+      document.getElementById('stage-question').style.display = 'none';
+      document.getElementById('stage-leaderboard').style.display = 'block';
+      renderLeaderboard();
+      Sound.streak();
+    }
+
+    function renderLeaderboard() {
+      const container = document.getElementById('leaderboard-container');
+      container.innerHTML = '';
+
+      // Sort players by score descending
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      const isFinalRound = (currentQuestionIndex >= quiz.questions.length - 1);
+
+      document.getElementById('btn-next-question').textContent = isFinalRound ? 'View Final Podium 👑' : 'Next Question ➔';
+
+      sorted.slice(0, 5).forEach((p, idx) => {
+        const row = document.createElement('div');
+        row.className = `leaderboard-row rank-${idx + 1}`;
+
+        const streakBadge = p.streak >= 2 ? `<span style="font-size: 0.85rem; background: rgba(234, 179, 8, 0.2); color: #facc15; padding: 0.2rem 0.6rem; border-radius: 9999px; margin-left: 0.5rem;">🔥 ${p.streak} streak</span>` : '';
+
+        row.innerHTML = `
+          <div style="display: flex; align-items: center;">
+            <div class="player-rank-badge">${idx + 1}</div>
+            <div class="player-row-name">
+              <span>${escapeHtml(p.name)}</span>
+              ${streakBadge}
+            </div>
+          </div>
+          <div class="player-row-score">${p.score.toLocaleString()} pts</div>
+        `;
+        container.appendChild(row);
+      });
+    }
+
+    function proceedToNextQuestion() {
+      if (currentQuestionIndex >= quiz.questions.length - 1) {
+        showFinalPodium();
+      } else {
+        nextQuestion();
+      }
+    }
+
+    function showFinalPodium() {
+      document.getElementById('stage-question').style.display = 'none';
+      document.getElementById('stage-leaderboard').style.display = 'none';
+      document.getElementById('stage-podium').style.display = 'block';
+
+      // Confetti & Fanfare
+      Sound.podiumFanfare();
+      triggerConfetti();
+
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+
+      // Broadcast Game Over
+      network.broadcast('GAME_OVER', {
+        rankings: sorted.map((p, i) => ({ rank: i + 1, name: p.name, score: p.score }))
+      });
+
+      // 1st Place
+      if (sorted[0]) {
+        document.getElementById('podium-name-1').textContent = sorted[0].name;
+        document.getElementById('podium-score-1').textContent = `${sorted[0].score.toLocaleString()} pts`;
+      }
+      // 2nd Place
+      if (sorted[1]) {
+        document.getElementById('podium-name-2').textContent = sorted[1].name;
+        document.getElementById('podium-score-2').textContent = `${sorted[1].score.toLocaleString()} pts`;
+      } else {
+        document.getElementById('podium-col-2').style.opacity = '0.3';
+      }
+      // 3rd Place
+      if (sorted[2]) {
+        document.getElementById('podium-name-3').textContent = sorted[2].name;
+        document.getElementById('podium-score-3').textContent = `${sorted[2].score.toLocaleString()} pts`;
+      } else {
+        document.getElementById('podium-col-3').style.opacity = '0.3';
+      }
+
+      // Populate full table
+      const tbody = document.getElementById('podium-table-body');
+      tbody.innerHTML = '';
+      sorted.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
+        const pct = Math.round((p.correctCount / quiz.questions.length) * 100);
+        tr.innerHTML = `
+          <td style="padding: 0.8rem 1rem; font-weight: 800; color: ${idx === 0 ? '#facc15' : '#fff'};">#${idx + 1}</td>
+          <td style="padding: 0.8rem 1rem; font-weight: 700;">${escapeHtml(p.name)}</td>
+          <td style="padding: 0.8rem 1rem; color: #38bdf8; font-weight: 800;">${p.score.toLocaleString()} pts</td>
+          <td style="padding: 0.8rem 1rem;">${p.correctCount} / ${quiz.questions.length}</td>
+          <td style="padding: 0.8rem 1rem;">${pct}%</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- CONFETTI ANIMATION ---
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        const duration = 4000;
+        const animationEnd = Date.now() + duration;
+        const frame = () => {
+          confetti({
+            particleCount: 5,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 5,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+          if (Date.now() < animationEnd) {
+            requestAnimationFrame(frame);
+          }
+        };
+        frame();
+      }
+    }
+
+    // --- CSV EXPORT & GOOGLE SHEETS SYNC ---
+    function exportCSV() {
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      let csv = 'Rank,Student Name,Final Score,Correct Answers,Total Questions,Accuracy Pct,Timestamp,Quiz Title\n';
+      const now = new Date().toISOString();
+
+      sorted.forEach((p, idx) => {
+        const pct = Math.round((p.correctCount / quiz.questions.length) * 100);
+        csv += `"${idx + 1}","${p.name.replace(/"/g, '""')}","${p.score}","${p.correctCount}","${quiz.questions.length}","${pct}%","${now}","${quiz.title.replace(/"/g, '""')}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `HSC_Quiz_Results_${quiz.id}_${Date.now()}.csv`;
+      link.click();
+    }
+
+    async function syncToGoogleSheet() {
+      if (!CONFIG.SCRIPT_URL) {
+        alert('Google Apps Script URL is not configured yet in config.js.\n\nTo save directly to Google Sheets, copy google_script.js into your Google Apps Script editor, deploy as a Web App, and paste the URL into config.js.');
+        return;
+      }
+
+      const syncBtn = document.getElementById('btn-sync-sheet');
+      syncBtn.disabled = true;
+      syncBtn.textContent = 'Syncing... ⏳';
+
+      const sorted = Object.values(players).sort((a, b) => b.score - a.score);
+      const payload = {
+        action: 'log_quiz_session',
+        quizId: quiz.id,
+        quizTitle: quiz.title,
+        timestamp: new Date().toISOString(),
+        students: sorted.map((p, i) => ({
+          rank: i + 1,
+          name: p.name,
+          score: p.score,
+          correctCount: p.correctCount,
+          totalQuestions: quiz.questions.length,
+          accuracy: Math.round((p.correctCount / quiz.questions.length) * 100)
+        }))
+      };
+
+      try {
+        const res = await fetch(CONFIG.SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'no-cors'
+        });
+        syncBtn.textContent = 'Synced to Sheet! ✅';
+        alert('Quiz results successfully sent to your Google Sheet!');
+      } catch (err) {
+        console.error('Google Sheet sync error', err);
+        syncBtn.textContent = 'Sync Error ❌';
+        alert('Error syncing to Google Sheet: ' + err.message);
+      } finally {
+        setTimeout(() => {
+          syncBtn.disabled = false;
+          syncBtn.textContent = '☁️ Sync Google Sheet';
+        }, 3000);
+      }
+    }
+
+    // Fullscreen & Exit
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function exitArena() {
+      if (confirm('Are you sure you want to end this live arena session?')) {
+        if (network) network.destroy();
+        window.location.href = 'index.html';
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Practice Arena — HSC Sando 1603</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="config.js"></script>
+  <script src="quizzes.js"></script>
+  <script src="sound.js"></script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="arena-nav">
+    <a href="index.html" class="brand-badge">
+      <div class="brand-icon">🎯</div>
+      <div>
+        <div class="brand-title">SOLO PRACTICE ARENA</div>
+        <div class="brand-sub" id="solo-quiz-title">HSC Self-Paced Revision</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <button class="btn-icon" id="sound-btn" title="Sound">🔊</button>
+      <a href="index.html" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">Exit</a>
+    </div>
+  </header>
+
+  <main class="container" style="max-width: 900px;">
+
+    <!-- SETUP SCREEN -->
+    <div id="solo-screen-setup" class="action-card" style="margin-top: 1rem;">
+      <span class="card-tag tag-solo">Independent Study</span>
+      <h1 class="hero-title" style="font-size: 2.4rem; text-align: left; margin-bottom: 0.5rem;">HSC Practice Challenge</h1>
+      <p class="card-desc">Test your syllabus mastery under timed conditions with instant explanations.</p>
+
+      <div class="form-group">
+        <label class="form-label">SELECT QUIZ PACK</label>
+        <select id="solo-quiz-picker" class="select-input" onchange="updateQuizMeta(this.value)">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">QUESTION TIMER</label>
+        <select id="solo-timer-picker" class="select-input">
+          <option value="15">⚡ 15 Seconds (Rapid Fire)</option>
+          <option value="20" selected>⏱️ 20 Seconds (Standard Exam Pace)</option>
+          <option value="30">⏱️ 30 Seconds (In-Depth Review)</option>
+          <option value="0">♾️ No Timer (Untimed Study)</option>
+        </select>
+      </div>
+
+      <div style="background: rgba(15,23,42,0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1rem; margin-bottom: 1.5rem;" id="solo-quiz-info-box">
+        <div style="font-weight: 800; color: #a5b4fc;" id="info-badge">HSC ECON</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;" id="info-desc">...</div>
+      </div>
+
+      <button onclick="startSoloGame()" class="btn btn-kahoot btn-block">
+        START PRACTICE MATCH 🚀
+      </button>
+    </div>
+
+    <!-- GAMEPLAY SCREEN -->
+    <div id="solo-screen-game" style="display: none; margin-top: 1rem;">
+      
+      <!-- Top Status Ribbon -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+        <div class="round-pill" id="solo-round-pill">Question 1 of 8</div>
+        <div class="timer-circle" id="solo-timer-circle">20</div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div id="solo-streak-pill" style="display: none; font-size: 0.9rem; font-weight: 800; background: rgba(234, 179, 8, 0.2); color: #facc15; padding: 0.3rem 0.75rem; border-radius: 9999px;">
+            🔥 <span id="solo-streak-count">0</span>
+          </div>
+          <div class="student-score-pill" id="solo-score-pill" style="font-size: 1.2rem;">0 pts</div>
+        </div>
+      </div>
+
+      <!-- Question Box -->
+      <div class="question-card" style="padding: 2rem;">
+        <div class="question-text" id="solo-question-text" style="font-size: 1.8rem;">
+          Question...
+        </div>
+      </div>
+
+      <!-- 4 Answer Choices -->
+      <div class="quad-grid" style="margin-bottom: 1.5rem;">
+        <div class="quad-option quad-red" id="solo-opt-0" onclick="handleSoloAnswer(0)" style="cursor: pointer;">
+          <span class="quad-shape">▲</span>
+          <span class="quad-label" id="solo-text-0">Option 1</span>
+        </div>
+        <div class="quad-option quad-blue" id="solo-opt-1" onclick="handleSoloAnswer(1)" style="cursor: pointer;">
+          <span class="quad-shape">◆</span>
+          <span class="quad-label" id="solo-text-1">Option 2</span>
+        </div>
+        <div class="quad-option quad-yellow" id="solo-opt-2" onclick="handleSoloAnswer(2)" style="cursor: pointer;">
+          <span class="quad-shape">●</span>
+          <span class="quad-label" id="solo-text-2">Option 3</span>
+        </div>
+        <div class="quad-option quad-green" id="solo-opt-3" onclick="handleSoloAnswer(3)" style="cursor: pointer;">
+          <span class="quad-shape">■</span>
+          <span class="quad-label" id="solo-text-3">Option 4</span>
+        </div>
+      </div>
+
+      <!-- Syllabus Explanation Box (shown after answer) -->
+      <div id="solo-explanation-box" style="display: none; background: var(--bg-card); border: 1px solid var(--border-glow); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <div id="solo-verdict-title" style="font-size: 1.2rem; font-weight: 800;">CORRECT! 🎉</div>
+          <button onclick="nextSoloQuestion()" class="btn btn-primary" id="btn-solo-next">
+            Next Question ➔
+          </button>
+        </div>
+        <p id="solo-explanation-text" style="color: var(--text-main); font-size: 1.05rem; line-height: 1.5;">
+          Explanation...
+        </p>
+      </div>
+
+    </div>
+
+    <!-- SUMMARY SCORECARD SCREEN -->
+    <div id="solo-screen-summary" class="action-card" style="display: none; text-align: center; padding: 3rem 1.5rem; margin-top: 1rem;">
+      <div style="font-size: 4rem; margin-bottom: 0.5rem;">🎓</div>
+      <h1 class="hero-title" style="font-size: 2.8rem; margin-bottom: 0.5rem;">Practice Completed!</h1>
+      <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">
+        Great revision session on <strong id="summary-quiz-name" style="color: #fff;">...</strong>
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+        <div style="background: rgba(15,23,42,0.6); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--border-glass);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Final Score</div>
+          <div id="summary-score" style="font-size: 2rem; font-weight: 900; color: #38bdf8;">0</div>
+        </div>
+        <div style="background: rgba(15,23,42,0.6); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--border-glass);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Correct Answers</div>
+          <div id="summary-correct" style="font-size: 2rem; font-weight: 900; color: #4ade80;">0 / 0</div>
+        </div>
+        <div style="background: rgba(15,23,42,0.6); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--border-glass);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Accuracy</div>
+          <div id="summary-pct" style="font-size: 2rem; font-weight: 900; color: #facc15;">0%</div>
+        </div>
+        <div style="background: rgba(15,23,42,0.6); padding: 1.25rem; border-radius: var(--radius-lg); border: 1px solid var(--border-glass);">
+          <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Best Streak</div>
+          <div id="summary-streak" style="font-size: 2rem; font-weight: 900; color: #fb923c;">0</div>
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <button onclick="startSoloGame()" class="btn btn-kahoot">
+          🔄 Retry This Quiz
+        </button>
+        <a href="index.html" class="btn btn-secondary">
+          🏠 Return to Arena Hub
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let activeQuiz = null;
+    let currentIdx = -1;
+    let score = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let correctCount = 0;
+    let timerDuration = 20;
+    let timeLeft = 0;
+    let timerInterval = null;
+    let hasAnswered = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Sound button
+      const soundBtn = document.getElementById('sound-btn');
+      soundBtn.textContent = Sound.enabled ? '🔊' : '🔇';
+      soundBtn.onclick = () => {
+        const on = Sound.toggleSound();
+        soundBtn.textContent = on ? '🔊' : '🔇';
+      };
+
+      // Populate quiz picker
+      const quizzes = QuizRepository.getAllQuizzes();
+      const picker = document.getElementById('solo-quiz-picker');
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetId = urlParams.get('quiz');
+
+      quizzes.forEach(q => {
+        const opt = document.createElement('option');
+        opt.value = q.id;
+        opt.textContent = `${q.badge ? '[' + q.badge + '] ' : ''}${q.title}`;
+        if (targetId && q.id === targetId) {
+          opt.selected = true;
+        }
+        picker.appendChild(opt);
+      });
+
+      updateQuizMeta(picker.value);
+    });
+
+    function updateQuizMeta(quizId) {
+      activeQuiz = QuizRepository.getQuizById(quizId);
+      document.getElementById('solo-quiz-title').textContent = activeQuiz.title;
+      document.getElementById('info-badge').textContent = activeQuiz.badge || 'HSC REVISION';
+      document.getElementById('info-desc').textContent = `${activeQuiz.description} (${activeQuiz.questions.length} questions)`;
+    }
+
+    function startSoloGame() {
+      const picker = document.getElementById('solo-quiz-picker');
+      activeQuiz = QuizRepository.getQuizById(picker.value);
+      timerDuration = parseInt(document.getElementById('solo-timer-picker').value, 10);
+
+      currentIdx = -1;
+      score = 0;
+      streak = 0;
+      maxStreak = 0;
+      correctCount = 0;
+
+      document.getElementById('solo-screen-setup').style.display = 'none';
+      document.getElementById('solo-screen-summary').style.display = 'none';
+      document.getElementById('solo-screen-game').style.display = 'block';
+
+      nextSoloQuestion();
+    }
+
+    function nextSoloQuestion() {
+      currentIdx++;
+      if (currentIdx >= activeQuiz.questions.length) {
+        showSoloSummary();
+        return;
+      }
+
+      hasAnswered = false;
+      const q = activeQuiz.questions[currentIdx];
+
+      document.getElementById('solo-round-pill').textContent = `Question ${currentIdx + 1} of ${activeQuiz.questions.length}`;
+      document.getElementById('solo-question-text').textContent = q.question;
+      document.getElementById('solo-explanation-box').style.display = 'none';
+
+      // Reset options
+      for (let i = 0; i < 4; i++) {
+        const opt = document.getElementById(`solo-opt-${i}`);
+        const text = document.getElementById(`solo-text-${i}`);
+        opt.classList.remove('is-correct', 'dimmed');
+        opt.style.pointerEvents = 'auto';
+        text.textContent = q.options[i] || '';
+      }
+
+      // Timer
+      clearInterval(timerInterval);
+      const timerEl = document.getElementById('solo-timer-circle');
+      if (timerDuration > 0) {
+        timeLeft = timerDuration;
+        timerEl.textContent = timeLeft;
+        timerEl.classList.remove('urgent');
+
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          if (timeLeft <= 5) {
+            timerEl.classList.add('urgent');
+            Sound.tick(true);
+          } else {
+            Sound.tick(false);
+          }
+
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            handleSoloAnswer(-1); // Timeout
+          }
+        }, 1000);
+      } else {
+        timerEl.textContent = '∞';
+      }
+
+      Sound.roundStart();
+    }
+
+    function handleSoloAnswer(index) {
+      if (hasAnswered) return;
+      hasAnswered = true;
+      clearInterval(timerInterval);
+
+      const q = activeQuiz.questions[currentIdx];
+      const isCorrect = (index === q.correctIndex);
+
+      // Disable options & highlight
+      for (let i = 0; i < 4; i++) {
+        const opt = document.getElementById(`solo-opt-${i}`);
+        opt.style.pointerEvents = 'none';
+        if (i === q.correctIndex) {
+          opt.classList.add('is-correct');
+        } else {
+          opt.classList.add('dimmed');
+        }
+      }
+
+      const verdictTitle = document.getElementById('solo-verdict-title');
+      const explanationText = document.getElementById('solo-explanation-text');
+      explanationText.textContent = q.explanation || 'Review NSW syllabus notes for this concept.';
+
+      if (isCorrect) {
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+        correctCount++;
+
+        const timeFraction = timerDuration > 0 ? (timeLeft / timerDuration) : 1;
+        const pts = 500 + Math.round(500 * timeFraction) + (streak > 1 ? Math.min(500, (streak - 1) * 100) : 0);
+        score += pts;
+
+        verdictTitle.textContent = `CORRECT! 🎉 (+${pts} pts)`;
+        verdictTitle.style.color = '#4ade80';
+        Sound.correct();
+      } else {
+        streak = 0;
+        verdictTitle.textContent = (index === -1) ? 'TIME EXPIRED! ⏱️' : 'INCORRECT ❌';
+        verdictTitle.style.color = '#ef4444';
+        Sound.wrong();
+      }
+
+      // Update pills
+      document.getElementById('solo-score-pill').textContent = `${score.toLocaleString()} pts`;
+      const streakPill = document.getElementById('solo-streak-pill');
+      if (streak >= 2) {
+        streakPill.style.display = 'inline-block';
+        document.getElementById('solo-streak-count').textContent = streak;
+      } else {
+        streakPill.style.display = 'none';
+      }
+
+      document.getElementById('btn-solo-next').textContent = (currentIdx >= activeQuiz.questions.length - 1) ? 'View Final Results 🏆' : 'Next Question ➔';
+      document.getElementById('solo-explanation-box').style.display = 'block';
+    }
+
+    function showSoloSummary() {
+      document.getElementById('solo-screen-game').style.display = 'none';
+      document.getElementById('solo-screen-summary').style.display = 'block';
+
+      document.getElementById('summary-quiz-name').textContent = activeQuiz.title;
+      document.getElementById('summary-score').textContent = score.toLocaleString();
+      document.getElementById('summary-correct').textContent = `${correctCount} / ${activeQuiz.questions.length}`;
+      const pct = Math.round((correctCount / activeQuiz.questions.length) * 100);
+      document.getElementById('summary-pct').textContent = `${pct}%`;
+      document.getElementById('summary-streak').textContent = `${maxStreak} in a row`;
+
+      Sound.podiumFanfare();
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      }
+    }
+  </script>
+</body>
+</html>
