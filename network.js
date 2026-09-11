@@ -19,7 +19,6 @@ class ArenaNetwork {
     this.peer = null;
     this.peerConnections = {};
 
-    // Heartbeat & status
     this.statusMessage = 'Initializing...';
   }
 
@@ -61,6 +60,16 @@ class ArenaNetwork {
     this.initBroadcastChannel();
     this.initMQTT();
     this.initPeerClient();
+
+    // Immediately send initial join packet on BroadcastChannel
+    setTimeout(() => {
+      this.sendToHost('STUDENT_JOIN', {
+        clientId: this.clientId,
+        name: this.studentName,
+        timestamp: Date.now()
+      });
+    }, 100);
+
     console.log(`[ArenaNetwork] Client initialized for PIN: ${this.pin}, Student: ${this.studentName}`);
   }
 
@@ -94,7 +103,7 @@ class ArenaNetwork {
         clientId: `${this.role.toLowerCase()}_${this.clientId}`,
         clean: true,
         connectTimeout: 5000,
-        reconnectPeriod: 3000
+        reconnectPeriod: 2500
       };
 
       this.mqttClient = mqtt.connect(brokerUrl, opts);
@@ -105,7 +114,6 @@ class ArenaNetwork {
         this.mqttClient.subscribe(topic, { qos: 0 }, (err) => {
           if (!err) {
             console.log(`[ArenaNetwork] Subscribed to MQTT topic: ${topic}`);
-            // If student, announce join right away
             if (this.role === 'CLIENT') {
               this.sendToHost('STUDENT_JOIN', {
                 clientId: this.clientId,
@@ -151,7 +159,6 @@ class ArenaNetwork {
         });
       });
       this.peer.on('error', (err) => {
-        // ID might be taken if reloaded quickly; non-fatal since MQTT/Broadcast handles it
         console.warn('[ArenaNetwork] PeerJS host warning:', err.type);
       });
     } catch (e) {}
@@ -175,7 +182,8 @@ class ArenaNetwork {
             },
             sender: this.clientId,
             senderName: this.studentName,
-            role: 'CLIENT'
+            role: 'CLIENT',
+            pin: this.pin
           });
         });
         conn.on('data', (data) => {
@@ -198,7 +206,7 @@ class ArenaNetwork {
       timestamp: Date.now()
     };
 
-    // 1. BroadcastChannel
+    // 1. BroadcastChannel (Immediate cross-tab)
     if (this.broadcastChannel) {
       try {
         this.broadcastChannel.postMessage(message);

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Teacher Command Arena — Quiz Arena</title>
   <link rel="stylesheet" href="style.css">
   <!-- CDN dependencies -->
@@ -91,7 +92,7 @@
       <!-- QR Code Box -->
       <div class="lobby-qr-card">
         <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">📱 Scan to Join</h3>
-        <p style="font-size: 0.85rem; color: var(--text-muted);">Students scan with phone camera or laptop webcam</p>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Students scan on phone or laptop camera</p>
         <div class="qr-code-box">
           <img id="lobby-qr-img" src="" alt="QR Code">
         </div>
@@ -99,7 +100,7 @@
           PIN: <span id="lobby-pin-sub" style="font-size: 1.5rem; color: #fff; font-family: monospace;">------</span>
         </div>
         <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
-          Or visit: <span id="lobby-web-url" style="color: #60a5fa; font-weight: 600;">...</span>
+          Or open: <span id="lobby-web-url" style="color: #60a5fa; font-weight: 600;">...</span>
         </div>
       </div>
 
@@ -123,13 +124,13 @@
           <div id="player-chips" class="player-chips-container">
             <div id="lobby-empty-hint" style="color: var(--text-muted); font-size: 1.05rem; margin: auto; text-align: center; padding: 3rem 0;">
               Waiting for students to join on their laptops or phones...<br>
-              <small style="opacity: 0.7;">(Or click "+ Add Demo Student" below to preview)</small>
+              <small style="opacity: 0.7;">(Or click "+ Add Demo Student" below to test)</small>
             </div>
           </div>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
-          <span>Tip: Click '✕' on any student's name if they entered an inappropriate nickname.</span>
+          <span>Tip: Click '✕' to remove any unwanted nickname.</span>
           <button onclick="addDemoStudent()" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.75rem;">
             + Add Demo Student
           </button>
@@ -356,7 +357,6 @@
     let roundAnswers = {};
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Sound button
       const soundBtn = document.getElementById('sound-btn');
       soundBtn.textContent = Sound.enabled ? '🔊' : '🔇';
       soundBtn.onclick = () => {
@@ -364,7 +364,6 @@
         soundBtn.textContent = on ? '🔊' : '🔇';
       };
 
-      // Check teacher authorization
       if (sessionStorage.getItem('quizarena_teacher_auth') === 'true') {
         unlockHostArena();
       }
@@ -407,7 +406,7 @@
       document.getElementById('display-pin').textContent = roomPin;
       document.getElementById('lobby-pin-sub').textContent = roomPin;
 
-      // Join URL pointing to index.html (Student Portal)
+      // Clean Join URL pointing to index.html (Student Portal)
       const currentLoc = window.location.origin + window.location.pathname.replace('host.html', 'index.html');
       const joinUrl = `${currentLoc}?pin=${roomPin}`;
       document.getElementById('join-url-text').textContent = window.location.hostname || 'quizarena';
@@ -427,7 +426,6 @@
         document.getElementById('connection-chip').textContent = `● ${status.transport || 'Connected'}`;
       });
 
-      // Populate Deck Modal Options
       populateDeckModal();
     }
 
@@ -476,7 +474,7 @@
       if (!players[data.clientId]) {
         players[data.clientId] = {
           id: data.clientId,
-          name: data.name || 'Anonymous Student',
+          name: data.name || 'Student ' + (Object.keys(players).length + 1),
           score: 0,
           streak: 0,
           correctCount: 0,
@@ -485,6 +483,12 @@
         Sound.lockIn();
         updateLobbyUI();
       }
+
+      // Acknowledge join so student controller knows it is visible on board
+      network.broadcast('JOIN_ACK', {
+        clientId: data.clientId,
+        ack: true
+      });
     }
 
     function handleStudentAnswer(msg) {
@@ -492,33 +496,46 @@
       if (!data || !data.clientId) return;
       if (roundAnswers[data.clientId]) return;
 
-      const player = players[data.clientId];
-      if (!player) return;
+      // Failsafe auto-registration if student join packet was missed
+      let player = players[data.clientId];
+      if (!player) {
+        player = {
+          id: data.clientId,
+          name: data.studentName || 'Student ' + (Object.keys(players).length + 1),
+          score: 0,
+          streak: 0,
+          correctCount: 0,
+          answers: []
+        };
+        players[data.clientId] = player;
+        updateLobbyUI();
+      }
 
       const currentQ = currentShuffledQuestion;
-      const isCorrect = (data.answerIndex === currentQ.correctIndex);
+      const isCorrect = (Number(data.answerIndex) === Number(currentQ.correctIndex));
       const timeElapsedSec = (Date.now() - questionStartTime) / 1000;
-      const timeRemainingFraction = Math.max(0, (timeLeft / questionTimerSeconds));
+      const timeRemainingFraction = Math.max(0, Math.min(1, 1 - (timeElapsedSec / questionTimerSeconds)));
 
       let pointsEarned = 0;
       if (isCorrect) {
+        // Speed bonus: 500 base + up to 500 for fast answering
         const speedBonus = Math.round(500 * timeRemainingFraction);
         pointsEarned = 500 + speedBonus;
 
-        player.streak += 1;
+        player.streak = (player.streak || 0) + 1;
         if (player.streak > 1 && CONFIG.STREAK_BONUS_MULTIPLIER) {
           const streakPts = Math.min(500, (player.streak - 1) * CONFIG.STREAK_BONUS_MULTIPLIER);
           pointsEarned += streakPts;
         }
 
-        player.score += pointsEarned;
-        player.correctCount += 1;
+        player.score = (player.score || 0) + pointsEarned;
+        player.correctCount = (player.correctCount || 0) + 1;
       } else {
         player.streak = 0;
       }
 
       roundAnswers[data.clientId] = {
-        answerIndex: data.answerIndex,
+        answerIndex: Number(data.answerIndex),
         isCorrect,
         pointsEarned,
         responseTimeMs: Math.round(timeElapsedSec * 1000)
@@ -526,7 +543,7 @@
 
       player.answers.push({
         questionIndex: currentQuestionIndex,
-        answerIndex: data.answerIndex,
+        answerIndex: Number(data.answerIndex),
         isCorrect,
         pointsEarned
       });
@@ -615,7 +632,7 @@
       nextQuestion();
     }
 
-    // Randomizes options across Red, Blue, Yellow, Green so students cannot predict option slot
+    // Shuffles options across Red, Blue, Yellow, Green so students cannot predict option slot
     function prepareQuestionWithShuffledOptions(rawQ) {
       const paired = rawQ.options.map((opt, idx) => ({
         text: opt,
@@ -718,7 +735,26 @@
 
       const q = currentShuffledQuestion;
 
-      // Broadcast round end to students with their personal scores
+      // Compile unified results map
+      const playerResults = {};
+      Object.values(players).forEach(p => {
+        const ans = roundAnswers[p.id];
+        playerResults[p.id] = {
+          isCorrect: ans ? ans.isCorrect : false,
+          pointsEarned: ans ? ans.pointsEarned : 0,
+          totalScore: p.score,
+          streak: p.streak
+        };
+      });
+
+      // 1. Send single unified results broadcast to all students
+      network.broadcast('ROUND_RESULTS', {
+        correctIndex: q.correctIndex,
+        explanation: q.explanation,
+        playerResults: playerResults
+      });
+
+      // 2. Also send individual packets as fallback
       Object.values(players).forEach(p => {
         const ans = roundAnswers[p.id];
         network.broadcast('ROUND_END_FOR_STUDENT', {
@@ -736,7 +772,7 @@
         explanation: q.explanation
       });
 
-      // Show Results & Distribution
+      // Show Results & Distribution on big screen
       document.getElementById('question-controls').style.display = 'none';
       const explanationBox = document.getElementById('explanation-box');
       document.getElementById('explanation-text').textContent = q.explanation || `Correct Answer: ${q.options[q.correctIndex]}`;
