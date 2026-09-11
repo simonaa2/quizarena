@@ -10,7 +10,7 @@ class SoundEngine {
     this.volume = 0.4;
     
     // Check local storage for user mute preference
-    const saved = localStorage.getItem('hscsando_sound_enabled');
+    const saved = localStorage.getItem('quizarena_sound_enabled');
     if (saved !== null) {
       this.enabled = saved === 'true';
     } else if (typeof CONFIG !== 'undefined' && CONFIG.ENABLE_SOUND_BY_DEFAULT !== undefined) {
@@ -32,7 +32,7 @@ class SoundEngine {
 
   toggleSound() {
     this.enabled = !this.enabled;
-    localStorage.setItem('hscsando_sound_enabled', this.enabled ? 'true' : 'false');
+    localStorage.setItem('quizarena_sound_enabled', this.enabled ? 'true' : 'false');
     if (this.enabled) {
       this.init();
       this.lockIn();

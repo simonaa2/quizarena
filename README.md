@@ -1,6 +1,8 @@
-# ⚡ HSC Sando 1603 — Live Quiz Arena
+# ⚡ Quiz Arena — Live Classroom Challenge
 
-An interactive, real-time multiplayer **Classroom Quiz Arena** (Kahoot-inspired) engineered specifically for NSW HSC Economics, HSC Business Studies, and Year 10 Commerce. Designed with the same **zero-friction scaffold architecture** as your other classroom tools (`year12business`, `year11econ`, and `commercetravel`).
+An interactive, real-time multiplayer **Classroom Quiz Arena** (Kahoot-inspired) engineered for secondary school Commerce, HSC Economics, Business Studies, and general knowledge. Built with the same **zero-friction scaffold architecture** as your other classroom tools (`year12business`, `year11econ`, and `commercetravel`).
+
+Target repository: [`simonaa2/quizarena`](https://github.com/simonaa2/quizarena)
 
 ---
 
@@ -10,7 +12,7 @@ An interactive, real-time multiplayer **Classroom Quiz Arena** (Kahoot-inspired)
 * **Projector / Smartboard Arena (`host.html`)**: Large 6-digit Game PIN, live QR code for instant mobile scan-to-join, synchronized countdown timer, response distribution charts, dynamic animated leaderboard, and an Olympic 3-tier podium with confetti.
 * **Student Controller (`play.html`)**: Mobile-first tactile 4-quadrant pad (🔴 ▲, 🔵 ◆, 🟡 ●, 🟢 ■), haptic feedback, instantaneous speed scoring, and live streak bonuses (`🔥 3 in a row!`).
 * **Procedural Web Audio Engine (`sound.js`)**: Native in-browser game show ticks, lock-in chimes, correct answer bells, and victory fanfares — **zero external MP3 files to download or get blocked by school web filters**.
-* **Pre-Loaded NSW Syllabus Packs (`quizzes.js`)**:
+* **Pre-Loaded Curriculum Packs (`quizzes.js`)**:
   * HSC Economics: Global Economy, Balance of Payments, Free Trade & Protection, Exchange Rates, Inflation, and Macroeconomic Policy.
   * HSC Business Studies: Marketing Influences & 4Ps, Financial Ratios & Liquidity, Working Capital Management.
   * Year 10 Commerce: Consumer Rights under ACL, Foreign Exchange & Travel Budgeting, Credit vs Debit.
@@ -35,7 +37,7 @@ You can play immediately with zero server setup:
 If you want student quiz marks automatically recorded to your private Google Drive spreadsheet:
 
 ### Step 1: Create Google Sheet & Paste Script
-1. Open [Google Sheets](https://sheets.new) and create a new blank sheet (e.g. `HSC Quiz Arena Master Records`).
+1. Open [Google Sheets](https://sheets.new) and create a new blank sheet (e.g. `Quiz Arena Master Records`).
 2. In the top menu, click **Extensions** ➔ **Apps Script**.
 3. Erase all existing placeholder code in the script editor.
 4. Open [`google_script.js`](google_script.js), copy the entire file, and paste it into Apps Script.
@@ -45,7 +47,7 @@ If you want student quiz marks automatically recorded to your private Google Dri
 1. Click **Deploy** (top right) ➔ **New deployment**.
 2. Click the gear icon next to "Select type" and choose **Web app**.
 3. Configure settings:
-   * **Description**: `HSC Sando Quiz Arena Backend`
+   * **Description**: `Quiz Arena Submissions`
    * **Execute as**: `Me (your email)`
    * **Who has access**: **`Anyone`** *(Must be Anyone so student responses submit seamlessly without school Google login prompts)*.
 4. Click **Deploy**, authorize permissions if prompted, and copy the **Web App URL** (ends in `/exec`).
@@ -61,15 +63,16 @@ If you want student quiz marks automatically recorded to your private Google Dri
 
 ---
 
-## 🌐 How to Host on GitHub Pages (`simonaa2/hscsando1603`)
+## 🌐 How to Host on GitHub Pages (`simonaa2/quizarena`)
 
-1. Create a public repository on GitHub named **`hscsando1603`** under your account (`simonaa2`).
+1. Create a public repository on GitHub named **`quizarena`** under your account (`simonaa2`):
+   [https://github.com/new](https://github.com/new)
 2. Push this folder to GitHub:
    ```bash
    git add .
-   git commit -m "Launch HSC Sando 1603 Live Quiz Arena"
+   git commit -m "Launch standalone Quiz Arena"
    git branch -M main
-   git remote add origin https://github.com/simonaa2/hscsando1603.git
+   git remote set-url origin https://github.com/simonaa2/quizarena.git
    git push -u origin main
    ```
 3. In your GitHub repository:
@@ -78,7 +81,7 @@ If you want student quiz marks automatically recorded to your private Google Dri
    * Choose branch **`main`** and folder **`/ (root)`**, then click **Save**.
 4. Within 60 seconds, your Live Arena will be accessible globally at:
    ```
-   https://simonaa2.github.io/hscsando1603/
+   https://simonaa2.github.io/quizarena/
    ```
 
 ---

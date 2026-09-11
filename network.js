@@ -1,5 +1,5 @@
 // ===================================================
-// HSC SANDO 1603 QUIZ ARENA — REAL-TIME NETWORK ENGINE
+// QUIZ ARENA — REAL-TIME NETWORK ENGINE
 // Triple-redundancy: BroadcastChannel (local) + MQTT over WSS + WebRTC PeerJS
 // Zero paid servers required. Runs 100% in client browser!
 // ===================================================
@@ -68,7 +68,7 @@ class ArenaNetwork {
   initBroadcastChannel() {
     if (typeof window !== 'undefined' && window.BroadcastChannel) {
       try {
-        const channelName = 'hscsando_arena_' + this.pin;
+        const channelName = 'quizarena_arena_' + this.pin;
         this.broadcastChannel = new BroadcastChannel(channelName);
         this.broadcastChannel.onmessage = (event) => {
           this.handleIncomingRawMessage(event.data, 'BroadcastChannel');
@@ -87,7 +87,7 @@ class ArenaNetwork {
     }
 
     const brokerUrl = (CONFIG.MQTT_BROKERS && CONFIG.MQTT_BROKERS[0].url) || 'wss://broker.hivemq.com:8884/mqtt';
-    const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'hscsando1603/arena/'}${this.pin}/#`;
+    const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'quizarena/arena/'}${this.pin}/#`;
 
     try {
       const opts = {
@@ -139,7 +139,7 @@ class ArenaNetwork {
   initPeerHost() {
     if (typeof Peer === 'undefined') return;
     try {
-      const peerId = `hscsando-${this.pin}`;
+      const peerId = `quizarena-${this.pin}`;
       this.peer = new Peer(peerId, { debug: 1 });
       this.peer.on('open', (id) => {
         console.log(`[ArenaNetwork] PeerJS Host opened with ID: ${id}`);
@@ -160,7 +160,7 @@ class ArenaNetwork {
   initPeerClient() {
     if (typeof Peer === 'undefined') return;
     try {
-      const hostPeerId = `hscsando-${this.pin}`;
+      const hostPeerId = `quizarena-${this.pin}`;
       this.peer = new Peer({ debug: 1 });
       this.peer.on('open', () => {
         const conn = this.peer.connect(hostPeerId, { reliable: true });
@@ -208,7 +208,7 @@ class ArenaNetwork {
     // 2. MQTT
     if (this.mqttClient && this.mqttClient.connected) {
       try {
-        const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'hscsando1603/arena/'}${this.pin}/host`;
+        const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'quizarena/arena/'}${this.pin}/host`;
         this.mqttClient.publish(topic, JSON.stringify(message), { qos: 0 });
       } catch (e) {}
     }
@@ -243,7 +243,7 @@ class ArenaNetwork {
     // 2. MQTT
     if (this.mqttClient && this.mqttClient.connected) {
       try {
-        const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'hscsando1603/arena/'}${this.pin}/student/${this.clientId}`;
+        const topic = `${CONFIG.MQTT_TOPIC_PREFIX || 'quizarena/arena/'}${this.pin}/student/${this.clientId}`;
         this.mqttClient.publish(topic, JSON.stringify(message), { qos: 0 });
       } catch (e) {}
     }

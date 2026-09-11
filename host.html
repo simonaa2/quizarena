@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teacher Projector Arena — HSC Sando 1603</title>
+  <title>Teacher Projector Arena — Quiz Arena</title>
   <link rel="stylesheet" href="style.css">
   <!-- CDN dependencies -->
   <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
@@ -25,7 +25,7 @@
       <a href="index.html" class="brand-badge">
         <div class="brand-icon">⚡</div>
         <div>
-          <div class="brand-title">HSC SANDO ARENA</div>
+          <div class="brand-title">QUIZ ARENA</div>
           <div class="brand-sub" id="host-quiz-label">Loading quiz...</div>
         </div>
       </a>
@@ -318,7 +318,7 @@
       // Generate Join URL for display & QR code
       const currentLoc = window.location.origin + window.location.pathname.replace('host.html', 'play.html');
       const joinUrl = `${currentLoc}?pin=${roomPin}`;
-      document.getElementById('join-url-text').textContent = window.location.hostname || 'hscsando';
+      document.getElementById('join-url-text').textContent = window.location.hostname || 'quizarena';
 
       // QR Code image
       const qrImg = document.getElementById('lobby-qr-img');

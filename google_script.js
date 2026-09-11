@@ -1,10 +1,10 @@
 // ===================================================
-// HSC SANDO 1603 QUIZ ARENA — GOOGLE APPS SCRIPT BACKEND
+// QUIZ ARENA — GOOGLE APPS SCRIPT BACKEND
 // Paste this entire code into your Google Sheet's Apps Script editor:
 // 1. In Google Sheets, click Extensions ➔ Apps Script
 // 2. Erase everything and paste this entire code
 // 3. Click Deploy ➔ New deployment ➔ Select type: Web App
-//    - Description: HSC Sando Quiz Arena Submissions
+//    - Description: Quiz Arena Submissions
 //    - Execute as: Me (your Google email)
 //    - Who has access: Anyone
 // 4. Click Deploy and copy the Web App URL into config.js (SCRIPT_URL)

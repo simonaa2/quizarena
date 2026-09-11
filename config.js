@@ -1,11 +1,12 @@
 // ===================================================
-// HSC SANDO 1603 LIVE QUIZ ARENA — CONFIGURATION
+// QUIZ ARENA — CONFIGURATION
+// Standalone Live Classroom Quiz Arena
 // ===================================================
 
 const CONFIG = {
   // App branding
-  APP_TITLE: 'HSC Sando 1603 Quiz Arena',
-  APP_SUBTITLE: 'Live Interactive NSW HSC & Commerce Challenge',
+  APP_TITLE: 'Quiz Arena',
+  APP_SUBTITLE: 'Live Interactive Classroom Quiz Challenge',
   ARENA_TAGLINE: 'Live Quiz Arena • Powered by Mr Anderson',
 
   // Google Apps Script Web App URL (Optional - paste here to auto-save results to Google Sheets)
@@ -15,7 +16,7 @@ const CONFIG = {
   TEACHER_PASSWORD: 'teacher2026',
 
   // Fallback class code for student self-enrolment:
-  CLASS_CODE: 'HSC2026',
+  CLASS_CODE: 'QUIZ2026',
 
   // Default game parameters
   DEFAULT_TIMER_SECONDS: 20, // Options: 10, 15, 20, 30, 45, 60
@@ -45,7 +46,7 @@ const CONFIG = {
     { url: 'wss://broker.hivemq.com:8884/mqtt', name: 'HiveMQ TLS' },
     { url: 'wss://broker.emqx.io:8084/mqtt', name: 'EMQX TLS' }
   ],
-  MQTT_TOPIC_PREFIX: 'hscsando1603/arena/'
+  MQTT_TOPIC_PREFIX: 'quizarena/arena/'
 };
 
 // Expose globally for browser usage

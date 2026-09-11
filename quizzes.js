@@ -343,7 +343,7 @@ const DEFAULT_QUIZZES = [
 ];
 
 class QuizRepository {
-  static STORAGE_KEY = 'hscsando_custom_quizzes';
+  static STORAGE_KEY = 'quizarena_custom_quizzes';
 
   static getAllQuizzes() {
     let custom = [];
