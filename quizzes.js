@@ -1,5 +1,6 @@
 // ===================================================
-// QUIZ ARENA � QUESTION BANKS & QUIZ ENGINE
+// ===================================================
+// QUIZ ARENA - QUESTION BANKS & QUIZ ENGINE
 // Curriculum question packs for Medieval History & Secondary Studies
 // ===================================================
 
@@ -795,10 +796,10 @@ const MEDIEVAL_ALL_QUESTIONS = [
         "explanation":  "Correct answer: Curfew"
     }
 ];
-
 // ===================================================
-// HSC BUSINESS STUDIES — OFFICIAL CURRICULUM QUESTIONS
-// Covers all 4 Stage 6 Modules: Operations, Marketing, Finance, Human Resources
+// HSC BUSINESS STUDIES - 100 PAST HSC QUESTIONS & CURRICULUM PACKS
+// Modules: Operations (25 Qs), Marketing (25 Qs), Finance (25 Qs), Human Resources (25 Qs)
+// Sourced from past NESA HSC Examinations and Curriculum Dot Points
 // ===================================================
 
 const HSC_BUSINESS_OPERATIONS = [
@@ -951,7 +952,7 @@ const HSC_BUSINESS_OPERATIONS = [
     ],
     correctIndex: 0,
     timeLimit: 20,
-    explanation: "Psychological and financial fears—such as redundancy, deskilling, and career uncertainty—drive resistance."
+    explanation: "Psychological and financial fears - such as redundancy, deskilling, and career uncertainty - drive resistance."
   },
   {
     question: "Which financial cost is incurred directly by a firm when terminating workers whose roles are made redundant?",
@@ -976,6 +977,126 @@ const HSC_BUSINESS_OPERATIONS = [
     correctIndex: 0,
     timeLimit: 20,
     explanation: "Global sourcing allows businesses to acquire inputs from the most cost-effective global suppliers."
+  },
+  {
+    question: "A bakery purchases pre-mixed flour blends instead of raw grains to save preparation time. Which type of resource is this? (HSC)",
+    options: [
+      "Transformed resource (materials)",
+      "Transforming resource (facilities)",
+      "Intermediate consumer service",
+      "Capital equity investment"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Transformed resources are inputs that are converted or incorporated into the final product (materials, information, customers)."
+  },
+  {
+    question: "An electronics firm tests 5 out of every 100 finished handsets coming off the assembly line. Which quality strategy is this? (HSC)",
+    options: [
+      "Quality Control (QC - inspection)",
+      "Quality Assurance (QA)",
+      "Total Quality Management (TQM)",
+      "Continuous Improvement (Kaizen)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Quality Control (QC) involves inspecting and testing finished goods at the end of the production cycle to detect defects."
+  },
+  {
+    question: "On a Critical Path network, Task C takes 6 days on the critical path. If Task C is delayed by 2 days, what happens? (HSC)",
+    options: [
+      "The entire project is delayed by exactly 2 days",
+      "The project is delayed by 8 days",
+      "There is zero delay because Task C has float time",
+      "The project finishes 2 days earlier"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Activities on the critical path have zero float time; any delay delays project completion by the exact same duration."
+  },
+  {
+    question: "An online fashion boutique analyses past customer purchase histories and clicks to schedule production. Which resource is this? (HSC)",
+    options: [
+      "Transformed resource (Information)",
+      "Raw Materials input",
+      "Transforming resource (Facilities)",
+      "Human Resources"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Information (customer purchase data, research, and analytics) is a transformed resource that informs operations planning."
+  },
+  {
+    question: "A furniture factory switches from mass producing identical chairs to custom-designed desks. How do the 4 Vs change? (HSC)",
+    options: [
+      "Variety increases and volume decreases",
+      "Volume increases and variety decreases",
+      "Visibility decreases and volume increases",
+      "Variation in demand drops to zero"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Custom manufacturing increases product variety (many unique models) while reducing production volume per model."
+  },
+  {
+    question: "An Australian solar panel producer sources silicon from Germany, frames from China, and glass from Vietnam. Which strategy is this? (HSC)",
+    options: [
+      "Global Sourcing",
+      "Domestic Factoring",
+      "E-commerce Retailing",
+      "Process Layout Design"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Global sourcing involves procuring supplies and components from the most cost-effective international vendors."
+  },
+  {
+    question: "Why would a commercial plant reorganize its factory floor from a process layout to a product (assembly line) layout? (HSC)",
+    options: [
+      "To achieve smooth continuous workflow for high-volume, standardized processing",
+      "To allow staff to hand-wash individual delicate garments",
+      "To increase unit production costs and labor intensity",
+      "To eliminate all reliance on mechanical washing machinery"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "A product layout arranges equipment in sequential order to optimize high-volume, standardized production runs."
+  },
+  {
+    question: "A computer manufacturer repairs or replaces defective laptop hardware free of charge within 24 months. What output is this? (HSC)",
+    options: [
+      "Warranties",
+      "Transformed Inputs",
+      "Quality Control Inspection",
+      "Leading Edge Technology"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Warranties are promises by businesses to correct defects and represent an important post-transformation operational output."
+  },
+  {
+    question: "What is the primary purpose of an operations manager achieving ISO 9000 certification? (HSC)",
+    options: [
+      "To provide international quality assurance through accredited standards",
+      "To guarantee zero tax liability on overseas export earnings",
+      "To eliminate the need for any employee health and safety training",
+      "To legally prevent rival competitors from entering the market"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "ISO 9000 is an internationally recognized quality assurance framework demonstrating certified quality management systems."
+  },
+  {
+    question: "An airline focuses on minimizing aircraft turnaround times between arrival and next departure. Which objective is targeted? (HSC)",
+    options: [
+      "Speed",
+      "Customisation",
+      "Flexibility",
+      "Environmental Sustainability"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Speed refers to the time it takes for production and operational processes to respond to customer demand or service cycles."
   }
 ];
 
@@ -997,7 +1118,7 @@ const HSC_BUSINESS_MARKETING = [
     options: ["Production Approach", "Selling Approach", "Marketing Approach", "Relationship Marketing Approach"],
     correctIndex: 0,
     timeLimit: 20,
-    explanation: "The production approach (1850s–1920s) focused on manufacturing capabilities rather than customer needs."
+    explanation: "The production approach (1850s-1920s) focused on manufacturing capabilities rather than customer needs."
   },
   {
     question: "What characterizes an 'Industrial Market' in business marketing?",
@@ -1139,6 +1260,126 @@ const HSC_BUSINESS_MARKETING = [
     correctIndex: 0,
     timeLimit: 20,
     explanation: "Customisation adapts the marketing mix to suit distinct local consumer preferences, cultures, and laws."
+  },
+  {
+    question: "A real estate agency advertises an apartment for '$850,000' knowing the owner will not sell under '$1,100,000'. What is breached? (HSC)",
+    options: [
+      "Misleading and deceptive advertising (ACL Section 18)",
+      "Price discrimination provisions",
+      "Breach of statutory implied warranty",
+      "Illegal pyramid selling scheme"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Section 18 of the ACL prohibits conduct that is misleading or deceptive or likely to mislead in trade or commerce."
+  },
+  {
+    question: "A brand claims on Instagram that its tea 'cures cancer in 7 days' without scientific proof. Which body prosecutes? (HSC)",
+    options: [
+      "Australian Competition and Consumer Commission (ACCC)",
+      "Australian Securities and Investments Commission (ASIC)",
+      "Fair Work Commission (FWC)",
+      "Reserve Bank of Australia (RBA)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The ACCC enforces the Competition and Consumer Act 2010 and penalizes deceptive and unsubstantiated claims."
+  },
+  {
+    question: "An electronics retailer prices a tablet computer at $499 instead of $500. Which pricing strategy is this? (HSC)",
+    options: [
+      "Price Points (Psychological Pricing)",
+      "Price Skimming",
+      "Cost-Plus Pricing",
+      "Loss Leader Pricing"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Price points set prices at specific psychological thresholds (e.g. $499) to make goods appear significantly cheaper."
+  },
+  {
+    question: "A fragrance manufacturer distributes free miniature sample bottles to shoppers in department stores. What promotion is this? (HSC)",
+    options: [
+      "Sales Promotion",
+      "Personal Selling",
+      "Public Relations",
+      "Opinion Leadership"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Sales promotion offers direct incentives to encourage rapid purchase, including free samples, coupons, and premiums."
+  },
+  {
+    question: "An airline segments its passengers into 'weekday corporate flyers' and 'weekend holidaymakers'. Which segmentation base is this? (HSC)",
+    options: [
+      "Behavioral Segmentation (Usage Occasion)",
+      "Geographic Climate Segmentation",
+      "Demographic Age Segmentation",
+      "Psychographic Personality Segmentation"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Behavioral segmentation divides buyers according to their knowledge of, attitude towards, use of, or occasion for using a product."
+  },
+  {
+    question: "A boutique gym pays an Olympic athlete with 500,000 followers to post workouts wearing their gear. What channel is this? (HSC)",
+    options: [
+      "Opinion Leader",
+      "Word of Mouth",
+      "Publicity Stunt",
+      "Telemarketing"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "An opinion leader is a respected individual whose opinions and recommendations strongly influence consumer choices."
+  },
+  {
+    question: "In the extended 7 Ps of service marketing, what does 'Physical Evidence' encompass? (HSC)",
+    options: [
+      "The tangible environment where the service occurs (cleanliness, decor, uniforms)",
+      "The medical checkup records of all newly hired staff members",
+      "The legal contracts signed between suppliers and wholesalers",
+      "The physical weight and cubic dimensions of freight packaging"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Physical evidence is the environment in which the service is delivered and where the firm and customer interact."
+  },
+  {
+    question: "A supermarket chain scans customer loyalty cards at the checkout to capture basket purchase patterns. What data is this? (HSC)",
+    options: [
+      "Primary Quantitative Data",
+      "Secondary Qualitative Data",
+      "External Census Data",
+      "Tertiary Public Domain Data"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Primary quantitative data is original numerical data collected directly by the business for a specific purpose."
+  },
+  {
+    question: "A chewing gum company sells its products in supermarkets, petrol stations, newsagents, and convenience counters. Which channel is this? (HSC)",
+    options: [
+      "Intensive Distribution",
+      "Exclusive Distribution",
+      "Selective Distribution",
+      "Direct Network Distribution"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Intensive distribution places products in as many retail outlets as possible so consumers can purchase wherever they go."
+  },
+  {
+    question: "What is the primary difference between a product's 'packaging' and its 'branding'? (HSC)",
+    options: [
+      "Packaging protects and presents the product; branding identifies and differentiates it",
+      "Packaging determines company tax; branding calculates gross profit margins",
+      "Branding is legally required by Fair Work; packaging is entirely optional",
+      "Packaging is used only for services; branding is used only for tangible goods"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Packaging physically holds, preserves, and labels the product; branding establishes its unique identity, name, and reputation."
   }
 ];
 
@@ -1215,14 +1456,14 @@ const HSC_BUSINESS_FINANCE = [
   {
     question: "How is the Current Ratio calculated and what is the standard benchmark for healthy liquidity?",
     options: [
-      "Current Assets ÷ Current Liabilities (Benchmark: 2:1)",
-      "Total Debt ÷ Total Equity (Benchmark: 50%)",
-      "Gross Profit ÷ Total Sales (Benchmark: 80%)",
-      "Net Profit ÷ Owners Equity (Benchmark: 1:1)"
+      "Current Assets / Current Liabilities (Benchmark: 2:1)",
+      "Total Debt / Total Equity (Benchmark: 50%)",
+      "Gross Profit / Total Sales (Benchmark: 80%)",
+      "Net Profit / Owners Equity (Benchmark: 1:1)"
     ],
     correctIndex: 0,
     timeLimit: 20,
-    explanation: "Current Ratio = Current Assets ÷ Current Liabilities. A ratio of 2:1 is the traditional sound benchmark."
+    explanation: "Current Ratio = Current Assets / Current Liabilities. A ratio of 2:1 is the traditional sound benchmark."
   },
   {
     question: "What does a high Debt-to-Equity ratio indicate about a business's capital structure?",
@@ -1241,14 +1482,14 @@ const HSC_BUSINESS_FINANCE = [
     options: ["15%", "6.67%", "30%", "20%"],
     correctIndex: 0,
     timeLimit: 20,
-    explanation: "Net Profit Ratio = (Net Profit ÷ Sales) × 100 = ($300,000 ÷ $2,000,000) × 100 = 15%."
+    explanation: "Net Profit Ratio = (Net Profit / Sales) * 100 = ($300,000 / $2,000,000) * 100 = 15%."
   },
   {
     question: "If Accounts Receivable Turnover is 12 times per year, approximately how many days does it take to collect debts?",
-    options: ["30.4 days (365 ÷ 12)", "12.0 days", "60.0 days", "90.0 days"],
+    options: ["30.4 days (365 / 12)", "12.0 days", "60.0 days", "90.0 days"],
     correctIndex: 0,
     timeLimit: 20,
-    explanation: "Days to collect = 365 ÷ Accounts Receivable Turnover = 365 ÷ 12 ≈ 30.4 days."
+    explanation: "Days to collect = 365 / Accounts Receivable Turnover = 365 / 12 = 30.4 days."
   },
   {
     question: "Why is capitalising operating expenses considered a limitation of financial reports?",
@@ -1297,6 +1538,126 @@ const HSC_BUSINESS_FINANCE = [
     correctIndex: 0,
     timeLimit: 20,
     explanation: "A forward exchange contract fixes the exchange rate for a future date, protecting against adverse currency swings."
+  },
+  {
+    question: "A company has Current Assets of $750,000 and Current Liabilities of $500,000. What is working capital and current ratio? (HSC)",
+    options: [
+      "Working Capital = $250,000; Current Ratio = 1.5:1",
+      "Working Capital = $1,250,000; Current Ratio = 2.5:1",
+      "Working Capital = $250,000; Current Ratio = 0.67:1",
+      "Working Capital = $500,000; Current Ratio = 1:1"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Working Capital = Current Assets - Current Liabilities = $250,000. Current Ratio = $750,000 / $500,000 = 1.5:1."
+  },
+  {
+    question: "If a business has Total Liabilities of $900,000 and Total Owner's Equity of $450,000, what is its Debt-to-Equity ratio? (HSC)",
+    options: [
+      "200% (or 2:1)",
+      "50% (or 0.5:1)",
+      "150% (or 1.5:1)",
+      "300% (or 3:1)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Debt-to-Equity Ratio = (Total Liabilities / Total Equity) * 100 = ($900,000 / $450,000) * 100 = 200%."
+  },
+  {
+    question: "Sales are $600,000, COGS is $360,000, and Operating Expenses are $140,000. What are Gross and Net Profit? (HSC)",
+    options: [
+      "Gross Profit = $240,000; Net Profit = $100,000",
+      "Gross Profit = $360,000; Net Profit = $220,000",
+      "Gross Profit = $140,000; Net Profit = $40,000",
+      "Gross Profit = $240,000; Net Profit = $240,000"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Gross Profit = Sales - COGS = $240,000. Net Profit = Gross Profit - Expenses = $240,000 - $140,000 = $100,000."
+  },
+  {
+    question: "A wholesaler offers terms of '2/10, net 30' on its credit invoices. Which financial strategy is this? (HSC)",
+    options: [
+      "Discount for Early Payment (Cash Flow Strategy)",
+      "Sale and Leaseback of Non-Current Assets",
+      "Equity Financing via Share Placements",
+      "Currency Hedging via Swap Contracts"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Offering a 2% discount if paid within 10 days accelerates cash inflows and minimizes bad debt risk."
+  },
+  {
+    question: "What type of long-term debt instrument is backed by a fixed charge over the company's real estate assets? (HSC)",
+    options: [
+      "Mortgage Loan",
+      "Unsecured Note",
+      "Bank Overdraft",
+      "Commercial Bill"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "A mortgage is a debt loan secured against non-current real estate property (land/buildings) owned by the business."
+  },
+  {
+    question: "What is a major advantage of debt financing compared to equity financing for expanding a company? (HSC)",
+    options: [
+      "Interest repayments are tax-deductible and original owner control is not diluted",
+      "Debt never requires principal or interest repayments during recessions",
+      "Debt providers gain voting seats on the company's board of directors",
+      "Debt increases the company's credit rating automatically"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Debt does not dilute ownership and interest payments are tax-deductible expenses, whereas dividends are not."
+  },
+  {
+    question: "An Australian exporter will receive $500,000 USD in 6 months. If the AUD appreciates, what happens to proceeds? (HSC)",
+    options: [
+      "The AUD amount received decreases, reducing export profit margins",
+      "The AUD amount received increases, boosting export profits",
+      "The exchange rate has zero effect on international exports",
+      "The overseas buyer must pay double the agreed contract price"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "When the AUD appreciates, foreign currency converts into fewer Australian dollars, reducing export revenue."
+  },
+  {
+    question: "Which financial tool forecasts expected monthly cash inflows and outflows to anticipate upcoming liquidity shortfalls? (HSC)",
+    options: [
+      "Cash Flow Budget",
+      "Balance Sheet Statement",
+      "Auditor's Report",
+      "Revenue Depreciation Schedule"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "A Cash Flow Budget forecasts future monthly cash receipts and disbursements to ensure the business maintains liquidity."
+  },
+  {
+    question: "When a company records intellectual goodwill at an inflated subjective value on its balance sheet, which limitation is exposed? (HSC)",
+    options: [
+      "Valuing Assets (Subjective Estimation)",
+      "Normalised Earnings",
+      "Debt Repayment Schedules",
+      "Capitalising Operating Expenses"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Valuing assets is a key limitation because putting a monetary value on intangibles (goodwill, brands) involves subjective estimation."
+  },
+  {
+    question: "A company increases Net Profit from $100,000 to $160,000 while maintaining Owner's Equity constant at $800,000. How does ROE change? (HSC)",
+    options: [
+      "ROE increases from 12.5% to 20%",
+      "ROE decreases from 25% to 15%",
+      "ROE remains static at 10%",
+      "ROE doubles from 8% to 16%"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Old ROE = ($100k / $800k) = 12.5%. New ROE = ($160k / $800k) = 20%. Higher profit boosts return on invested equity capital."
   }
 ];
 
@@ -1480,6 +1841,126 @@ const HSC_BUSINESS_HUMAN_RESOURCES = [
     correctIndex: 0,
     timeLimit: 20,
     explanation: "Arbitration is a formal legal process where the industrial tribunal makes an order that is binding on all parties."
+  },
+  {
+    question: "Under the Fair Work Act NES, what is the maximum standard weekly hours for a full-time employee? (HSC)",
+    options: [
+      "38 hours per week (plus reasonable additional hours)",
+      "44 hours per week strictly",
+      "35 hours per week with zero overtime permitted",
+      "48 hours per week across all industries"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Under the NES, maximum weekly hours for a full-time employee are 38 hours plus reasonable additional hours."
+  },
+  {
+    question: "A hotel manager fires a bartender immediately on the spot for stealing cash from the safe. What dismissal is this? (HSC)",
+    options: [
+      "Summary Dismissal (for serious misconduct)",
+      "Involuntary Redundancy",
+      "Constructive Resignation",
+      "Retrenchment"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Summary dismissal occurs without notice when an employee commits serious misconduct, such as theft or violence."
+  },
+  {
+    question: "An engineering firm engages a specialist headhunting consultancy to recruit candidates for an executive role. What is this? (HSC)",
+    options: [
+      "External Recruitment",
+      "Internal Promotion",
+      "Job Enlargement",
+      "Informal Separation"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "External recruitment involves sourcing employees from outside the organization using agencies, advertisements, or universities."
+  },
+  {
+    question: "Which organization represents the collective industrial interests of employers during National Wage Case hearings? (HSC)",
+    options: [
+      "Employer Associations (e.g. ACCI, Ai Group)",
+      "Trade Unions (e.g. ACTU)",
+      "The Australian Taxation Office",
+      "The Australian Human Rights Commission"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Employer associations represent employers in industrial disputes, enterprise negotiations, and tribunal wage cases."
+  },
+  {
+    question: "What is the role of the Fair Work Ombudsman (FWO) compared to the Fair Work Commission (FWC)? (HSC)",
+    options: [
+      "The FWO enforces compliance; the FWC is the industrial tribunal that sets awards and arbitrates disputes",
+      "The FWO is a trade union; the FWC is an employer association",
+      "The FWC manages corporate tax; the FWO manages company mergers",
+      "The FWO operates overseas; the FWC operates only in NSW"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The FWO enforces workplace compliance; the FWC is the independent national tribunal setting minimum conditions and resolving disputes."
+  },
+  {
+    question: "A tech firm permits staff to work remotely 3 days a week and provides free on-site barista coffee. Which strategy is this? (HSC)",
+    options: [
+      "Non-Monetary Remuneration (Fringe Benefits & Flexibility)",
+      "Base Award Wage Restructuring",
+      "Involuntary Separation Settlement",
+      "Classical Task Specialisation"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Non-monetary rewards and flexible working arrangements are maintenance strategies that enhance motivation and retention."
+  },
+  {
+    question: "A site supervisor gives strict daily orders without consulting workers and demands absolute compliance. Which style is this? (HSC)",
+    options: [
+      "Autocratic / Authoritarian Leadership",
+      "Democratic Leadership",
+      "Laissez-faire Leadership",
+      "Affirmative Action Leadership"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Autocratic leaders make decisions unilaterally without employee input and enforce top-down communication and control."
+  },
+  {
+    question: "What statutory protection must an employer maintain by law to cover workers injured in employment? (HSC)",
+    options: [
+      "Workers Compensation Insurance",
+      "Public Liability Indemnity",
+      "Director Loss of Profits Policy",
+      "Comprehensive Vehicle Collision Insurance"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Employers are legally mandated to hold workers compensation insurance to cover medical costs and rehabilitation for workplace injuries."
+  },
+  {
+    question: "An independent third party facilitates dialogue between management and union delegates to help reach a voluntary settlement. What is this? (HSC)",
+    options: [
+      "Mediation / Conciliation",
+      "Arbitration",
+      "Common Law Litigation",
+      "Lockout"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Mediation and conciliation involve an independent third party assisting disputing parties to reach a mutually agreed voluntary resolution."
+  },
+  {
+    question: "Why do human resource managers conduct structured exit interviews when employees voluntarily resign? (HSC)",
+    options: [
+      "To identify underlying workplace issues and develop strategies to reduce future staff turnover",
+      "To legally prevent the departing employee from working for any competing firm",
+      "To calculate penalty tax deductions for the Australian Taxation Office",
+      "To recover all wages paid to the employee over the previous 12 months"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Exit interviews provide honest insights into why staff leave, helping HR address leadership, culture, and retention issues."
   }
 ];
 
@@ -1490,21 +1971,53 @@ const HSC_BUSINESS_ALL_QUESTIONS = [
   ...HSC_BUSINESS_HUMAN_RESOURCES
 ];
 
+// Replicate actual 20-Question Section I HSC Examination (5 from each module)
+const HSC_BUSINESS_TRIAL_EXAM_QUESTIONS = [
+  HSC_BUSINESS_OPERATIONS[0],
+  HSC_BUSINESS_OPERATIONS[6],
+  HSC_BUSINESS_OPERATIONS[8],
+  HSC_BUSINESS_OPERATIONS[15],
+  HSC_BUSINESS_OPERATIONS[17],
+  HSC_BUSINESS_MARKETING[0],
+  HSC_BUSINESS_MARKETING[4],
+  HSC_BUSINESS_MARKETING[10],
+  HSC_BUSINESS_MARKETING[15],
+  HSC_BUSINESS_MARKETING[17],
+  HSC_BUSINESS_FINANCE[0],
+  HSC_BUSINESS_FINANCE[7],
+  HSC_BUSINESS_FINANCE[8],
+  HSC_BUSINESS_FINANCE[15],
+  HSC_BUSINESS_FINANCE[21],
+  HSC_BUSINESS_HUMAN_RESOURCES[0],
+  HSC_BUSINESS_HUMAN_RESOURCES[3],
+  HSC_BUSINESS_HUMAN_RESOURCES[5],
+  HSC_BUSINESS_HUMAN_RESOURCES[15],
+  HSC_BUSINESS_HUMAN_RESOURCES[18]
+];
+
 const DEFAULT_QUIZZES = [
   {
     id: 'hsc-business-master',
-    title: 'HSC Business Studies — Complete Master Arena',
+    title: 'HSC Business Studies - Complete Master Arena',
     category: 'HSC Business Studies',
-    description: 'Comprehensive 60-question trial arena covering Operations, Marketing, Finance, and Human Resources.',
-    badge: '👑 60 QUESTIONS',
+    description: 'The definitive 100-question trial arena covering Operations, Marketing, Finance, and Human Resources.',
+    badge: '\\uD83C\\uDFC6 100 QUESTIONS',
     questions: HSC_BUSINESS_ALL_QUESTIONS
+  },
+  {
+    id: 'hsc-business-trial-exam',
+    title: 'HSC Business Studies - 20-Question Past Paper Exam Simulator',
+    category: 'HSC Business Studies',
+    description: 'Exact replica of Section I (Multiple Choice) of the HSC Examination with 5 questions from each core module.',
+    badge: '\\uD83D\\uDCDD 20-Q EXAM TRIAL',
+    questions: HSC_BUSINESS_TRIAL_EXAM_QUESTIONS
   },
   {
     id: 'hsc-business-operations',
     title: 'HSC Business 1: Operations Management',
     category: 'HSC Business Studies',
     description: 'Cost leadership, 4 Vs, transformed/transforming inputs, CPA scheduling, JIT inventory, QA/QC/TQM, and change.',
-    badge: '⚙️ OPERATIONS',
+    badge: '\\u2699\\uFE0F OPERATIONS (25 Qs)',
     questions: HSC_BUSINESS_OPERATIONS
   },
   {
@@ -1512,7 +2025,7 @@ const DEFAULT_QUIZZES = [
     title: 'HSC Business 2: Marketing Strategies',
     category: 'HSC Business Studies',
     description: 'Market approaches, segmentation, ACL consumer laws, sugging, SWOT, skimming/penetration/loss leader, and 7 Ps.',
-    badge: '🎯 MARKETING',
+    badge: '\\uD83D\\uDCE2 MARKETING (25 Qs)',
     questions: HSC_BUSINESS_MARKETING
   },
   {
@@ -1520,7 +2033,7 @@ const DEFAULT_QUIZZES = [
     title: 'HSC Business 3: Financial Management',
     category: 'HSC Business Studies',
     description: 'Liquidity, gearing, Current ratio, Net Profit ratio, debt vs equity, cash flow factoring, and global hedging.',
-    badge: '📊 FINANCE',
+    badge: '\\uD83D\\uDCB0 FINANCE (25 Qs)',
     questions: HSC_BUSINESS_FINANCE
   },
   {
@@ -1528,15 +2041,15 @@ const DEFAULT_QUIZZES = [
     title: 'HSC Business 4: Human Resource Management',
     category: 'HSC Business Studies',
     description: 'The employment contract, NES 11 standards, modern awards, BOOT test, leadership styles, and dispute resolution.',
-    badge: '👥 HUMAN RESOURCES',
+    badge: '\\uD83D\\uDC65 HR (25 Qs)',
     questions: HSC_BUSINESS_HUMAN_RESOURCES
   },
   {
     id: 'medieval-master-65',
-    title: 'Medieval Europe � Complete Master Arena',
+    title: 'Medieval Europe - Complete Master Arena',
     category: 'Medieval History',
     description: 'The complete 65-question curriculum challenge covering Feudalism, 1066, Crusades, Black Death, Crime & Castles.',
-    badge: '?? 65 QUESTIONS',
+    badge: '\\u2694\\uFE0F 65 QUESTIONS',
     questions: MEDIEVAL_ALL_QUESTIONS
   },
   {
@@ -1544,7 +2057,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 1: Feudalism, Manor & Agriculture',
     category: 'Medieval History',
     description: 'Feudal hierarchy, peasants and serfs, manorialism, chivalry, pages and squires, 3-field crop rotation.',
-    badge: '?? FEUDAL SYSTEM',
+    badge: '\\uD83D\\uDC51 FEUDAL SYSTEM',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(0, 11)
   },
   {
@@ -1552,7 +2065,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 2: The Norman Conquest & 1066',
     category: 'Medieval History',
     description: 'Bayeux Tapestry, William the Conqueror, Stamford Bridge, Battle of Hastings, and the Domesday Book.',
-    badge: '??? 1066 CONQUEST',
+    badge: '\\uD83D\\uDEE1\\uFE0F 1066 CONQUEST',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(11, 20)
   },
   {
@@ -1560,7 +2073,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 3: Medieval Crime & Punishment',
     category: 'Medieval History',
     description: 'Trial by ordeal, compurgation, trial by combat, hue and cry, pillory, stocks, heresy, and common law.',
-    badge: '?? CRIME & LAW',
+    badge: '\\u2696\\uFE0F CRIME & LAW',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(20, 30)
   },
   {
@@ -1568,7 +2081,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 4: The Crusades & The Holy Land',
     category: 'Medieval History',
     description: 'Pope Urban II, Council of Clermont, Deus Vult, Outremer, Saladin, Richard the Lionheart, and Knights Templar.',
-    badge: '?? THE CRUSADES',
+    badge: '\\u2694\\uFE0F THE CRUSADES',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(30, 40)
   },
   {
@@ -1576,7 +2089,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 5: Monarchs, Magna Carta & The Black Death',
     category: 'Medieval History',
     description: 'Charlemagne, Eleanor of Aquitaine, Joan of Arc, Magna Carta 1215, Yersinia pestis, and Peasants Revolt 1381.',
-    badge: '?? BLACK DEATH',
+    badge: '\\u2620\\uFE0F BLACK DEATH',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(40, 53)
   },
   {
@@ -1584,15 +2097,15 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 6: Castles, Siege Warfare & Towns',
     category: 'Medieval History',
     description: 'Longbows, trebuchets, portcullis, the keep, town charters, merchant guilds, apprentices, and curfews.',
-    badge: '?? CASTLES & TOWNS',
+    badge: '\\uD83C\\uDFF0 CASTLES & TOWNS',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(53, 65)
   },
   {
     id: 'hsc-econ-core',
-    title: 'HSC Economics � Global Economy & Macro Policy',
+    title: 'HSC Economics - Global Economy & Macro Policy',
     category: 'Year 12 Economics',
     description: 'Balance of Payments, Exchange Rates, Free Trade, and Macro Policy.',
-    badge: 'HSC ECON',
+    badge: '\\uD83D\\uDCC8 HSC ECON',
     questions: [
       {
         question: 'Which component of the Balance of Payments records Australian interest payments on foreign debt?',
@@ -1634,10 +2147,10 @@ const DEFAULT_QUIZZES = [
   },
   {
     id: 'commerce-consumer-finance',
-    title: 'Year 10 Commerce � Consumer, Finance & Smart Travel',
+    title: 'Year 10 Commerce - Consumer, Finance & Smart Travel',
     category: 'Year 10 Commerce',
     description: 'Consumer rights, credit vs debit cards, travel budgets, and financial decisions.',
-    badge: 'COMMERCE',
+    badge: '\\uD83D\\uDED2 COMMERCE',
     questions: [
       {
         question: 'Under Australian Consumer Law, what is a consumer entitled to if a product has a major defect?',
