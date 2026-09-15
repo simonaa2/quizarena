@@ -159,6 +159,9 @@
 
     <!-- Question Banner -->
     <div class="question-card">
+      <div id="question-media-wrap" style="display: none; margin-bottom: 1.25rem;">
+        <img id="question-stimulus-img" src="" alt="Historical Stimulus" style="max-height: 350px; max-width: 100%; border-radius: var(--radius-lg); object-fit: contain; box-shadow: 0 8px 24px rgba(0,0,0,0.5); border: 1px solid var(--border-glass);">
+      </div>
       <div class="question-text" id="question-title">
         Loading question...
       </div>
@@ -652,7 +655,8 @@
         options: paired.map(p => p.text),
         correctIndex: paired.findIndex(p => p.isCorrect),
         explanation: rawQ.explanation,
-        timeLimit: rawQ.timeLimit || questionTimerSeconds
+        timeLimit: rawQ.timeLimit || questionTimerSeconds,
+        image: rawQ.image || null
       };
     }
 
@@ -676,6 +680,17 @@
       document.getElementById('question-round-pill').textContent = `Question ${currentQuestionIndex + 1} of ${quiz.questions.length}`;
       document.getElementById('question-title').textContent = currentShuffledQuestion.question;
 
+      // Render historical image stimulus if available
+      const mediaWrap = document.getElementById('question-media-wrap');
+      const imgEl = document.getElementById('question-stimulus-img');
+      if (currentShuffledQuestion.image) {
+        imgEl.src = currentShuffledQuestion.image;
+        mediaWrap.style.display = 'block';
+      } else {
+        mediaWrap.style.display = 'none';
+        imgEl.src = '';
+      }
+
       // Render 4 answer blocks on big screen
       for (let i = 0; i < 4; i++) {
         const optEl = document.getElementById(`host-opt-${i}`);
@@ -691,13 +706,14 @@
 
       updateAnswerCounterUI();
 
-      // Broadcast question start with shuffled options to all students
+      // Broadcast question start with shuffled options & image to all students
       network.broadcast('ROUND_START', {
         questionIndex: currentQuestionIndex,
         totalQuestions: quiz.questions.length,
         question: currentShuffledQuestion.question,
         options: currentShuffledQuestion.options,
-        timeLimit: questionTimerSeconds
+        timeLimit: questionTimerSeconds,
+        image: currentShuffledQuestion.image || null
       });
 
       // Start Countdown Timer

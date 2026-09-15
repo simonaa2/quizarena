@@ -14,7 +14,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Feudalism"
+        "explanation":  "Correct answer: Feudalism",
+        "image":  "assets/images/q1_feudalism.jpg"
     },
     {
         "question":  "Who held the supreme authority at the peak of the feudal pyramid?",
@@ -26,7 +27,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: The King"
+        "explanation":  "Correct answer: The King",
+        "image":  "assets/images/q2_king_authority.jpg"
     },
     {
         "question":  "What was land granted by a lord to a vassal called?",
@@ -38,7 +40,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Fief"
+        "explanation":  "Correct answer: Fief",
+        "image":  "assets/images/q3_granting_fief.jpg"
     },
     {
         "question":  "Which group formed the majority of the population in medieval Europe?",
@@ -50,7 +53,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Serfs/Peasants"
+        "explanation":  "Correct answer: Serfs/Peasants",
+        "image":  "assets/images/q4_serfs_majority.jpg"
     },
     {
         "question":  "What bound serfs legally to the land they worked on?",
@@ -62,7 +66,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Manorialism"
+        "explanation":  "Correct answer: Manorialism",
+        "image":  "assets/images/q5_manorialism.jpg"
     },
     {
         "question":  "What were knights-in-training caring for horses and armour called?",
@@ -74,7 +79,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  1,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Squires"
+        "explanation":  "Correct answer: Squires",
+        "image":  "assets/images/q6_squires_armour.jpg"
     },
     {
         "question":  "At what age did a noble boy typically begin training as a page?",
@@ -86,7 +92,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: 7"
+        "explanation":  "Correct answer: 7",
+        "image":  "assets/images/q7_page_boy_age7.jpg"
     },
     {
         "question":  "What moral and social code were medieval knights expected to uphold?",
@@ -98,7 +105,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Code of Chivalry"
+        "explanation":  "Correct answer: Code of Chivalry",
+        "image":  "assets/images/q8_chivalry_code.jpg"
     },
     {
         "question":  "What was a 10% tax paid to the Catholic Church by villagers called?",
@@ -110,7 +118,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Tithe"
+        "explanation":  "Correct answer: Tithe",
+        "image":  "assets/images/q9_church_tithe.jpg"
     },
     {
         "question":  "What agricultural technique left one field unplanted each year?",
@@ -122,7 +131,8 @@ const MEDIEVAL_ALL_QUESTIONS = [
                     ],
         "correctIndex":  0,
         "timeLimit":  20,
-        "explanation":  "Correct answer: Three-Field System"
+        "explanation":  "Correct answer: Three-Field System",
+        "image":  "assets/images/q10_three_field_system.jpg"
     },
     {
         "question":  "What heavy tool revolutionized medieval European agriculture?",
