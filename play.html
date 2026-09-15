@@ -64,13 +64,18 @@
       Look for <strong id="lobby-confirmed-name" style="color: #fff;">...</strong> on the teacher's screen.
     </p>
 
-    <div style="background: rgba(15,23,42,0.6); border: 1px solid var(--border-glass); border-radius: var(--radius-xl); padding: 1.5rem 2rem; max-width: 340px; width: 100%;">
-      <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #38bdf8; font-weight: 700;">
-        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #38bdf8; animation: pulse 1s infinite alternate;"></span>
-        Connected to Host Arena
+    <div style="background: rgba(15,23,42,0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-xl); padding: 1.5rem 2rem; max-width: 360px; width: 100%;">
+      <div id="lobby-status-pill" style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; color: #38bdf8; font-weight: 700; margin-bottom: 0.5rem;">
+        <span id="lobby-status-dot" style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #38bdf8; animation: pulse 1s infinite alternate;"></span>
+        <span id="lobby-status-text">Connecting to arena...</span>
       </div>
-      <div style="font-size: 0.85rem; color: var(--text-sub); margin-top: 0.75rem; text-align: center;">
+      <div style="font-size: 0.85rem; color: var(--text-sub); text-align: center;">
         Room PIN: <span id="lobby-room-pin" style="font-weight: 800; color: #fff; font-family: monospace;">------</span>
+      </div>
+      <div id="lobby-retry-box" style="display: none; margin-top: 1rem; text-align: center;">
+        <button onclick="retryJoinHandshake()" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 1rem;">
+          🔄 Tap to Re-check Connection
+        </button>
       </div>
     </div>
   </div>
@@ -201,13 +206,22 @@
       const urlParams = new URLSearchParams(window.location.search);
       const paramPin = urlParams.get('pin');
       const paramName = urlParams.get('name');
+      const paramB = urlParams.get('b');
 
       if (paramPin && paramName) {
-        connectStudent(paramPin, paramName);
+        connectStudent(paramPin, paramName, paramB);
       } else {
-        showScreen('screen-join');
-        if (paramPin) {
-          document.getElementById('input-pin').value = paramPin.trim();
+        // Check if there is an active session in sessionStorage
+        const savedPin = sessionStorage.getItem('quizarena_last_pin');
+        const savedName = sessionStorage.getItem('quizarena_last_name');
+        const savedB = sessionStorage.getItem('quizarena_last_b');
+        if (savedPin && savedName && paramPin === savedPin) {
+          connectStudent(savedPin, savedName, savedB);
+        } else {
+          showScreen('screen-join');
+          if (paramPin) {
+            document.getElementById('input-pin').value = paramPin.trim();
+          }
         }
       }
     });
@@ -217,39 +231,69 @@
       const pin = document.getElementById('input-pin').value.trim();
       const name = document.getElementById('input-name').value.trim();
       if (!pin || !name) return;
-      connectStudent(pin, name);
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramB = urlParams.get('b');
+      connectStudent(pin, name, paramB);
     }
 
-    function connectStudent(pin, name) {
+    function connectStudent(pin, name, preferredBroker = 0) {
       studentPin = pin.trim();
       studentName = name.trim();
+
+      sessionStorage.setItem('quizarena_last_pin', studentPin);
+      sessionStorage.setItem('quizarena_last_name', studentName);
+      if (preferredBroker !== undefined && preferredBroker !== null) {
+        sessionStorage.setItem('quizarena_last_b', String(preferredBroker));
+      }
+
+      // Reuse client ID from session so accidental reloads or phone lock doesn't reset player
+      let storedCid = sessionStorage.getItem('quizarena_cid_' + studentPin);
+      if (!storedCid) {
+        storedCid = 'c_' + Math.random().toString(36).substring(2, 9);
+        sessionStorage.setItem('quizarena_cid_' + studentPin, storedCid);
+      }
 
       document.getElementById('player-display-name').textContent = studentName;
       document.getElementById('lobby-confirmed-name').textContent = studentName;
       document.getElementById('lobby-room-pin').textContent = studentPin;
 
       showScreen('screen-lobby');
+      setLobbyStatus('connecting', 'Connecting to game server...');
 
       // Initialize Network client
       network = new ArenaNetwork();
-      network.initClient(studentPin, studentName);
+      network.clientId = storedCid;
+      const bIndex = (preferredBroker !== undefined && preferredBroker !== null) ? Number(preferredBroker) : 0;
+      network.initClient(studentPin, studentName, bIndex);
 
-      // Join Heartbeat: announce presence repeatedly until game starts or acked
+      network.on('connection_status', (status) => {
+        if (status.connected) {
+          if (!hasJoinedLobby) {
+            setLobbyStatus('joining', `Connected! Registering with teacher...`);
+          }
+        } else if (status.status === 'connecting') {
+          setLobbyStatus('connecting', `Connecting to ${status.brokerName || 'server'}...`);
+        } else {
+          setLobbyStatus('reconnecting', `Reconnecting to server...`);
+        }
+      });
+
+      // Join Heartbeat: announce presence repeatedly until confirmed by host
       clearInterval(joinHeartbeatTimer);
       joinHeartbeatTimer = setInterval(() => {
         if (hasJoinedLobby) {
           clearInterval(joinHeartbeatTimer);
           return;
         }
-        network.sendToHost('STUDENT_JOIN', {
-          clientId: network.clientId,
-          name: studentName,
-          timestamp: Date.now()
-        });
-      }, 1000);
+        sendJoinBeacon();
+      }, 1200);
 
       // Listen for Host broadcasts
+      network.on('ready_to_transmit', () => {
+        sendJoinBeacon();
+      });
       network.on('join_ack', handleJoinAck);
+      network.on('lobby_state', handleLobbyState);
       network.on('round_start', handleRoundStart);
       network.on('round_results', handleRoundResults);
       network.on('round_end_for_student', handleRoundEndForStudent);
@@ -257,10 +301,75 @@
       network.on('game_over', handleGameOver);
     }
 
+    function sendJoinBeacon() {
+      if (!network) return;
+      network.sendToHost('STUDENT_JOIN', {
+        clientId: network.clientId,
+        name: studentName,
+        timestamp: Date.now()
+      });
+    }
+
+    // CRITICAL BUG FIX: Only accept ACK if intended for THIS student's clientId!
     function handleJoinAck(msg) {
+      const data = msg.payload;
+      if (!data || data.clientId !== network.clientId) return;
+      markLobbyConfirmed();
+    }
+
+    // Self-healing reconciliation: Host broadcasts registered player IDs
+    function handleLobbyState(msg) {
+      const data = msg.payload;
+      if (!data || !Array.isArray(data.playerIds)) return;
+
+      if (data.playerIds.includes(network.clientId)) {
+        markLobbyConfirmed();
+      } else if (!hasJoinedLobby) {
+        // If host doesn't have me in roster yet, resend join
+        sendJoinBeacon();
+      }
+    }
+
+    function markLobbyConfirmed() {
+      if (hasJoinedLobby) return;
       hasJoinedLobby = true;
       clearInterval(joinHeartbeatTimer);
-      console.log('[Player] Host acknowledged join');
+      setLobbyStatus('confirmed', '✅ Confirmed on Board!');
+      Sound.lockIn();
+      console.log('[Player] Confirmed on host board');
+    }
+
+    function setLobbyStatus(state, text) {
+      const pill = document.getElementById('lobby-status-pill');
+      const dot = document.getElementById('lobby-status-dot');
+      const textEl = document.getElementById('lobby-status-text');
+      const retryBox = document.getElementById('lobby-retry-box');
+      if (!pill || !dot || !textEl) return;
+
+      textEl.textContent = text;
+
+      if (state === 'confirmed') {
+        pill.style.color = '#4ade80';
+        dot.style.background = '#22c55e';
+        dot.style.animation = 'none';
+        if (retryBox) retryBox.style.display = 'none';
+      } else if (state === 'connecting' || state === 'joining') {
+        pill.style.color = '#38bdf8';
+        dot.style.background = '#38bdf8';
+        dot.style.animation = 'pulse 1s infinite alternate';
+        if (retryBox) retryBox.style.display = 'none';
+      } else {
+        pill.style.color = '#facc15';
+        dot.style.background = '#eab308';
+        dot.style.animation = 'pulse 0.5s infinite alternate';
+        if (retryBox) retryBox.style.display = 'block';
+      }
+    }
+
+    function retryJoinHandshake() {
+      hasJoinedLobby = false;
+      sendJoinBeacon();
+      setLobbyStatus('joining', 'Re-sending join beacon...');
     }
 
     function handleRoundStart(msg) {

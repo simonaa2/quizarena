@@ -68,7 +68,7 @@
         soundBtn.textContent = on ? '🔊' : '🔇';
       };
 
-      // Check URL parameters (e.g. from QR code ?pin=123456)
+      // Check URL parameters (e.g. from QR code ?pin=123456&b=0)
       const urlParams = new URLSearchParams(window.location.search);
       const paramPin = urlParams.get('pin');
       if (paramPin) {
@@ -92,7 +92,13 @@
         return;
       }
 
-      window.location.href = `play.html?pin=${encodeURIComponent(pin)}&name=${encodeURIComponent(name)}`;
+      const urlParams = new URLSearchParams(window.location.search);
+      const paramB = urlParams.get('b');
+      let forwardUrl = `play.html?pin=${encodeURIComponent(pin)}&name=${encodeURIComponent(name)}`;
+      if (paramB !== null && paramB !== undefined) {
+        forwardUrl += `&b=${encodeURIComponent(paramB)}`;
+      }
+      window.location.href = forwardUrl;
     }
   </script>
 </body>

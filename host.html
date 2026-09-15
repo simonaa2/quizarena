@@ -355,6 +355,9 @@
     let timerInterval = null;
     let timeLeft = 0;
     let questionStartTime = 0;
+    let activeBrokerIndex = 0;
+    let lobbySyncTimer = null;
+    let isGameStarted = false;
 
     let players = {};
     let roundAnswers = {};
@@ -411,7 +414,7 @@
 
       // Clean Join URL pointing to index.html (Student Portal)
       const currentLoc = window.location.origin + window.location.pathname.replace('host.html', 'index.html');
-      const joinUrl = `${currentLoc}?pin=${roomPin}`;
+      let joinUrl = `${currentLoc}?pin=${roomPin}`;
       document.getElementById('join-url-text').textContent = window.location.hostname || 'quizarena';
       document.getElementById('lobby-web-url').textContent = window.location.hostname + window.location.pathname.replace('host.html', '');
 
@@ -426,10 +429,49 @@
       network.on('student_join', handleStudentJoin);
       network.on('student_answer', handleStudentAnswer);
       network.on('connection_status', (status) => {
-        document.getElementById('connection-chip').textContent = `● ${status.transport || 'Connected'}`;
+        const chip = document.getElementById('connection-chip');
+        if (status.connected) {
+          activeBrokerIndex = (status.brokerIndex !== undefined) ? status.brokerIndex : 0;
+          chip.textContent = `🟢 ${status.brokerName || 'Server Live'}`;
+          chip.style.background = 'rgba(34, 197, 94, 0.2)';
+          chip.style.borderColor = '#22c55e';
+          chip.style.color = '#4ade80';
+
+          // Update QR Code to include active broker index so students join the exact same server
+          const fullJoinUrl = `${currentLoc}?pin=${roomPin}&b=${activeBrokerIndex}`;
+          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(fullJoinUrl)}`;
+        } else if (status.status === 'connecting') {
+          chip.textContent = `🟡 Connecting: ${status.brokerName || 'Server'}...`;
+          chip.style.background = 'rgba(234, 179, 8, 0.2)';
+          chip.style.borderColor = '#eab308';
+          chip.style.color = '#facc15';
+        } else {
+          chip.textContent = `🟠 Reconnecting...`;
+          chip.style.background = 'rgba(249, 115, 22, 0.2)';
+          chip.style.borderColor = '#f97316';
+          chip.style.color = '#fb923c';
+        }
       });
 
+      // Start periodic LOBBY_STATE reconciliation broadcast (every 1.2s)
+      startLobbyStateSync();
+
       populateDeckModal();
+    }
+
+    function startLobbyStateSync() {
+      clearInterval(lobbySyncTimer);
+      lobbySyncTimer = setInterval(() => {
+        if (isGameStarted) {
+          clearInterval(lobbySyncTimer);
+          return;
+        }
+        network.broadcast('LOBBY_STATE', {
+          playerIds: Object.keys(players),
+          count: Object.keys(players).length,
+          gameStarted: false
+        });
+      }, 1200);
     }
 
     function updateQuizDisplayHeaders() {
@@ -627,6 +669,9 @@
         }
       }
 
+      isGameStarted = true;
+      clearInterval(lobbySyncTimer);
+
       Sound.roundStart();
       document.getElementById('stage-lobby').style.display = 'none';
       document.getElementById('stage-question').style.display = 'block';
@@ -763,24 +808,11 @@
         };
       });
 
-      // 1. Send single unified results broadcast to all students
+      // Send single unified results broadcast to all students (eliminates broker flooding)
       network.broadcast('ROUND_RESULTS', {
         correctIndex: q.correctIndex,
         explanation: q.explanation,
         playerResults: playerResults
-      });
-
-      // 2. Also send individual packets as fallback
-      Object.values(players).forEach(p => {
-        const ans = roundAnswers[p.id];
-        network.broadcast('ROUND_END_FOR_STUDENT', {
-          clientId: p.id,
-          isCorrect: ans ? ans.isCorrect : false,
-          pointsEarned: ans ? ans.pointsEarned : 0,
-          totalScore: p.score,
-          streak: p.streak,
-          correctIndex: q.correctIndex
-        });
       });
 
       network.broadcast('ROUND_END', {
