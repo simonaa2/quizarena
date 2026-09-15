@@ -41,11 +41,11 @@
       <form id="direct-join-form" onsubmit="handleDirectJoin(event)">
         <div class="form-group">
           <label class="form-label">Game PIN</label>
-          <input type="text" id="input-pin" class="pin-input" placeholder="000000" maxlength="6" inputmode="numeric" required autocomplete="off">
+          <input type="text" id="input-pin" class="pin-input" placeholder="000000" maxlength="8" inputmode="numeric" required autocomplete="off" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 6)">
         </div>
         <div class="form-group">
           <label class="form-label">Your Nickname</label>
-          <input type="text" id="input-name" class="text-input" placeholder="Enter name or nickname" required autocomplete="off" style="font-weight: 700; font-size: 1.1rem; text-align: center;">
+          <input type="text" id="input-name" class="text-input" placeholder="Enter name or nickname" maxlength="25" required autocomplete="off" style="font-weight: 700; font-size: 1.1rem; text-align: center;">
         </div>
         <button type="submit" class="btn btn-kahoot btn-block">JOIN GAME ➔</button>
       </form>
@@ -73,8 +73,8 @@
         Room PIN: <span id="lobby-room-pin" style="font-weight: 800; color: #fff; font-family: monospace;">------</span>
       </div>
       <div id="lobby-retry-box" style="display: none; margin-top: 1rem; text-align: center;">
-        <button onclick="retryJoinHandshake()" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 1rem;">
-          🔄 Tap to Re-check Connection
+        <button onclick="retryJoinHandshake()" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.45rem 1rem;">
+          ⚡ Tap to Switch Server & Re-check
         </button>
       </div>
     </div>
@@ -226,9 +226,11 @@
       }
     });
 
+    let lobbyAutoRetryTimer = null;
+
     function handleDirectJoin(e) {
       e.preventDefault();
-      const pin = document.getElementById('input-pin').value.trim();
+      const pin = document.getElementById('input-pin').value.replace(/\D/g, '').slice(0, 6);
       const name = document.getElementById('input-name').value.trim();
       if (!pin || !name) return;
       const urlParams = new URLSearchParams(window.location.search);
@@ -237,7 +239,7 @@
     }
 
     function connectStudent(pin, name, preferredBroker = 0) {
-      studentPin = pin.trim();
+      studentPin = pin.replace(/\D/g, '').slice(0, 6);
       studentName = name.trim();
 
       sessionStorage.setItem('quizarena_last_pin', studentPin);
@@ -269,7 +271,7 @@
       network.on('connection_status', (status) => {
         if (status.connected) {
           if (!hasJoinedLobby) {
-            setLobbyStatus('joining', `Connected! Registering with teacher...`);
+            setLobbyStatus('joining', `Connected (${status.brokerName})! Registering with teacher...`);
           }
         } else if (status.status === 'connecting') {
           setLobbyStatus('connecting', `Connecting to ${status.brokerName || 'server'}...`);
@@ -287,6 +289,20 @@
         }
         sendJoinBeacon();
       }, 1200);
+
+      // Lobby Auto-Recovery: If connected but not confirmed on teacher board after 7s,
+      // seamlessly rotate to next server in pool (teacher is listening on all of them)
+      clearInterval(lobbyAutoRetryTimer);
+      lobbyAutoRetryTimer = setInterval(() => {
+        if (hasJoinedLobby) {
+          clearInterval(lobbyAutoRetryTimer);
+          return;
+        }
+        if (network && network.connected) {
+          console.log('[Student] Waiting for host confirmation. Rotating to next broker in pool...');
+          network.rotateToNextBroker();
+        }
+      }, 7000);
 
       // Listen for Host broadcasts
       network.on('ready_to_transmit', () => {
@@ -334,6 +350,7 @@
       if (hasJoinedLobby) return;
       hasJoinedLobby = true;
       clearInterval(joinHeartbeatTimer);
+      clearInterval(lobbyAutoRetryTimer);
       setLobbyStatus('confirmed', '✅ Confirmed on Board!');
       Sound.lockIn();
       console.log('[Player] Confirmed on host board');
@@ -353,23 +370,25 @@
         dot.style.background = '#22c55e';
         dot.style.animation = 'none';
         if (retryBox) retryBox.style.display = 'none';
-      } else if (state === 'connecting' || state === 'joining') {
-        pill.style.color = '#38bdf8';
-        dot.style.background = '#38bdf8';
-        dot.style.animation = 'pulse 1s infinite alternate';
-        if (retryBox) retryBox.style.display = 'none';
       } else {
-        pill.style.color = '#facc15';
-        dot.style.background = '#eab308';
-        dot.style.animation = 'pulse 0.5s infinite alternate';
-        if (retryBox) retryBox.style.display = 'block';
+        pill.style.color = (state === 'connecting' || state === 'joining') ? '#38bdf8' : '#facc15';
+        dot.style.background = (state === 'connecting' || state === 'joining') ? '#38bdf8' : '#eab308';
+        dot.style.animation = 'pulse 0.8s infinite alternate';
+        setTimeout(() => {
+          if (!hasJoinedLobby && retryBox) {
+            retryBox.style.display = 'block';
+          }
+        }, 3000);
       }
     }
 
     function retryJoinHandshake() {
       hasJoinedLobby = false;
+      if (network) {
+        network.rotateToNextBroker();
+      }
       sendJoinBeacon();
-      setLobbyStatus('joining', 'Re-sending join beacon...');
+      setLobbyStatus('joining', 'Switching server & re-registering...');
     }
 
     function handleRoundStart(msg) {

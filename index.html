@@ -38,7 +38,7 @@
       <form id="join-form" onsubmit="handleStudentJoin(event)">
         <div class="form-group" style="margin-bottom: 1.25rem; text-align: left;">
           <label class="form-label" style="text-align: center;">GAME PIN</label>
-          <input type="text" id="join-pin" class="pin-input" placeholder="000000" maxlength="6" inputmode="numeric" required autofocus autocomplete="off">
+          <input type="text" id="join-pin" class="pin-input" placeholder="000000" maxlength="8" inputmode="numeric" required autofocus autocomplete="off" oninput="this.value = this.value.replace(/\D/g, '').slice(0, 6)">
         </div>
 
         <div class="form-group" style="margin-bottom: 1.75rem; text-align: left;">
@@ -72,7 +72,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const paramPin = urlParams.get('pin');
       if (paramPin) {
-        document.getElementById('join-pin').value = paramPin.trim();
+        document.getElementById('join-pin').value = paramPin.replace(/\D/g, '').slice(0, 6);
         document.getElementById('join-name').focus();
       }
     });
@@ -80,7 +80,7 @@
     function handleStudentJoin(e) {
       e.preventDefault();
       Sound.lockIn();
-      const pin = document.getElementById('join-pin').value.trim();
+      const pin = document.getElementById('join-pin').value.replace(/\D/g, '').slice(0, 6);
       const name = document.getElementById('join-name').value.trim();
 
       if (!pin || pin.length < 4) {

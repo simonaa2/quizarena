@@ -68,9 +68,9 @@
         <div class="pin-label">Student Join PIN:</div>
         <div class="pin-code-large" id="display-pin">------</div>
       </div>
-      <div style="border-left: 1px solid rgba(255,255,255,0.2); padding-left: 1rem; font-size: 0.85rem; color: #c7d2fe;">
-        <div>Students go to:</div>
-        <div style="font-weight: 800; color: #fff;" id="join-url-text">...</div>
+      <div style="border-left: 1px solid rgba(255,255,255,0.25); padding-left: 1rem; font-size: 0.85rem; color: #c7d2fe;">
+        <div style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; opacity: 0.9;">Students go to:</div>
+        <div style="font-weight: 900; color: #38bdf8; font-size: 1.25rem; font-family: monospace;" id="join-url-text">...</div>
       </div>
     </div>
 
@@ -414,15 +414,23 @@
 
       // Clean Join URL pointing to index.html (Student Portal)
       const currentLoc = window.location.origin + window.location.pathname.replace('host.html', 'index.html');
+      const cleanDisplayUrl = (window.location.host + window.location.pathname.replace('host.html', '')).replace(/\/+$/, '');
       let joinUrl = `${currentLoc}?pin=${roomPin}`;
-      document.getElementById('join-url-text').textContent = window.location.hostname || 'quizarena';
-      document.getElementById('lobby-web-url').textContent = window.location.hostname + window.location.pathname.replace('host.html', '');
+      document.getElementById('join-url-text').textContent = cleanDisplayUrl;
+      document.getElementById('lobby-web-url').textContent = cleanDisplayUrl;
 
-      // QR Code image
+      // QR Code image with reliable fallback
       const qrImg = document.getElementById('lobby-qr-img');
-      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(joinUrl)}`;
+      const loadQR = (url) => {
+        qrImg.onerror = () => {
+          qrImg.onerror = null;
+          qrImg.src = `https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=${encodeURIComponent(url)}`;
+        };
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`;
+      };
+      loadQR(joinUrl);
 
-      // 3. Initialize Network Host
+      // 3. Initialize Network Host (Connects to ALL brokers concurrently)
       network = new ArenaNetwork();
       network.initHost(roomPin);
 
@@ -431,17 +439,13 @@
       network.on('connection_status', (status) => {
         const chip = document.getElementById('connection-chip');
         if (status.connected) {
-          activeBrokerIndex = (status.brokerIndex !== undefined) ? status.brokerIndex : 0;
-          chip.textContent = `🟢 ${status.brokerName || 'Server Live'}`;
+          const totalConnected = status.totalConnected || 1;
+          chip.textContent = `🟢 Live on ${totalConnected} Network${totalConnected > 1 ? 's' : ''} (${status.brokerName})`;
           chip.style.background = 'rgba(34, 197, 94, 0.2)';
           chip.style.borderColor = '#22c55e';
           chip.style.color = '#4ade80';
-
-          // Update QR Code to include active broker index so students join the exact same server
-          const fullJoinUrl = `${currentLoc}?pin=${roomPin}&b=${activeBrokerIndex}`;
-          qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(fullJoinUrl)}`;
         } else if (status.status === 'connecting') {
-          chip.textContent = `🟡 Connecting: ${status.brokerName || 'Server'}...`;
+          chip.textContent = `🟡 Connecting to servers...`;
           chip.style.background = 'rgba(234, 179, 8, 0.2)';
           chip.style.borderColor = '#eab308';
           chip.style.color = '#facc15';
