@@ -1,5 +1,5 @@
-﻿// ===================================================
-// QUIZ ARENA — QUESTION BANKS & QUIZ ENGINE
+// ===================================================
+// QUIZ ARENA � QUESTION BANKS & QUIZ ENGINE
 // Curriculum question packs for Medieval History & Secondary Studies
 // ===================================================
 
@@ -796,13 +796,747 @@ const MEDIEVAL_ALL_QUESTIONS = [
     }
 ];
 
+// ===================================================
+// HSC BUSINESS STUDIES — OFFICIAL CURRICULUM QUESTIONS
+// Covers all 4 Stage 6 Modules: Operations, Marketing, Finance, Human Resources
+// ===================================================
+
+const HSC_BUSINESS_OPERATIONS = [
+  {
+    question: "Which strategic role is an operations manager pursuing when aiming to be the lowest-cost producer in the market?",
+    options: ["Cost Leadership", "Product Differentiation", "Niche Saturation", "Price Skimming"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Cost leadership involves delivering goods or services at the lowest possible unit cost in the industry."
+  },
+  {
+    question: "How does environmental sustainability as an influence impact a manufacturing business's operations?",
+    options: [
+      "Operations must minimize waste, reduce carbon emissions, and use recyclable inputs",
+      "Operations can legally ignore emissions standards if production volume increases",
+      "Operations must prioritize lowest immediate cost over resource conservation",
+      "Operations is exempted from corporate social responsibility reporting"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Environmental sustainability requires operations to operate without compromising future generations' resources."
+  },
+  {
+    question: "Which of the following is classified as a transformed resource in a commercial airline's operations?",
+    options: [
+      "Passengers and booking information",
+      "The Boeing 787 aircraft fleet",
+      "Pilots and cabin flight crew",
+      "Terminal gates and hangar facilities"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Transformed resources are changed or converted in the process: materials, information, and customers."
+  },
+  {
+    question: "What are the two primary transforming resources used to execute operational processes?",
+    options: [
+      "Human resources (staff) and facilities (plant/machinery)",
+      "Raw materials and digital data",
+      "Customer feedback and intermediate goods",
+      "Shareholder capital and bank loans"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Transforming resources remain in the business to perform the transformation: human resources and facilities."
+  },
+  {
+    question: "Which operational characteristic typically results when a firm manufactures at very high volume?",
+    options: [
+      "Lower per-unit production costs and high capital automation",
+      "High unit costs and customized artisan hand-crafting",
+      "Extreme flexibility in handling unique daily changes",
+      "High unit labor costs and zero standardized machinery"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "High volume production enables economies of scale, heavy automation, and low per-unit costs."
+  },
+  {
+    question: "How does high customer visibility impact a service enterprise such as a high-end restaurant?",
+    options: [
+      "Staff customer service, presentation, and speed are directly observed by clients",
+      "Operations can hide process errors and backlog until delivery",
+      "Transformation can occur entirely off-site with zero client interaction",
+      "Inventory storage costs become the primary operational expense"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "High visibility means customers directly experience the operational transformation in real time."
+  },
+  {
+    question: "What does Critical Path Analysis (CPA) identify in an operations scheduling process?",
+    options: [
+      "The longest sequence of dependent tasks that determines the minimum total project time",
+      "The cheapest supplier of raw components in the supply chain",
+      "The legal compliance path for Fair Work certification",
+      "The shortest single task that can be delayed indefinitely"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The critical path is the longest sequence of dependent activities; any delay on it delays the whole project."
+  },
+  {
+    question: "What is the primary operational advantage of Computer-Integrated Manufacturing (CIM)?",
+    options: [
+      "Integrates computer-aided design (CAD) and manufacturing (CAM) into full automation",
+      "Eliminates the requirement for any financial record keeping",
+      "Replaces all senior marketing and human resource managers",
+      "Guarantees zero competition from international imported goods"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "CIM integrates CAD and CAM software with computer networks to control the entire manufacturing process."
+  },
+  {
+    question: "What is the primary operational goal of implementing a Just-in-Time (JIT) inventory management method?",
+    options: [
+      "Holding zero excess inventory and eliminating holding and warehousing costs",
+      "Stockpiling maximum raw materials in case of global supply shocks",
+      "Producing goods months in advance of anticipated consumer demand",
+      "Relying on LIFO accounting to artificially reduce company tax"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "JIT aims to have inventory arrive precisely as needed in production, eliminating storage and holding costs."
+  },
+  {
+    question: "During periods of rising prices (inflation), why does FIFO report higher gross profit than LIFO?",
+    options: [
+      "Older, cheaper inventory is recorded as Cost of Goods Sold first",
+      "Recent, expensive inventory is sold first, increasing expenses",
+      "FIFO eliminates the need to calculate closing inventory balances",
+      "LIFO is mandatory under Australian Accounting Standards (AASB)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Under FIFO, older cheaper stock is expensed first, resulting in lower COGS and higher reported gross profit."
+  },
+  {
+    question: "How does Quality Assurance (QA) differ fundamentally from traditional Quality Control (QC)?",
+    options: [
+      "QA proactively prevents defects throughout the entire process via standards",
+      "QC is proactive while QA only inspects finished items at the end",
+      "QA relies entirely on customer complaints after product delivery",
+      "QC is an international certification awarded by ISO"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "QA is a proactive, system-wide approach preventing defects before they occur; QC inspects finished products."
+  },
+  {
+    question: "What core philosophy underpins Total Quality Management (TQM) in operations?",
+    options: [
+      "Continuous improvement (Kaizen) and universal employee commitment to quality",
+      "Conducting quality inspections only on the final production line",
+      "Outsourcing all quality responsibility to third-party offshore contractors",
+      "Accepting a 10% defect rate as standard industry practice"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "TQM is an ongoing, organization-wide commitment to continuous improvement (Kaizen) and zero defects."
+  },
+  {
+    question: "Why do employees frequently resist operational changes involving new automated robotics?",
+    options: [
+      "Fear of redundancy, loss of job security, and anxiety over retraining",
+      "Desire to work longer shifts without additional compensation",
+      "Preference for manual physical labor over digital equipment",
+      "Mandatory requirements to invest personal savings in machinery"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Psychological and financial fears—such as redundancy, deskilling, and career uncertainty—drive resistance."
+  },
+  {
+    question: "Which financial cost is incurred directly by a firm when terminating workers whose roles are made redundant?",
+    options: [
+      "Redundancy payout packages",
+      "Purchasing new capital equipment",
+      "Reorganizing factory floor plant layout",
+      "Payment of patent licensing fees"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Redundancy payments are legal compensation paid to employees whose positions are eliminated by restructuring."
+  },
+  {
+    question: "What is a primary operational benefit of global sourcing for a manufacturing enterprise?",
+    options: [
+      "Accessing lower component costs, specialized expertise, and new technology",
+      "Eliminating all exchange rate and foreign currency exposure",
+      "Completely avoiding compliance with Australian consumer laws",
+      "Removing all logistics and international transport transit times"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Global sourcing allows businesses to acquire inputs from the most cost-effective global suppliers."
+  }
+];
+
+const HSC_BUSINESS_MARKETING = [
+  {
+    question: "What is the strategic role of marketing in a business?",
+    options: [
+      "Generating sales and revenue to achieve long-term profit and business growth",
+      "Supervising daily factory assembly lines and raw materials",
+      "Auditing end-of-year tax returns and financial accounts",
+      "Negotiating enterprise agreements with trade union representatives"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Marketing's strategic role is translating business goals into consumer demand, revenue, and profit."
+  },
+  {
+    question: "Which marketing approach focuses on producing high volume under the belief that products sell themselves?",
+    options: ["Production Approach", "Selling Approach", "Marketing Approach", "Relationship Marketing Approach"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The production approach (1850s–1920s) focused on manufacturing capabilities rather than customer needs."
+  },
+  {
+    question: "What characterizes an 'Industrial Market' in business marketing?",
+    options: [
+      "Businesses purchasing products and raw materials used to manufacture other goods",
+      "Individual consumers buying groceries for household use",
+      "Retailers buying finished products to resell to consumers without alteration",
+      "Government departments buying public infrastructure goods"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Industrial markets comprise businesses that purchase inputs to produce other finished goods."
+  },
+  {
+    question: "Which internal factor influencing consumer choice involves an individual's motives, attitudes, and personality?",
+    options: [
+      "Psychological Influences",
+      "Sociocultural Influences",
+      "Economic Influences",
+      "Government Regulatory Influences"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Psychological factors are internal influences: perception, motives, attitudes, personality, and learning."
+  },
+  {
+    question: "Under the Australian Consumer Law (ACL), what is 'Bait Advertising'?",
+    options: [
+      "Advertising low-priced products when the business lacks reasonable stock to satisfy demand",
+      "Offering discounts to customers who pay using cash instead of credit",
+      "Comparing product features directly against a competitor's brand",
+      "Sponsoring community sporting clubs to build local goodwill"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Bait advertising lures customers with low prices for goods unavailable in reasonable quantities."
+  },
+  {
+    question: "Under Australian consumer law, why is price discrimination regulated?",
+    options: [
+      "To prevent charging different prices to different buyers if it substantially reduces competition",
+      "To guarantee all consumers pay the exact same price across all countries",
+      "To eliminate the use of holiday or seasonal retail discounts",
+      "To outlaw student and pensioner discount concession rates"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Price discrimination is unlawful if it substantially lessens market competition without cost differences."
+  },
+  {
+    question: "What unethical marketing practice is known as 'Sugging'?",
+    options: [
+      "Selling Under the Guise of market research",
+      "Promoting products that damage public health",
+      "Displaying misleading fine print on food packaging",
+      "Sponsoring cultural events without notifying regulatory authorities"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "SUGGING stands for Selling Under the Guise of a survey/research, misleading the consumer."
+  },
+  {
+    question: "In a marketing SWOT analysis, which quadrant examines internal financial strength and patents?",
+    options: ["Strengths", "Weaknesses", "Opportunities", "Threats"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Strengths are internal positive attributes controlled by the business, like strong finances and patents."
+  },
+  {
+    question: "What marketing strategy is typically required during the 'Maturity' stage of the product life cycle?",
+    options: [
+      "Differentiating features, promotional discounting, and protecting market share",
+      "Setting premium skimming prices with zero sales advertising",
+      "Immediately discontinuing the product from all retail shelves",
+      "Halting all distribution and product packaging updates"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "At maturity, competition is intense; firms must differentiate and use promotions to defend market share."
+  },
+  {
+    question: "Dividing an athletic footwear market into marathon runners, trail hikers, and gym-goers is an example of what?",
+    options: [
+      "Psychographic / Behavioral segmentation",
+      "Geographic climate segmentation",
+      "Demographic age segmentation",
+      "Income bracket segmentation"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Behavioral and psychographic segmentation groups consumers by lifestyle, usage rate, and benefits sought."
+  },
+  {
+    question: "When a tech company charges an initial premium high price for a groundbreaking smartphone, what strategy is used?",
+    options: ["Price Skimming", "Price Penetration", "Loss Leader Pricing", "Cost-Plus Pricing"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Price skimming charges the highest possible price during introduction to recover R&D costs quickly."
+  },
+  {
+    question: "What is the strategic objective of a retailer selling a product as a 'Loss Leader'?",
+    options: [
+      "Selling below cost to attract foot traffic and stimulate purchases of higher-margin goods",
+      "Exiting an unprofitable product line permanently",
+      "Complying with mandatory Australian Consumer Law minimum price floors",
+      "Maximizing gross profit margins on that specific product"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Loss leaders sell below cost to draw shoppers into the store to buy other profitable products."
+  },
+  {
+    question: "What is the primary focus of relationship marketing?",
+    options: [
+      "Building long-term customer loyalty and repeat business through personalized engagement",
+      "Conducting high-pressure one-off television sales blitzes",
+      "Outsourcing customer service to unsolicited telemarketing agencies",
+      "Engaging in aggressive predatory pricing to eliminate rivals"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Relationship marketing focuses on customer retention and long-term relationships (e.g. loyalty programs)."
+  },
+  {
+    question: "Which distribution channel strategy sells through only one exclusive outlet in a designated geographic area?",
+    options: ["Exclusive Distribution", "Intensive Distribution", "Selective Distribution", "Mass Distribution"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Exclusive distribution restricts sales to a single retail outlet in an area, maintaining luxury prestige."
+  },
+  {
+    question: "Why would a multinational fast-food chain customise its marketing mix in overseas markets?",
+    options: [
+      "To adapt to local cultural traditions, tastes, and dietary regulations",
+      "To guarantee all products look and taste identical worldwide",
+      "To eliminate all advertising expenses in foreign territories",
+      "Because international trade agreements prohibit standardisation"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Customisation adapts the marketing mix to suit distinct local consumer preferences, cultures, and laws."
+  }
+];
+
+const HSC_BUSINESS_FINANCE = [
+  {
+    question: "Which financial objective evaluates a firm's ability to pay its short-term debts as they fall due within 12 months?",
+    options: ["Liquidity", "Solvency", "Profitability", "Efficiency"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Liquidity measures how quickly assets can be converted to cash to satisfy current liabilities."
+  },
+  {
+    question: "What does the financial objective of solvency measure?",
+    options: [
+      "The business's capacity to meet long-term financial commitments over several years",
+      "The percentage of gross profit generated per dollar of sales",
+      "The speed at which inventory turns over in the warehouse",
+      "The short-term bank balance at the end of each trading day"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Solvency reflects long-term financial stability and ability to survive and service debt over time."
+  },
+  {
+    question: "What is the primary internal source of finance reinvested into business operations?",
+    options: ["Retained Profits", "Commercial Bank Overdraft", "Debentures", "Ordinary Share Placements"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Retained profits are undistributed operating profits retained by the business for growth."
+  },
+  {
+    question: "What short-term external debt facility allows a business to overdraw its bank account up to an agreed limit?",
+    options: ["Commercial Bank Overdraft", "Mortgage Loan", "Debenture Issue", "Private Equity Placement"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "An overdraft allows a business to draw more funds than available in its account to manage short-term cash."
+  },
+  {
+    question: "How does a business use factoring to generate immediate operational cash flow?",
+    options: [
+      "Selling accounts receivable (unpaid customer invoices) at a discount to a finance company",
+      "Taking out a 25-year mortgage against the company headquarters",
+      "Issuing unsecured notes to institutional superannuation funds",
+      "Relying on government small-business export grants"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Factoring sells accounts receivable at a discount to receive immediate cash, improving liquidity."
+  },
+  {
+    question: "What is a 'Rights Issue' in ASX equity financing?",
+    options: [
+      "An offer granting existing shareholders the right to buy additional new shares in proportion to their holding",
+      "Selling ordinary shares exclusively to company executives as bonuses",
+      "A compulsory government acquisition of corporate equity",
+      "Converting bank loans into non-voting preference shares"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "A rights issue offers existing shareholders additional new shares proportional to their current holding."
+  },
+  {
+    question: "What core financial service do investment banks provide to large corporate enterprises?",
+    options: [
+      "Underwriting new share floats, advising on mergers, and structuring large debt issues",
+      "Providing residential mortgage loans to household consumers",
+      "Insuring motor vehicles and home contents against storm damage",
+      "Managing small retail savings passbook accounts"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Investment banks specialize in corporate advisory, underwriting initial public offerings (IPOs), and M&A."
+  },
+  {
+    question: "How is the Current Ratio calculated and what is the standard benchmark for healthy liquidity?",
+    options: [
+      "Current Assets ÷ Current Liabilities (Benchmark: 2:1)",
+      "Total Debt ÷ Total Equity (Benchmark: 50%)",
+      "Gross Profit ÷ Total Sales (Benchmark: 80%)",
+      "Net Profit ÷ Owners Equity (Benchmark: 1:1)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Current Ratio = Current Assets ÷ Current Liabilities. A ratio of 2:1 is the traditional sound benchmark."
+  },
+  {
+    question: "What does a high Debt-to-Equity ratio indicate about a business's capital structure?",
+    options: [
+      "The business is highly geared and carries significant financial risk during economic downturns",
+      "The business carries zero debt and is funded 100% by retained earnings",
+      "The business possesses exceptional liquidity and rapid cash conversion",
+      "The business is legally immune to increases in central bank interest rates"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "High gearing means a large proportion of assets is funded by debt, increasing interest commitments and solvency risk."
+  },
+  {
+    question: "If a company reports $2,000,000 in sales revenue and $300,000 in net profit, what is its Net Profit Ratio?",
+    options: ["15%", "6.67%", "30%", "20%"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Net Profit Ratio = (Net Profit ÷ Sales) × 100 = ($300,000 ÷ $2,000,000) × 100 = 15%."
+  },
+  {
+    question: "If Accounts Receivable Turnover is 12 times per year, approximately how many days does it take to collect debts?",
+    options: ["30.4 days (365 ÷ 12)", "12.0 days", "60.0 days", "90.0 days"],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Days to collect = 365 ÷ Accounts Receivable Turnover = 365 ÷ 12 ≈ 30.4 days."
+  },
+  {
+    question: "Why is capitalising operating expenses considered a limitation of financial reports?",
+    options: [
+      "It records expenses as capital assets, artificially inflating current reported profits",
+      "It understates company assets and reports false financial losses",
+      "It is an illegal accounting procedure under all international standards",
+      "It forces the business to pay immediate corporate taxes on revenue"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Capitalising expenses treats an operating expense as a capital asset on the balance sheet, overstating profit."
+  },
+  {
+    question: "How does the financial strategy of 'Distribution of Payments' assist cash flow management?",
+    options: [
+      "Spreading invoice due dates across the year prevents major cash shortfalls and crunches",
+      "Paying all annual supplier bills in one single lump sum in January",
+      "Withholding payments indefinitely until legal debt collectors intervene",
+      "Requiring all customers to pay only via credit card installments"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Distributing payments evenly prevents large periodic cash drains and keeps cash flow steady."
+  },
+  {
+    question: "What is the primary financial advantage of a 'Sale and Leaseback' transaction?",
+    options: [
+      "Liquidates cash tied up in non-current assets while retaining uninterrupted operational use",
+      "Transfers ownership of the business to the commercial landlord",
+      "Eliminates all ongoing commercial rent expenses permanently",
+      "Reduces corporate tax liabilities to zero dollars"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Sale and leaseback frees up substantial cash from fixed property while the business leases it back for operations."
+  },
+  {
+    question: "How does an Australian importer use a currency Forward Exchange Contract to hedge financial risk?",
+    options: [
+      "Locks in a fixed future exchange rate with the bank to eliminate currency depreciation losses",
+      "Speculates on overseas currency markets to generate high-risk capital gains",
+      "Demands overseas suppliers accept Australian banknotes via postal mail",
+      "Borrows foreign currency at unhedged floating international interest rates"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "A forward exchange contract fixes the exchange rate for a future date, protecting against adverse currency swings."
+  }
+];
+
+const HSC_BUSINESS_HUMAN_RESOURCES = [
+  {
+    question: "What is the overarching strategic role of Human Resource Management (HRM)?",
+    options: [
+      "Aligning the workforce with business goals to achieve sustainable competitive advantage",
+      "Calculating weekly payroll tax deductions for the Australian Taxation Office",
+      "Operating automated assembly machinery on the manufacturing floor",
+      "Managing public relations campaigns during corporate product recalls"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Strategic HRM aligns staff recruitment, training, and retention with broad business strategic goals."
+  },
+  {
+    question: "How does human resource management directly interrelate with the marketing function?",
+    options: [
+      "HR recruits, trains, and rewards staff who deliver customer service and brand value",
+      "HR sets retail pricing strategies for newly developed product lines",
+      "HR determines the target market demographic segmentation criteria",
+      "HR designs digital social media advertising campaigns for consumers"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "HR ensures skilled, customer-oriented staff are in place to represent the brand and deliver marketing promises."
+  },
+  {
+    question: "What legal feature distinguishes an independent contractor from a regular employee?",
+    options: [
+      "Contractors run their own business, bear commercial risk, and invoice under an ABN",
+      "Contractors are entitled to paid annual leave and sick leave under the NES",
+      "Employers must withhold standard PAYG income tax from contractors",
+      "Contractors cannot be dismissed without Fair Work Commission approval"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Independent contractors operate their own business, control their work methods, and invoice via an ABN."
+  },
+  {
+    question: "Under the Australian Fair Work Act, what are the National Employment Standards (NES)?",
+    options: [
+      "11 minimum statutory employment entitlements guaranteed to all national system employees",
+      "Voluntary corporate guidelines for multinational executive bonuses",
+      "Maximum working hours permitted before overtime is banned",
+      "Tax deduction benchmarks calculated by the Fair Work Ombudsman"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The NES consists of 11 legislated minimum standards (leave, maximum weekly hours, notice of termination, etc.)."
+  },
+  {
+    question: "What is the legal function of a Modern Award in the Australian workplace relations system?",
+    options: [
+      "Sets legally binding minimum wages and conditions across specific industries or occupations",
+      "Governs the terms of a voluntary retirement package for company directors",
+      "Grants employers the legal right to ban union membership in workplaces",
+      "Replaces all health and safety obligations under the WHS Act"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Modern Awards provide the safety net of minimum terms and conditions for workers across broad industries."
+  },
+  {
+    question: "What test must the Fair Work Commission apply before approving an Enterprise Agreement?",
+    options: [
+      "Better Off Overall Test (BOOT) compared to the relevant modern award",
+      "Minimum Executive Profitability Test (MEPT)",
+      "Standard National Tariff Alignment Test (STAT)",
+      "Annual Shareholder Dividend Approval Test (ASDAT)"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The BOOT ensures employees are better off overall under the enterprise agreement than under the relevant award."
+  },
+  {
+    question: "Under the Work Health and Safety (WHS) Act, what is an employer's primary legal duty of care?",
+    options: [
+      "Ensuring health, safety, and welfare of workers so far as is reasonably practicable",
+      "Eliminating all business operating costs associated with safety gear",
+      "Providing monetary compensation in place of providing a safe workplace",
+      "Guaranteeing zero equipment breakdowns during factory production"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Employers must ensure the health and safety of workers and visitors so far as is reasonably practicable."
+  },
+  {
+    question: "What occurs during the 'Job Analysis' stage of human resource acquisition?",
+    options: [
+      "Determining the specific duties, responsibilities, and skills required for a vacant role",
+      "Conducting final exit interviews with departing staff members",
+      "Evaluating the annual monetary bonus structure for senior sales staff",
+      "Disciplining employees for breaches of company digital device codes"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Job analysis systematically examines a role to produce a job description (duties) and specification (skills)."
+  },
+  {
+    question: "How does employee development differ from employee training?",
+    options: [
+      "Training teaches skills for current tasks; development prepares employees for future career roles",
+      "Training is voluntary for management; development is compulsory for casual staff",
+      "Development only involves physical fitness; training involves academic study",
+      "Training is provided by trade unions; development is provided by universities"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Training focuses on immediate job performance; development broadens skills for future career advancement."
+  },
+  {
+    question: "Which of the following is classified as a non-monetary employee fringe benefit?",
+    options: [
+      "Flexible working hours, company car, and subsidized health care",
+      "Base hourly award wage payments",
+      "Sales commissions deposited directly into bank accounts",
+      "Overtime penalty rate pay for weekend shifts"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Non-monetary benefits include perks, flexible hours, gym memberships, and cars that do not involve cash pay."
+  },
+  {
+    question: "When is an employee's separation legally classified as an involuntary redundancy?",
+    options: [
+      "When the employer no longer requires the job to be done due to restructuring or technology",
+      "When an employee voluntarily resigns to accept a job with a competitor",
+      "When an employee reaches the national statutory retirement age",
+      "When a worker is dismissed on grounds of serious workplace misconduct"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Redundancy occurs when the position itself ceases to exist due to technological change or structural decline."
+  },
+  {
+    question: "Which workplace leadership style emphasizes consultation, delegation, and shared decision-making?",
+    options: [
+      "Democratic / Participative Leadership",
+      "Autocratic / Authoritarian Leadership",
+      "Classical Scientific Leadership",
+      "Laissez-faire Absentee Leadership"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Democratic leadership consults employees, encourages input, and delegates authority to team members."
+  },
+  {
+    question: "What is the primary objective of a 'Developmental' performance appraisal system?",
+    options: [
+      "Identifying employee strengths, training needs, and future career progression goals",
+      "Gathering documentary evidence to justify immediate staff dismissal",
+      "Calculating deductions for employee salary penalties",
+      "Publishing individual worker productivity rankings publicly"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Developmental appraisals focus on employee growth, mentoring, and skill enhancement."
+  },
+  {
+    question: "How does mediation differ from arbitration in resolving workplace disputes?",
+    options: [
+      "A mediator assists parties to reach a voluntary agreement; an arbitrator makes a legally binding ruling",
+      "Mediation takes place only in the High Court; arbitration occurs in private offices",
+      "An arbitrator cannot enforce decisions; a mediator has absolute legal power",
+      "Mediation requires full strike action; arbitration is always conducted without lawyers"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Mediators facilitate voluntary consensus without imposing solutions; arbitrators make binding legal rulings."
+  },
+  {
+    question: "When the Fair Work Commission resolves a dispute through Arbitration, what is the legal outcome?",
+    options: [
+      "A formal, legally binding decision (order or award) that both parties must adhere to",
+      "A non-binding set of gentle suggestions that either party can ignore",
+      "A mandatory referral to the federal criminal court system",
+      "Immediate dissolution of the company's corporate entity"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Arbitration is a formal legal process where the industrial tribunal makes an order that is binding on all parties."
+  }
+];
+
+const HSC_BUSINESS_ALL_QUESTIONS = [
+  ...HSC_BUSINESS_OPERATIONS,
+  ...HSC_BUSINESS_MARKETING,
+  ...HSC_BUSINESS_FINANCE,
+  ...HSC_BUSINESS_HUMAN_RESOURCES
+];
+
 const DEFAULT_QUIZZES = [
   {
+    id: 'hsc-business-master',
+    title: 'HSC Business Studies — Complete Master Arena',
+    category: 'HSC Business Studies',
+    description: 'Comprehensive 60-question trial arena covering Operations, Marketing, Finance, and Human Resources.',
+    badge: '👑 60 QUESTIONS',
+    questions: HSC_BUSINESS_ALL_QUESTIONS
+  },
+  {
+    id: 'hsc-business-operations',
+    title: 'HSC Business 1: Operations Management',
+    category: 'HSC Business Studies',
+    description: 'Cost leadership, 4 Vs, transformed/transforming inputs, CPA scheduling, JIT inventory, QA/QC/TQM, and change.',
+    badge: '⚙️ OPERATIONS',
+    questions: HSC_BUSINESS_OPERATIONS
+  },
+  {
+    id: 'hsc-business-marketing',
+    title: 'HSC Business 2: Marketing Strategies',
+    category: 'HSC Business Studies',
+    description: 'Market approaches, segmentation, ACL consumer laws, sugging, SWOT, skimming/penetration/loss leader, and 7 Ps.',
+    badge: '🎯 MARKETING',
+    questions: HSC_BUSINESS_MARKETING
+  },
+  {
+    id: 'hsc-business-finance',
+    title: 'HSC Business 3: Financial Management',
+    category: 'HSC Business Studies',
+    description: 'Liquidity, gearing, Current ratio, Net Profit ratio, debt vs equity, cash flow factoring, and global hedging.',
+    badge: '📊 FINANCE',
+    questions: HSC_BUSINESS_FINANCE
+  },
+  {
+    id: 'hsc-business-hr',
+    title: 'HSC Business 4: Human Resource Management',
+    category: 'HSC Business Studies',
+    description: 'The employment contract, NES 11 standards, modern awards, BOOT test, leadership styles, and dispute resolution.',
+    badge: '👥 HUMAN RESOURCES',
+    questions: HSC_BUSINESS_HUMAN_RESOURCES
+  },
+  {
     id: 'medieval-master-65',
-    title: 'Medieval Europe — Complete Master Arena',
+    title: 'Medieval Europe � Complete Master Arena',
     category: 'Medieval History',
     description: 'The complete 65-question curriculum challenge covering Feudalism, 1066, Crusades, Black Death, Crime & Castles.',
-    badge: '👑 65 QUESTIONS',
+    badge: '?? 65 QUESTIONS',
     questions: MEDIEVAL_ALL_QUESTIONS
   },
   {
@@ -810,7 +1544,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 1: Feudalism, Manor & Agriculture',
     category: 'Medieval History',
     description: 'Feudal hierarchy, peasants and serfs, manorialism, chivalry, pages and squires, 3-field crop rotation.',
-    badge: '⚔️ FEUDAL SYSTEM',
+    badge: '?? FEUDAL SYSTEM',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(0, 11)
   },
   {
@@ -818,7 +1552,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 2: The Norman Conquest & 1066',
     category: 'Medieval History',
     description: 'Bayeux Tapestry, William the Conqueror, Stamford Bridge, Battle of Hastings, and the Domesday Book.',
-    badge: '🛡️ 1066 CONQUEST',
+    badge: '??? 1066 CONQUEST',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(11, 20)
   },
   {
@@ -826,7 +1560,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 3: Medieval Crime & Punishment',
     category: 'Medieval History',
     description: 'Trial by ordeal, compurgation, trial by combat, hue and cry, pillory, stocks, heresy, and common law.',
-    badge: '⚖️ CRIME & LAW',
+    badge: '?? CRIME & LAW',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(20, 30)
   },
   {
@@ -834,7 +1568,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 4: The Crusades & The Holy Land',
     category: 'Medieval History',
     description: 'Pope Urban II, Council of Clermont, Deus Vult, Outremer, Saladin, Richard the Lionheart, and Knights Templar.',
-    badge: '🚩 THE CRUSADES',
+    badge: '?? THE CRUSADES',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(30, 40)
   },
   {
@@ -842,7 +1576,7 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 5: Monarchs, Magna Carta & The Black Death',
     category: 'Medieval History',
     description: 'Charlemagne, Eleanor of Aquitaine, Joan of Arc, Magna Carta 1215, Yersinia pestis, and Peasants Revolt 1381.',
-    badge: '💀 BLACK DEATH',
+    badge: '?? BLACK DEATH',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(40, 53)
   },
   {
@@ -850,12 +1584,12 @@ const DEFAULT_QUIZZES = [
     title: 'Medieval Europe 6: Castles, Siege Warfare & Towns',
     category: 'Medieval History',
     description: 'Longbows, trebuchets, portcullis, the keep, town charters, merchant guilds, apprentices, and curfews.',
-    badge: '🏰 CASTLES & TOWNS',
+    badge: '?? CASTLES & TOWNS',
     questions: MEDIEVAL_ALL_QUESTIONS.slice(53, 65)
   },
   {
     id: 'hsc-econ-core',
-    title: 'HSC Economics — Global Economy & Macro Policy',
+    title: 'HSC Economics � Global Economy & Macro Policy',
     category: 'Year 12 Economics',
     description: 'Balance of Payments, Exchange Rates, Free Trade, and Macro Policy.',
     badge: 'HSC ECON',
@@ -900,7 +1634,7 @@ const DEFAULT_QUIZZES = [
   },
   {
     id: 'commerce-consumer-finance',
-    title: 'Year 10 Commerce — Consumer, Finance & Smart Travel',
+    title: 'Year 10 Commerce � Consumer, Finance & Smart Travel',
     category: 'Year 10 Commerce',
     description: 'Consumer rights, credit vs debit cards, travel budgets, and financial decisions.',
     badge: 'COMMERCE',

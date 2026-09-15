@@ -395,7 +395,7 @@
 
       // 1. Determine Quiz and Timer parameters
       const urlParams = new URLSearchParams(window.location.search);
-      const quizId = urlParams.get('quiz') || 'medieval-master-65';
+      const quizId = urlParams.get('quiz') || 'hsc-business-master';
       quiz = QuizRepository.getQuizById(quizId);
       
       const customTimer = parseInt(urlParams.get('timer'), 10);
