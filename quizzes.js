@@ -1,4 +1,4 @@
-// ===================================================
+﻿// ===================================================
 // ===================================================
 // QUIZ ARENA - QUESTION BANKS & QUIZ ENGINE
 // Curriculum question packs for Medieval History & Secondary Studies
@@ -1995,6 +1995,1365 @@ const HSC_BUSINESS_TRIAL_EXAM_QUESTIONS = [
   HSC_BUSINESS_HUMAN_RESOURCES[18]
 ];
 
+// ===================================================
+// HSC_ECONOMICS_GLOBAL_ECONOMY (25 Questions)
+// ===================================================
+const HSC_ECONOMICS_GLOBAL_ECONOMY = [
+  {
+    question: "Which of the following best defines Gross World Product (GWP)?",
+    options: [
+      "The total aggregate market value of all final goods and services produced worldwide in a given year",
+      "The total volume of international trade merchandise exchanged between nations annually",
+      "The sum of foreign direct investment flows minus global foreign debt liabilities",
+      "The combined gross domestic product of the member economies of the G20"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Gross World Product (GWP) represents the total aggregate monetary value of all finished goods and services produced globally over a specific period.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which international transmission channel explains how a recession in the United States causes falling export revenues and lower GDP growth in Australia?",
+    options: [
+      "The international business cycle",
+      "The financial speculation corridor",
+      "The unilateral transfer conduit",
+      "The comparative advantage paradigm"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The international business cycle transmits economic shocks across borders through linked trade volumes, commodity demand, investment flows, and consumer confidence.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "According to David Ricardo\u0027s Theory of Comparative Advantage, international trade mutually benefits two economies when:",
+    options: [
+      "Each country specializes in producing goods for which it incurs the lowest opportunity cost",
+      "Both countries apply identical protective tariff rates to balance their bilateral trade accounts",
+      "One country can produce every good using fewer total labor hours than the other",
+      "Both nations maintain persistent surpluses in their Balance on Goods and Services"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Comparative advantage demonstrates that total global output and welfare expand when nations specialize in goods where their opportunity cost of production is lowest.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What is the primary economic effect of a government imposing a protective tariff on imported cars?",
+    options: [
+      "Resource allocation shifts toward highly competitive export industries with zero welfare loss",
+      "Domestic price falls, imported car volumes surge, and government tariff revenue is eliminated",
+      "Domestic production contracts, domestic employment drops, and consumer surplus expands",
+      "Domestic price rises, domestic production expands, and consumer surplus decreases with a net deadweight loss"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Tariffs raise the domestic price, expand inefficient domestic output, reduce consumer surplus, and generate production and consumption deadweight losses.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "How does a domestic production subsidy differ from an import tariff in its economic effects?",
+    options: [
+      "A subsidy directly raises consumer prices above world market levels",
+      "A subsidy is funded through government budget expenditure rather than raising import prices directly",
+      "A subsidy completely eliminates foreign competition by establishing a legal quota ceiling",
+      "A subsidy does not cause any misallocation of national economic resources"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Unlike tariffs which increase prices directly for consumers, subsidies shift domestic supply downwards by using taxpayer funds, keeping consumer prices at world levels.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What is an import quota?",
+    options: [
+      "A legal restriction setting the maximum physical volume of a specific good permitted into an economy",
+      "A direct financial grant paid to domestic manufacturers to reduce export costs",
+      "A progressive consumption excise levied exclusively on imported luxury consumer goods",
+      "An exchange control regulation requiring import transactions to be settled in domestic currency"
+    ],
+    correctIndex: 1,
+    timeLimit: 15,
+    explanation: "An import quota is a quantitative physical ceiling that restricts the total volume of imports allowed into an economy over a designated timeframe.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What is the core argument of the infant industry justification for protection?",
+    options: [
+      "Industries that employ younger apprentices deserve government subsidies to lower national youth unemployment",
+      "Key manufacturing sectors must be permanently shielded to guarantee military independence during conflicts",
+      "Temporary protection allows newly established industries to achieve economies of scale and become globally competitive",
+      "Tariffs should permanently equalize domestic production costs with low-wage foreign competitors"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The infant industry argument contends that newly established firms need temporary shelter from mature foreign rivals to achieve scale economies and lower unit costs.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "In international trade economics, dumping is defined as:",
+    options: [
+      "Devaluing a nation\u0027s nominal exchange rate to stimulate agricultural export volumes",
+      "Selling exports in a foreign market at a price below their normal cost of production or domestic market price",
+      "Imposing emergency embargoes on foreign food imports following domestic harvest surpluses",
+      "The unregulated disposal of toxic industrial manufacturing by-products in foreign territories"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Dumping occurs when a foreign firm exports products at prices below their production costs or domestic selling prices, often to eliminate competitors and gain market share.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which fundamental principle governs the World Trade Organization (WTO) under the Most Favoured Nation (MFN) rule?",
+    options: [
+      "Any trade concession granted to one member nation must be extended immediately and unconditionally to all other WTO members",
+      "Advanced economies must provide free trade access to developing economies while maintaining domestic tariffs",
+      "Member economies must peg their currencies to the US dollar within a narrow target band",
+      "Trading partners must guarantee zero bilateral trade deficits across manufactured merchandise"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The MFN principle requires that any tariff reduction or commercial privilege granted to one nation must immediately be extended to all other WTO members.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What is the primary statutory role of the International Monetary Fund (IMF)?",
+    options: [
+      "Maintaining international financial stability and assisting economies experiencing balance of payments crises",
+      "Financing long-term humanitarian infrastructure projects in developing nations",
+      "Enforcing global minimum wage standards and occupational health regulations across multinational corporations",
+      "Managing the sovereign debt default proceedings of private commercial corporate banks"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The IMF serves as the international lender of last resort, providing emergency financial assistance and conditional structural reform programs to stabilize balance of payments.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "How does the World Bank primarily fulfill its developmental mandate?",
+    options: [
+      "By conducting open-market bond auctions on behalf of the Group of Seven (G7) central banks",
+      "By providing low-interest loans, grants, and technical assistance for long-term economic development and poverty alleviation",
+      "By regulating the international foreign exchange currency derivative market",
+      "By subsidizing the shipping logistics costs of primary agricultural commodities from Africa"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The World Bank focuses on long-term poverty reduction and economic development by financing capital infrastructure, education, and institutional development.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What distinguishes a Customs Union from a standard Free Trade Area?",
+    options: [
+      "A Customs Union mandates the replacement of domestic currencies with a unified regional monetary tender",
+      "A Customs Union allows full mobility of labour and capital across national borders, whereas a Free Trade Area does not",
+      "A Customs Union abolishes all domestic income taxation among participant economies",
+      "Member countries in a Customs Union adopt a common external tariff policy against non-member nations"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "While both remove tariffs internally, a Customs Union also adopts a unified common external tariff on imports entering from non-member countries.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "In trade economics, trade diversion occurs when:",
+    options: [
+      "A preferential trade agreement redirects trade away from a lower-cost global producer toward a higher-cost member nation",
+      "New international trade is generated between members due to the removal of protective internal trade barriers",
+      "Domestic firms relocate their manufacturing facilities overseas to exploit lower environmental regulations",
+      "A country replaces merchandise exports with financial portfolio derivative outflows"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Trade diversion occurs when preferential tariff elimination within a trading bloc causes imports to shift from efficient low-cost global producers to less efficient member nations.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which of the following is a multilateral trade agreement?",
+    options: [
+      "The China-Australia Free Trade Agreement (ChAFTA)",
+      "The Australia-United States Free Trade Agreement (AUSFTA)",
+      "The Comprehensive and Progressive Agreement for Trans-Pacific Partnership (CPTPP)",
+      "The Australia-United Kingdom Free Trade Agreement (AUKFTA)"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The CPTPP is a multilateral (plurilateral) trade agreement involving 11 Pacific Rim economies, whereas AUSFTA, ChAFTA, and AUKFTA are bilateral pacts.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Why is Purchasing Power Parity (PPP) preferred over market exchange rates when comparing international living standards?",
+    options: [
+      "PPP measures only the output produced by government-owned public business enterprises",
+      "Market exchange rates are strictly fixed by the United Nations Development Programme",
+      "PPP adjusts for national differences in domestic price levels and the cost of living between economies",
+      "Market exchange rates automatically exclude the value of intermediate imported capital goods"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "PPP adjusts nominal GNI figures by measuring what currency can actually purchase domestically, accounting for lower prices of non-traded goods in developing nations.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "The Human Development Index (HDI) measures an economy\u0027s developmental progress across which three core dimensions?",
+    options: [
+      "Carbon emissions per capita, corporate tax rate, and Gini coefficient index",
+      "GDP growth rate, unemployment rate, and headline consumer price index inflation",
+      "Current Account balance, net foreign debt ratio, and labor productivity indices",
+      "GNI per capita (PPP), life expectancy at birth, and mean/expected years of schooling"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The UNDP HDI evaluates human development across: a decent standard of living (GNI per capita PPP), a long and healthy life (life expectancy), and access to knowledge (education).",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What does a global Gini coefficient of 0.70 indicate about worldwide income distribution?",
+    options: [
+      "Income is distributed with extreme equality across the global population",
+      "There is a substantial degree of income inequality across the global population",
+      "Seventy percent of the global population receives identical real median annual income",
+      "Global wealth has expanded at an average compounded annual rate of 7.0%"
+    ],
+    correctIndex: 0,
+    timeLimit: 15,
+    explanation: "A Gini coefficient ranges from 0 (perfect equality) to 1 (absolute inequality). A value of 0.70 reflects very severe inequality in global income distribution.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What is the statistical distinction between global income inequality and global wealth inequality?",
+    options: [
+      "Global wealth inequality is significantly more concentrated and unequal than global income inequality",
+      "Income is a stock measure whereas wealth is a flow measure calculated monthly",
+      "Global income inequality has steadily increased while wealth inequality has dropped to zero",
+      "The Gini coefficient can only measure income, whereas wealth is measured by the Consumer Price Index"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Wealth (net accumulated assets) is substantially more unequally distributed worldwide than income (annual earnings), with the top 1% owning roughly half of total global net wealth.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which characteristic is typical of developing economies compared to advanced economies?",
+    options: [
+      "Extremely low birth rates, high public health expenditure, and persistent capital export surpluses",
+      "Dominance of advanced service industries, high tertiary education enrollment, and sophisticated bond markets",
+      "Heavy reliance on primary agricultural commodities, low capital accumulation, and weak institutional governance",
+      "Zero tariffs on imported manufactured goods and fully floating exchange rate regimes"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Developing nations typically suffer from low per capita incomes, reliance on primary exports, low savings rates (savings-investment gap), and poor infrastructure.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What threshold distinguishes Foreign Direct Investment (FDI) from foreign portfolio investment?",
+    options: [
+      "Portfolio investment is restricted strictly to bilateral real estate acquisitions by private citizens",
+      "FDI refers exclusively to government sovereign purchases of foreign corporate commercial debt bonds",
+      "Portfolio investment requires a minimum five-year holding lock-in period, whereas FDI is day-traded",
+      "FDI involves acquiring at least 10% voting equity in an enterprise, reflecting a lasting strategic management interest"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "IMF and ABS standards define FDI as acquiring 10% or more of voting power in a resident enterprise, conferring direct influence over management operations.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "How do Transnational Corporations (TNCs) utilize transfer pricing within global supply chains?",
+    options: [
+      "By routing intra-firm trade transactions through low-tax jurisdictions to minimize global corporate tax liabilities",
+      "By publicly publishing production unit costs to maintain fair pricing compliance with the WTO",
+      "By subsidizing local wages in developing nations to match advanced economy minimum wage rates",
+      "By transferring intellectual property ownership to domestic consumer protection tribunals"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Transfer pricing involves pricing internal cross-border transactions between related subsidiaries so that profits are booked in low-tax jurisdictions, reducing overall tax.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which market mechanism was established under the Kyoto Protocol and Paris Agreement to reduce global greenhouse gas emissions efficiently?",
+    options: [
+      "Mandatory universal flat-rate worldwide vehicle fuel tariffs",
+      "International emissions trading and certified carbon credit offset markets",
+      "The complete prohibition of maritime freight container transport across oceans",
+      "A global cap on sovereign government borrowing for renewable energy projects"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "International climate treaties facilitate market-based mechanisms such as emissions trading systems (ETS) and carbon offset markets to lower emissions at the lowest marginal cost.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Which policy was a pivotal catalyst for China\u0027s rapid integration into the global economy from 1978 onwards?",
+    options: [
+      "The unilateral adoption of the US dollar as China\u0027s sole legal domestic currency tender",
+      "The immediate nationalization of all agricultural land and closure of maritime container ports",
+      "The Open Door Policy, establishment of Special Economic Zones (SEZs), and accession to the WTO in 2001",
+      "The permanent imposition of a 100% tariff on all imported manufacturing capital equipment"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Deng Xiaoping\u0027s Open Door Policy (1978), coastal SEZs offering tax incentives for FDI, and 2001 WTO accession transformed China into the world\u0027s leading export powerhouse.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "What trade-off has China experienced as a direct consequence of its export-led globalization model?",
+    options: [
+      "A rapid drop in secondary schooling accompanied by hyperinflation above 50% per annum",
+      "Massive industrialization accompanied by a total elimination of national carbon emissions",
+      "High economic growth accompanied by persistent deficits on its merchandise trade balance",
+      "Rapid real GDP growth accompanied by a widening inequality gap between coastal urban and interior rural regions"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "While lifting over 800 million people out of extreme poverty, China\u0027s market reforms led to sharp increases in the Gini coefficient and severe coastal-rural income disparities.",
+    topic: "Topic 1: Global Economy"
+  },
+  {
+    question: "Why have advanced economies increasingly shifted toward bilateral and regional trade agreements rather than comprehensive WTO rounds?",
+    options: [
+      "Consensus-based negotiations among 164 diverse WTO members have stalled (e.g. Doha Round), making smaller pacts faster to conclude",
+      "The WTO charter legally prohibited members from trading in manufactured computer equipment after 2010",
+      "Bilateral agreements guarantee that neither participating nation will ever suffer domestic cyclical unemployment",
+      "Regional trading agreements eliminate the need for nations to maintain domestic customs inspection agencies"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The complexity of achieving unanimous consensus among over 160 members across contentious issues like agricultural subsidies caused the Doha Round to stall, prompting bilateral deals.",
+    topic: "Topic 1: Global Economy"
+  }
+];
+
+// ===================================================
+// HSC_ECONOMICS_AUSTRALIAS_PLACE (25 Questions)
+// ===================================================
+const HSC_ECONOMICS_AUSTRALIAS_PLACE = [
+  {
+    question: "How has the geographic direction of Australia\u0027s exports evolved over the past six decades?",
+    options: [
+      "A dramatic shift from the United Kingdom and Europe toward North-East Asian economies, especially China and Japan",
+      "A steady withdrawal from Asian markets in favor of exclusive preferential trade with Latin America",
+      "An exclusive concentration of agricultural exports toward North American Pacific ports",
+      "A complete redirection toward African developing economies following the entry into the CPTPP"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Following the UK\u0027s 1973 accession to the EEC and rapid Asian industrialisation, Australia\u0027s trade shifted decisively toward Japan, South Korea, China, and ASEAN.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What primary structural feature characterizes the commodity composition of Australia\u0027s merchandise exports?",
+    options: [
+      "Dominance of complex high-technology consumer electronics and aerospace engineering equipment",
+      "Heavy reliance on primary commodities and mineral resources (such as iron ore, coal, and LNG) with low elaboration",
+      "An overwhelming concentration of mass-manufactured automotive and textile consumer goods",
+      "Equal export shares distributed evenly across heavy chemicals, pharmaceuticals, and telecommunications hardware"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Australia\u0027s export base is dominated by high-value primary resource commodities (iron ore, metallurgical coal, LNG, gold) and agricultural produce, reflecting its comparative advantage.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "In Australia\u0027s Balance of Payments accounts, which identity must mathematically hold under a floating exchange rate system?",
+    options: [
+      "The Current Account Balance must permanently equal the Reserve Bank of Australia cash rate target",
+      "Balance on Goods and Services must always equal the Net Primary Income deficit",
+      "Current Account Balance + Capital and Financial Account Balance + Net Errors and Omissions = 0",
+      "Net Foreign Debt must equal total domestic currency notes and coins in circulation"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Because all foreign exchange transactions have double-entry counterparts, the Balance of Payments always sums to zero: CA + KAFA + Net Errors and Omissions = 0.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "An Australian mining enterprise exports  million of lithium ore to South Korea and imports  million of mining haul trucks from Germany. What is the net impact on the Balance on Goods and Services (BOGS)?",
+    options: [
+      "A capital account transfer of  million",
+      "A deficit contribution of  million",
+      "A net primary income outflow of  million",
+      "A surplus contribution of  million"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "BOGS = Goods \u0026 Services Exports () minus Imports () = + million surplus contribution.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Which financial transaction is classified under the Net Primary Income (NPI) sub-account of the Current Account?",
+    options: [
+      "Interest payments paid by an Australian commercial bank on its overseas corporate borrowing",
+      "The physical purchase of an offshore container cargo vessel by an Australian logistics firm",
+      "Emergency financial disaster relief aid provided by the Australian Government to Vanuatu",
+      "Foreign tourists purchasing dining and hotel accommodations in Sydney"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Net Primary Income records earnings on cross-border investments: interest payments on foreign debt, and dividend/profit payments on foreign equity holdings.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Where are unilateral transfers such as foreign aid, emigrant personal savings, and offshore pensions recorded in the Balance of Payments?",
+    options: [
+      "Net Primary Income in the Current Account",
+      "Net Secondary Income in the Current Account",
+      "The Financial Derivatives account of the Financial Account",
+      "The Reserve Assets account of the Reserve Bank of Australia"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Net Secondary Income (secondary income) covers non-market unrequited transfers where no economic good or service is received in return (aid, pensions, donations).",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Given the following annual Balance of Payments data: BOGS = + billion; Net Primary Income = - billion; Net Secondary Income = - billion. What is the Current Account Balance?",
+    options: [
+      "A deficit of  billion (- billion)",
+      "A surplus of  billion (+ billion)",
+      "A deficit of  billion (- billion)",
+      "A balanced account of  billion"
+    ],
+    correctIndex: 2,
+    timeLimit: 25,
+    explanation: "Current Account Balance = BOGS () + NPI (-) + NSI (-) = - billion (a Current Account Deficit of ).",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What transaction is recorded in Australia\u0027s Capital Account (within the Capital and Financial Account)?",
+    options: [
+      "Export revenue generated from overseas international students paying university tuition",
+      "Dividends paid to foreign shareholders holding stock in BHP Group",
+      "The issuance of 10-year Commonwealth Government Treasury Bonds to Japanese pension funds",
+      "Capital transfers such as migrant asset transfers and the acquisition of non-produced, non-financial assets (e.g. intellectual property patents/trademarks)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The Capital Account is minor and records conditional debt forgiveness, migrant transfers, and purchases of non-produced/non-financial assets (patents, copyrights, franchises).",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "An overseas pension fund purchases  million of shares in an ASX-listed Australian logistics company, acquiring a 2.5% equity stake. Where is this transaction recorded?",
+    options: [
+      "Portfolio Investment in the Financial Account",
+      "Direct Investment in the Financial Account",
+      "Net Primary Income in the Current Account",
+      "The Capital Account reserve asset buffer"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Equity purchases of less than 10% voting ownership are classified as Portfolio Investment. Direct investment requires 10% or greater equity control.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What has been the primary structural driver of Australia\u0027s persistent Net Primary Income (NPI) deficit over several decades?",
+    options: [
+      "Chronic deficits on the Balance on Goods and Services caused by falling mining export volumes",
+      "Servicing costs (interest and dividends) on high net foreign liabilities stemming from a national savings-investment gap",
+      "Excessive government humanitarian foreign aid donations distributed to developing economies",
+      "Penalties paid to the World Trade Organization for breaching international anti-dumping rules"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Australia has historically had high investment needs relative to domestic savings, requiring foreign capital inflows that generate ongoing interest and dividend obligations.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "According to macroeconomic theory, what relationship links national savings, domestic investment, and the Current Account Deficit (CAD)?",
+    options: [
+      "CAD = Government Tax Receipts (T) minus Total Household Consumption (C)",
+      "CAD = National Savings (S) multiplied by the Reserve Bank cash rate target",
+      "CAD = Domestic Investment (I) minus National Savings (S)",
+      "CAD = Total Mineral Export Value divided by the Trade Weighted Index"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The savings-investment identity demonstrates that an economy investing more than it saves internally (I \u003e S) must finance the gap through net foreign capital inflows, generating a CAD.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What is the central thesis of the \u0027Pitchford Thesis\u0027 (the \u0027consenting adults\u0027 view of the Current Account Deficit)?",
+    options: [
+      "Public foreign borrowing should be subsidized to offset private sector capital flight",
+      "The federal government must mandate balanced bilateral trade accounts with every trading partner",
+      "A nation\u0027s Current Account should always be held strictly in surplus to prevent currency appreciation",
+      "A CAD driven by private sector borrowing for commercially sound investments is sustainable and does not warrant government intervention"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Professor John Pitchford argued that if foreign debt is undertaken by private individuals and firms acting in their commercial self-interest, it generates returns to service itself.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "How is an economy\u0027s Terms of Trade (TOT) index calculated?",
+    options: [
+      "(Export Price Index / Import Price Index) x 100",
+      "(Total Export Volumes / Total Import Volumes) x 100",
+      "(Current Account Balance / Gross Domestic Product) x 100",
+      "(Nominal Exchange Rate / Real Exchange Rate) x 100"
+    ],
+    correctIndex: 0,
+    timeLimit: 15,
+    explanation: "Terms of Trade measures export prices relative to import prices: TOT = (Export Price Index / Import Price Index) x 100.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "If Australia\u0027s Export Price Index rises from 100 to 120 while the Import Price Index rises from 100 to 105, what has occurred?",
+    options: [
+      "The Terms of Trade have deteriorated, reducing national real gross domestic income",
+      "The Terms of Trade have improved, increasing the volume of imports Australia can purchase per unit of exports",
+      "Australia\u0027s Balance on Goods and Services will automatically transition into a permanent structural deficit",
+      "The Australian dollar must immediately depreciate by precisely 15% against the US dollar"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "TOT rises to (120 / 105) x 100 = 114.3. An improvement means a given volume of exports can buy more imports, increasing national purchasing power.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Why did the Australian Government and Reserve Bank float the Australian dollar in December 1983?",
+    options: [
+      "To legally prohibit foreign hedge funds from participating in domestic bond auctions",
+      "To guarantee that the Australian dollar would maintain absolute parity with the British Pound Sterling",
+      "To allow the exchange rate to act as an automatic shock absorber against external terms of trade shocks and insulate domestic monetary policy",
+      "To prevent Australian mining corporations from exporting raw iron ore to overseas steel mills"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Floating the AUD allowed market forces to clear foreign exchange demand and supply, acting as a shock absorber against external commodity price swings while preserving monetary autonomy.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What does the Trade Weighted Index (TWI) measure?",
+    options: [
+      "The percentage of total Australian export revenue generated by multinational foreign corporations",
+      "The physical weight in metric tonnes of bulk iron ore and metallurgical coal shipped through Australian ports annually",
+      "The bilateral purchasing power parity of the Australian dollar exclusively against the US Dollar and Euro",
+      "The value of the Australian dollar against a basket of currencies of Australia\u0027s major trading partners, weighted by their share of two-way merchandise trade"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The TWI provides a comprehensive measure of the AUD\u0027s overall international value by weighting partner currencies according to their share in Australia\u0027s two-way trade.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Which combination of factors will typically cause an appreciation of the Australian dollar in foreign exchange markets?",
+    options: [
+      "Higher domestic interest rates relative to global rates, rising global commodity prices, and strong domestic economic growth",
+      "Aggressive RBA cash rate cuts, falling global iron ore prices, and rising domestic inflation expectations",
+      "Surging Australian consumer demand for imported electronics and capital flight by foreign investors",
+      "A sharp deterioration in the terms of trade and escalating geopolitical conflict among major export trading partners"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Higher domestic interest rates attract foreign capital inflows (increasing AUD demand), while higher commodity prices boost export receipts, pushing the AUD upwards.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What is the valuation effect on Australia\u0027s foreign debt when the Australian dollar depreciates?",
+    options: [
+      "The Australian dollar value of all foreign liabilities immediately drops to zero",
+      "The Australian dollar value of foreign currency-denominated debt increases, worsening net foreign debt in AUD terms",
+      "Domestic interest rates on mortgages are automatically eliminated by the Reserve Bank",
+      "Foreign creditors are legally obligated to convert their bond holdings into domestic Australian shares"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "When the AUD depreciates, the value of debt denominated in foreign currencies (like USD) requires more Australian dollars to service and repay, increasing measured net foreign debt.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What economic phenomenon does the J-Curve effect illustrate following a real currency depreciation?",
+    options: [
+      "The government budget deficit expands permanently because tariff revenue is indexed to the exchange rate",
+      "Unemployment drops rapidly before surging to record levels as consumer price inflation takes hold",
+      "The trade balance initially deteriorates due to pre-existing import contracts before improving in the medium term as price elasticities adjust",
+      "Foreign direct investment surges immediately while portfolio capital flows permanently cease"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "In the short run, import commitments are fixed in volume so higher import prices worsen the trade deficit. Over time, higher export competitiveness and import substitution improve the balance.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What constitutes Australia\u0027s Net Foreign Liabilities (NFL)?",
+    options: [
+      "Gross merchandise imports minus gross merchandise export revenue over a financial year",
+      "Total government sovereign debt minus official Reserve Bank foreign currency foreign exchange holdings",
+      "The cumulative sum of all annual Commonwealth budget deficits since Federation",
+      "Net Foreign Debt (gross debt minus Australian lending abroad) plus Net Foreign Equity (foreign equity in Australia minus Australian equity abroad)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Net Foreign Liabilities (NFL) = Net Foreign Debt (borrowing obligations) + Net Foreign Equity (foreign ownership of Australian shares and real estate minus Australian assets overseas).",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Why is the Debt Servicing Ratio an important metric for evaluating an economy\u0027s external stability?",
+    options: [
+      "It measures the proportion of total export income required to pay interest on net foreign debt",
+      "It calculates the percentage of the labor force employed in the primary resource export sector",
+      "It determines the ratio of automatic stabilizers to discretionary budget stimulus spending",
+      "It indicates the exact rate of headline inflation that triggers an increase in the cash rate"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The Debt Servicing Ratio (interest payments on foreign debt / export revenue) assesses a country\u0027s capacity to service its external borrowing without jeopardizing international solvency.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "Which structural factor contributed significantly to Australia achieving unprecedented Current Account Surpluses (CAS) between 2019 and 2023?",
+    options: [
+      "The complete elimination of all foreign investment equity holdings in Australian mining corporations",
+      "Booming commodity export receipts (iron ore, LNG, coal) combined with higher national savings driven by mandatory superannuation",
+      "A permanent statutory cap that prohibited Australian households from purchasing imported consumer vehicles",
+      "The Reserve Bank pegging the Australian dollar at parity with the Chinese Renminbi"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Surging commodity export prices generated record trade surpluses (BOGS), while growing domestic superannuation assets and deleveraging helped narrow the national savings-investment gap.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What was the primary long-term microeconomic rationale behind Australia\u0027s progressive reduction of protective tariffs since the 1970s?",
+    options: [
+      "To generate substantial increases in federal excise tax revenues collected at maritime borders",
+      "To immediately eliminate all forms of seasonal and frictional unemployment across regional communities",
+      "To reallocate scarce labor and capital into efficient, internationally competitive export industries and foster technical innovation",
+      "To protect inefficient manufacturing firms from the discipline of global price competition"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Phasing down protection forced domestic industries to specialize in competitive sectors, enhancing dynamic and allocative efficiency, lowering consumer costs, and raising productivity.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "What short-term cost was experienced in Australia as a consequence of dismantling tariff protection in the automotive and textile manufacturing sectors?",
+    options: [
+      "The automatic suspension of Australia\u0027s membership in the World Trade Organization",
+      "Hyperinflation across all imported durable consumer electrical products",
+      "A permanent collapse in the profitability of primary mineral mining operations",
+      "Structural unemployment and factory closures in specific manufacturing regions such as Geelong and Adelaide"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Tariff reductions exposed uncompetitive manufacturing firms to foreign competition, causing plant closures and concentrated structural unemployment among displaced factory workers.",
+    topic: "Topic 2: Australia\u0027s Place"
+  },
+  {
+    question: "The China-Australia Free Trade Agreement (ChAFTA), signed in 2015, delivered which primary benefit to the Australian economy?",
+    options: [
+      "The progressive elimination of tariffs on key Australian agricultural, resources, and services exports entering China",
+      "The mandatory requirement that all Chinese consumer electronics must be assembled in Australian manufacturing hubs",
+      "A guarantee that China would exclusively purchase 100% of its thermal coal requirements from New South Wales",
+      "The immediate integration of Australia into China\u0027s domestic central banking clearing system"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "ChAFTA eliminated tariffs on over 85% of Australian goods entering China (expanding to 95% at full implementation), securing preferential market access for agriculture, resources, and services.",
+    topic: "Topic 2: Australia\u0027s Place"
+  }
+];
+
+// ===================================================
+// HSC_ECONOMICS_ECONOMIC_ISSUES (25 Questions)
+// ===================================================
+const HSC_ECONOMICS_ECONOMIC_ISSUES = [
+  {
+    question: "How is an economy\u0027s real economic growth rate calculated over a given annual period?",
+    options: [
+      "The percentage change in real Gross Domestic Product (GDP), adjusting nominal GDP for the effects of inflation",
+      "The annual increase in the total nominal value of currency notes in circulation plus bank deposits",
+      "The percentage expansion in the Trade Weighted Index plus the current cash rate target",
+      "The net change in the Australian Securities Exchange (ASX200) index over the financial year"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Economic growth is measured as the percentage change in real GDP over time: [(Real GDP Year 2 - Real GDP Year 1) / Real GDP Year 1] x 100, removing the distortion of price changes.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "In the Keynesian Aggregate Demand model, what are the core components of Aggregate Demand (AD)?",
+    options: [
+      "AD = Total Domestic Output (Y) - Taxation (T) + Superannuation (S)",
+      "AD = Consumption (C) + Investment (I) + Government Spending (G) + Net Exports (X - M)",
+      "AD = Gross National Disposable Income multiplied by the marginal propensity to save",
+      "AD = Cash Rate Target + Nominal Mortgage Rates + Total Business Credit"
+    ],
+    correctIndex: 1,
+    timeLimit: 15,
+    explanation: "Aggregate Demand represents total planned spending on domestic final goods and services: AD = C + I + G + (X - M).",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "In macroeconomic theory, if the Marginal Propensity to Consume (MPC) is 0.80, what is the value of the Marginal Propensity to Save (MPS)?",
+    options: [
+      "0.80",
+      "1.25",
+      "0.20",
+      "5.00"
+    ],
+    correctIndex: 2,
+    timeLimit: 15,
+    explanation: "Because any additional dollar of disposable income is either consumed or saved, MPC + MPS = 1. Therefore, MPS = 1 - 0.80 = 0.20.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "What is the formula for calculating the simple Keynesian economic multiplier (k)?",
+    options: [
+      "k = Total Investment (I) / Total National Savings (S)",
+      "k = MPC / (1 - MPS)",
+      "k = (Nominal GDP / CPI) x 100",
+      "k = 1 / (1 - MPC)  or  k = 1 / MPS"
+    ],
+    correctIndex: 3,
+    timeLimit: 15,
+    explanation: "The simple multiplier measures how an initial change in autonomous spending leads to a magnified change in equilibrium national income: k = 1 / (1 - MPC) = 1 / MPS.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "If an economy\u0027s Marginal Propensity to Save (MPS) is 0.25 and business investment expenditure increases by  billion, what will be the total expansion in equilibrium national income (Y)?",
+    options: [
+      " billion",
+      " billion",
+      " billion",
+      " billion"
+    ],
+    correctIndex: 0,
+    timeLimit: 25,
+    explanation: "Multiplier k = 1 / MPS = 1 / 0.25 = 4. Total change in income = k x Change in Investment = 4 x  billion =  billion.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Which individual is officially classified as part of the Australian labor force by the Australian Bureau of Statistics (ABS)?",
+    options: [
+      "A 70-year-old retired pensioner who volunteers at a local community garden",
+      "A 22-year-old university student working 4 hours per week at a retail bookstore",
+      "A 35-year-old full-time parent who does not want and is not seeking paid employment",
+      "A 15-year-old full-time secondary student engaged exclusively in classroom study"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The labor force consists of all employed persons (working 1 or more hours per week for pay) and all unemployed persons who are actively seeking and available for work.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "How is an economy\u0027s Labor Force Participation Rate calculated?",
+    options: [
+      "(Unemployed Persons / Total Resident Population) x 100",
+      "(Total Employed Persons / Total Labor Force) x 100",
+      "(Total Labor Force / Working Age Population aged 15 and over) x 100",
+      "(Full-Time Workers / Part-Time Workers) x 100"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The participation rate is the percentage of the civilian population aged 15 and over who are either working or actively seeking work: (Labor Force / Working Age Population) x 100.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "An economy has a working age population of 20 million, a labor force of 14 million, and 700,000 unemployed persons actively seeking employment. What is the official unemployment rate?",
+    options: [
+      "70.0%",
+      "3.5%",
+      "7.0%",
+      "5.0%"
+    ],
+    correctIndex: 3,
+    timeLimit: 25,
+    explanation: "Unemployment Rate = (Unemployed Persons / Total Labor Force) x 100 = (700,000 / 14,000,000) x 100 = 5.0%.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "What distinguishes cyclical unemployment from structural unemployment?",
+    options: [
+      "Cyclical unemployment results from a downturn in the business cycle and deficient aggregate demand, whereas structural unemployment arises from a mismatch between worker skills and job requirements",
+      "Cyclical unemployment is permanent and voluntary, whereas structural unemployment is caused exclusively by seasonal weather patterns",
+      "Structural unemployment only affects workers aged 55 and older, whereas cyclical unemployment is confined to school leavers",
+      "Cyclical unemployment cannot be reduced by government policy, whereas structural unemployment automatically disappears in recessions"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Cyclical unemployment stems from weak aggregate demand during economic slowdowns, while structural unemployment reflects fundamental shifts in technology or consumer tastes causing skill mismatches.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "A retail sales assistant employed for 12 hours per week wants to work 35 hours per week and is actively applying for full-time positions. Under ABS labor market definitions, this worker is classified as:",
+    options: [
+      "Officially unemployed and included in headline unemployment statistics",
+      "Underemployed (and included in the overall labor underutilisation rate)",
+      "A discouraged worker outside of the civilian labor force",
+      "Structurally unemployed due to technological automation"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Underemployment refers to workers who are employed part-time or casually but desire and are available to work more hours. They are counted as employed, but captured in the underutilisation rate.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Why does official headline unemployment understate the true extent of labor market slack?",
+    options: [
+      "It only counts individuals who have been unemployed for longer than 24 consecutive months",
+      "It counts all pensioners and university students as fully employed full-time personnel",
+      "It excludes hidden unemployment (discouraged jobseekers who ceased actively looking) and underemployment (part-time workers seeking more hours)",
+      "It subtracts workers employed in the mining sector from the labor force"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The headline unemployment rate excludes \u0027hidden\u0027 unemployed (who give up looking due to poor job prospects) and treats a person working just one hour a week as fully employed.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "What is the Non-Accelerating Inflation Rate of Unemployment (NAIRU)?",
+    options: [
+      "The rate of cyclical job losses that occurs when real GDP expands by more than 4% per annum",
+      "The maximum legal proportion of the labor force that can be employed on part-time contracts",
+      "The exact unemployment rate at which the Commonwealth Government budget reaches a zero headline cash balance",
+      "The minimum level of unemployment below which wage pressures cause price inflation to accelerate (full employment)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The NAIRU represents the level of full employment where cyclical unemployment is zero. Pushing unemployment below the NAIRU creates labor shortages, accelerating wage and price inflation.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Okun\u0027s Law states that to achieve a reduction in an economy\u0027s rate of unemployment, real GDP growth must:",
+    options: [
+      "Exceed the sum of labor productivity growth plus the growth rate of the labor force",
+      "Equal the exact target cash rate set by the Reserve Bank of Australia",
+      "Remain below the headline Consumer Price Index rate of inflation",
+      "Match the percentage expansion of the Capital and Financial Account"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Okun\u0027s Law shows that because of population growth (labor supply growth) and rising worker productivity, real GDP must grow at around 3-3.5% annually in Australia just to prevent unemployment from rising.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "How is headline inflation measured in Australia?",
+    options: [
+      "The monthly percentage fluctuation in global iron ore and coking coal spot market prices",
+      "The annual percentage change in the Consumer Price Index (CPI), which tracks a representative basket of goods and services purchased by metropolitan households",
+      "The percentage difference between official cash rate targets and commercial mortgage interest rates",
+      "The annual change in the value of the Australian dollar against the US dollar"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The Consumer Price Index (CPI) compiled by the ABS measures quarterly price changes of a fixed regimen of household consumer goods and services across Australian capital cities.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Why does the Reserve Bank of Australia place strong emphasis on underlying (core) inflation measures like the trimmed mean and weighted median?",
+    options: [
+      "They exclude the prices of all imported goods to measure only domestic manufacturing inflation",
+      "They are calculated exclusively by private commercial banks rather than the Australian Bureau of Statistics",
+      "They strip out extreme price spikes and one-off volatile statistical outliers (such as fruit and fuel) to reveal the persistent underlying trend",
+      "They represent the exact interest rates charged on corporate overdraft facilities"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Underlying inflation (trimmed mean / weighted median) removes the 15% largest price increases and decreases, giving policymakers a clear view of underlying inflationary pressures.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Demand-pull inflation is caused by which macroeconomic condition?",
+    options: [
+      "A nationwide collapse in commercial bank lending accompanied by surging household precautionary savings",
+      "A sharp increase in the costs of production such as global crude oil supply shocks and surging statutory wages",
+      "An aggressive appreciation of the domestic currency making imported finished consumer goods cheaper",
+      "Aggregate demand exceeding the productive capacity of the economy near full employment (\u0027too much money chasing too few goods\u0027)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Demand-pull inflation occurs when aggregate spending (AD) outpaces aggregate supply (AS) at near full capacity, enabling businesses to raise prices.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Cost-push inflation occurs when:",
+    options: [
+      "Rising production costs (e.g. wages, energy prices, raw materials) shift the Aggregate Supply curve to the left, driving price levels upward",
+      "Consumer confidence surges, causing retail stores to clear inventory at steep discount sale prices",
+      "The federal government delivers an unexpected budget surplus that absorbs discretionary household purchasing power",
+      "The Reserve Bank increases the cash rate target to its highest historical level"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Cost-push inflation is driven by supply-side shocks that raise the costs of factor inputs, reducing aggregate supply and forcing firms to pass higher costs onto retail prices.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "What does the short-run Phillips Curve demonstrate about the relationship between unemployment and inflation?",
+    options: [
+      "There is a direct positive correlation: higher unemployment automatically generates runaway hyperinflation",
+      "There is an inverse trade-off: lower unemployment is associated with higher rates of wage and price inflation",
+      "Inflation and unemployment are completely independent variables with zero statistical correlation",
+      "Reducing unemployment to zero eliminates all cost-push inflationary pressures permanently"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "The short-run Phillips curve illustrates the macroeconomic policy trade-off: tightening labor markets create labor shortages and upward wage pressures, increasing inflation.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "In economics, what does a Lorenz Curve illustrate?",
+    options: [
+      "The trade-off between environmental carbon emissions and annual real gross domestic product",
+      "The direct mathematical relationship between the Reserve Bank cash rate and commercial bank mortgage rates",
+      "The cumulative percentage of total national income earned against the cumulative percentage of the population",
+      "The correlation between tariff protection rates and structural unemployment levels"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The Lorenz curve plots the cumulative share of national income received against cumulative shares of the population ranked from poorest to richest. A 45-degree line reflects perfect equality.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "How is the Gini coefficient derived from the Lorenz Curve diagram?",
+    options: [
+      "The area under the Lorenz curve divided by the terms of trade index",
+      "The highest marginal income tax rate multiplied by total gross national disposable income",
+      "The unemployment rate divided by the headline consumer price index inflation rate",
+      "Area A (between the line of perfect equality and the Lorenz curve) divided by the total area under the line of perfect equality (Area A + Area B)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Gini = Area A / (Area A + Area B). A score of 0 means perfect equality (Lorenz curve on diagonal), while 1 indicates complete inequality (one person holds all income).",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Why is a progressive personal income tax system an effective fiscal mechanism for reducing income inequality?",
+    options: [
+      "Higher marginal tax rates are applied as taxable income rises, collecting a higher proportion of income from wealthy earners",
+      "It levies an identical flat percentage rate of tax on every citizen regardless of their earnings",
+      "It exempts multinational corporate enterprises from paying customs duties on capital imports",
+      "It taxes low-income households at higher percentage rates to incentivize longer working hours"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "In a progressive tax system, the marginal rate of tax increases as income increases, compressing after-tax disposable income differentials and lowering the Gini coefficient.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Why is a broad-based consumption tax like the Goods and Services Tax (GST) considered regressive in its economic impact?",
+    options: [
+      "High-income earners are legally exempt from paying the tax on restaurant meals and consumer electronics",
+      "Low-income earners spend a higher percentage of their total income on consumption goods, so the GST represents a higher proportion of their income",
+      "The GST tax rate automatically increases by 1% for every additional ,000 an individual earns",
+      "It is collected exclusively by the Reserve Bank of Australia rather than the Australian Taxation Office"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Because low-income households have a higher average propensity to consume (saving less), flat percentage consumption taxes take a larger fraction of their total income.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "Which government policy in Australia acts as the single most powerful direct instrument for redistributing income to low-income households?",
+    options: [
+      "Subsidizing corporate research and development tax concessions for mining conglomerates",
+      "Protective tariffs imposed on imported motor vehicles and consumer clothing",
+      "Targeted social security transfer payments (such as JobSeeker, Age Pension, and Family Tax Benefits)",
+      "Increasing the overnight cash rate target in the interbank money market"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Government social security transfer payments (means-tested welfare cash transfers funded by general taxation) provide direct income support to disadvantaged groups, dramatically reducing inequality.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "In environmental economics, why does an unpriced negative externality (such as industrial carbon pollution) represent a market failure?",
+    options: [
+      "Government regulations prohibit commercial firms from adopting renewable solar technologies",
+      "Private producers are legally barred from making commercial operating profits in the energy sector",
+      "Consumers are forced to purchase carbon credits directly from international central banks",
+      "The social cost of production exceeds the private cost borne by the firm, resulting in market overproduction and welfare loss"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Market failure occurs because polluters do not pay for the environmental degradation they inflict on society (spillover costs). The free market equilibrium output exceeds the socially optimal output.",
+    topic: "Topic 3: Economic Issues"
+  },
+  {
+    question: "What is the economic rationale for implementing a carbon tax (Pigovian tax) or an Emissions Trading Scheme (ETS)?",
+    options: [
+      "To internalize the negative externality by putting a price on pollution, incentivizing firms to transition toward cleaner production methods",
+      "To guarantee that the federal budget will achieve a permanent headline surplus regardless of economic cycles",
+      "To completely eliminate all forms of international trade in primary mineral resources",
+      "To mandate identical statutory electricity prices across all suburban residential dwellings"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "By placing a price per tonne on greenhouse gas emissions, carbon pricing internalizes external environmental costs into market prices, harnessing price signals to drive decarbonization.",
+    topic: "Topic 3: Economic Issues"
+  }
+];
+
+// ===================================================
+// HSC_ECONOMICS_ECONOMIC_POLICIES (25 Questions)
+// ===================================================
+const HSC_ECONOMICS_ECONOMIC_POLICIES = [
+  {
+    question: "What is the primary operational distinction between macroeconomic policies and microeconomic policies?",
+    options: [
+      "Macroeconomic policies manage aggregate demand to stabilize the business cycle, while microeconomic policies target aggregate supply to improve efficiency and productivity",
+      "Macroeconomic policies are conducted exclusively by state governments, while microeconomic policies are governed by the United Nations",
+      "Macroeconomic policies aim to reduce international trade, while microeconomic policies set legal minimum wage rates across all sectors",
+      "Macroeconomic policies only operate during economic booms, while microeconomic policies are applied during recessions"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Macro policy (monetary and fiscal) manages aggregate demand for counter-cyclical stabilization. Micro policy acts on aggregate supply to boost long-term efficiency and productive capacity.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Which pair of economic objectives frequently conflicts in the short term when policymakers stimulate aggregate demand?",
+    options: [
+      "Balancing the Commonwealth budget and increasing national superannuation savings",
+      "Achieving full employment and maintaining price stability (low inflation)",
+      "Expanding renewable energy investment and improving school education outcomes",
+      "Reducing protective tariffs and increasing international tourist arrivals"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Stimulating demand to lower unemployment risks generating demand-pull inflation and wage acceleration, reflecting the classic short-run trade-off shown by the Phillips Curve.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the statutory inflation target of the Reserve Bank of Australia (RBA)?",
+    options: [
+      "A fixed band between 4% and 6% indexed to global commodity price growth",
+      "A strict ceiling of 0% inflation annually to prevent any price rises",
+      "Consumer price inflation between 2% and 3% on average over the business cycle",
+      "An annual inflation rate exactly matching the United States Federal Reserve rate"
+    ],
+    correctIndex: 2,
+    timeLimit: 15,
+    explanation: "The RBA\u0027s target is to keep CPI inflation between 2% and 3% on average over the cycle, anchoring inflation expectations while allowing flexibility for economic growth.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the official cash rate in Australia?",
+    options: [
+      "The fixed exchange rate at which the Australian dollar can be converted into gold bullion",
+      "The statutory interest rate applied to consumer credit cards by the Australian Taxation Office",
+      "The dividend yield paid to shareholders of the four major Australian commercial retail banks",
+      "The interest rate charged on overnight loans between commercial banks in the interbank cash market"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The cash rate is the operational target of monetary policy: the interest rate commercial financial institutions pay to borrow and lend unsecured overnight funds in the interbank market.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "How does the RBA maintain the cash rate target using its policy rate corridor?",
+    options: [
+      "By setting a lending rate at +0.25% above target and paying -0.10% (or -0.25%) on Exchange Settlement (ES) balances below target",
+      "By legally confiscating the liquid reserves of commercial banks that fail to offer 0% mortgages",
+      "By fixing commercial mortgage rates through statutory executive decrees passed by Parliament",
+      "By altering the personal income tax brackets of commercial bank chief executive officers"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The RBA operates an interest rate corridor. Banks will not borrow in the market above the RBA lending rate, nor lend below the rate the RBA pays on ES balances, bounding the market cash rate.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Through which mechanism does the cash flow channel of monetary policy transmission operate when the RBA raises the cash rate?",
+    options: [
+      "Commercial enterprises immediately halt all domestic research and development tax credit applications",
+      "Variable-rate mortgage borrowers face higher debt servicing payments, reducing their discretionary disposable income and consumption",
+      "The Australian federal government automatically eliminates welfare payments to age pensioners",
+      "The Australian dollar experiences an immediate and permanent depreciation against the Japanese Yen"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Because a high proportion of Australian households hold variable-rate mortgages, cash rate increases rapidly raise interest repayments, directly curtailing discretionary cash flow and consumer spending.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "How does the exchange rate channel transmit an increase in the RBA cash rate into the real economy?",
+    options: [
+      "Commercial banks convert their foreign assets into physical US dollar currency notes held in bank vaults",
+      "Higher cash rates cause an immediate depreciation of the AUD, sparking surging export revenues for coal miners",
+      "Higher relative interest rates attract foreign capital inflows, appreciating the AUD, which reduces import prices and dampens net export demand",
+      "The federal government introduces a universal 15% tariff on all imported capital machinery"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "A higher cash rate increases the interest rate differential, attracting foreign capital, appreciating the AUD, making imports cheaper (lowering inflation), and reducing net exports.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the typical time lag profile for monetary policy in Australia?",
+    options: [
+      "A 5-year statutory delay before commercial banks are legally permitted to alter retail lending rates",
+      "A long implementation lag requiring parliamentary legislation, but an instantaneous impact on consumer price inflation within 24 hours",
+      "Zero implementation lag and zero impact lag, with real GDP instantly adjusting to central bank announcements",
+      "A very short implementation lag (decision takes effect immediately), but a long and variable impact/transmission lag (12 to 18 months)"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The RBA Board can alter the cash rate target overnight (short implementation lag), but it takes 12 to 18 months for the full effects to permeate through borrowing costs, spending, output, and inflation.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the difference between a Commonwealth Budget headline cash balance and the underlying cash balance?",
+    options: [
+      "The underlying cash balance strips out one-off non-operational asset sales and privatizations to reflect the true structural fiscal position",
+      "The headline cash balance includes only taxation collected from private individual wage earners",
+      "The underlying cash balance measures state government expenditure, while the headline balance measures local council spending",
+      "The headline cash balance must be balanced to zero by law under the Commonwealth Constitution"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The underlying cash balance removes volatile, one-off transactions (such as proceeds from privatising Telstra or Medibank) to provide a true indicator of the government\u0027s ongoing fiscal stance.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Which of the following operates as an automatic stabilizer (non-discretionary fiscal policy) during an economic downturn?",
+    options: [
+      "Parliament passes emergency statutory legislation to construct a new trans-continental freight railway line",
+      "Tax receipts fall as incomes drop, and welfare outlays (JobSeeker) automatically increase, supporting aggregate demand without new legislation",
+      "The Reserve Bank Board holds an extraordinary meeting to lower the official cash rate target by 50 basis points",
+      "The Treasurer increases the corporate income tax rate from 30% to 45% on multinational entities"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Automatic stabilizers are built into the budget structure (progressive taxation and unemployment benefits). In a downturn, tax receipts naturally fall and transfers rise, dampening the slowdown.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "If the government announces a new  billion infrastructure spending program to stimulate a sluggish economy, this action represents:",
+    options: [
+      "A microeconomic labor market deregulation initiative",
+      "Contractionary automatic fiscal stabilization",
+      "Expansionary discretionary fiscal policy",
+      "An open market operation conducted by the central bank"
+    ],
+    correctIndex: 2,
+    timeLimit: 15,
+    explanation: "Deliberate executive/legislative choices to alter expenditure or taxation constitute discretionary fiscal policy. Increasing government spending (G) is an expansionary stance.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the primary method used by the Australian Government to finance a budget deficit?",
+    options: [
+      "Confiscating a fixed portion of private superannuation balances from Australian citizens",
+      "Mandating that the Reserve Bank directly print physical bank notes to cover the Treasury shortfall",
+      "Borrowing gold reserves from the International Monetary Fund at commercial interest rates",
+      "Issuing Commonwealth Government Securities (Treasury Bonds) to institutional and private investors in financial markets"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The Australian Office of Financial Management (AOFM) finances budget deficits by issuing Commonwealth Government Securities (Treasury Bonds and Treasury Indexed Bonds) in open capital markets.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the \u0027crowding-out effect\u0027 associated with substantial government deficit financing?",
+    options: [
+      "Government bond borrowing increases demand for loanable funds, pushing up domestic interest rates and dampening private sector investment",
+      "Commercial shopping malls become overcrowded due to surging household welfare stimulus payments",
+      "Foreign investors are legally barred from purchasing commercial office real estate in central business districts",
+      "High government spending forces state governments to abolish local property council rates"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "When the government issues large volumes of debt to finance a deficit, it increases competition for funds in capital markets, placing upward pressure on interest rates and crowding out private investment.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "How can a government productively utilize a substantial budget surplus?",
+    options: [
+      "Printing additional currency notes to stimulate imported retail luxury purchases",
+      "Paying down existing sovereign government debt or investing in sovereign wealth funds (e.g. the Future Fund)",
+      "Purchasing unprofitable commercial manufacturing enterprises to protect them from foreign competition",
+      "Eliminating all progressive income tax brackets in favor of a 0% tax rate"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Budget surpluses can be used to retire accumulated government debt, reducing future interest servicing costs, or saved in sovereign wealth funds (such as the Future Fund) for future liabilities.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What are the three primary dimensions of economic efficiency targeted by microeconomic reform?",
+    options: [
+      "Headline efficiency, underlying efficiency, and trimmed mean efficiency",
+      "Cyclical efficiency, structural efficiency, and seasonal efficiency",
+      "Allocative efficiency, technical (productive) efficiency, and dynamic efficiency",
+      "Monetary efficiency, fiscal efficiency, and exchange rate efficiency"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Microeconomic reform targets: allocative efficiency (resources flow to highest-value uses), technical efficiency (producing at lowest possible cost), and dynamic efficiency (adapting rapidly to change).",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What was the primary objective of the landmark National Competition Policy (Hilmer Report 1995) in Australia?",
+    options: [
+      "Banning all foreign multinational corporations from bidding on public road construction tenders",
+      "Imposing permanent government price controls across all retail consumer supermarket chains",
+      "Merging Australia\u0027s four largest commercial banks into a single state-owned financial institution",
+      "Promoting competitive neutrality between public and private businesses and providing third-party access to essential national monopoly infrastructure"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "The 1995 Hilmer reforms established competitive neutrality (preventing government businesses from exploiting unfair advantages) and opened essential networks (rail, electricity, ports) to competitors.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Which major economic sector was deregulated in Australia during the 1980s following the recommendations of the Campbell Committee?",
+    options: [
+      "The financial sector, through the floating of the AUD, removal of direct lending controls, and entry of foreign banks",
+      "The primary agricultural sector, through the nationalization of all dairy farms and wheat boards",
+      "The maritime defense sector, through the prohibition of commercial cargo shipping",
+      "The postal delivery sector, through the banning of private parcel courier services"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The Campbell Committee (1981) led to sweeping financial deregulation: floating the AUD, removing caps on bank deposit/lending rates, lifting exchange controls, and licensing foreign banks.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the difference between corporatisation and privatisation of Government Business Enterprises (GBEs)?",
+    options: [
+      "Corporatisation involves selling 100% of state assets to foreign governments; privatisation means subsidizing private firms",
+      "Corporatisation makes a GBE operate like a private enterprise with commercial board governance while remaining government-owned; privatisation transfers ownership to the private sector",
+      "Corporatisation is prohibited under Australian law, while privatisation applies exclusively to public primary schools",
+      "Corporatisation eliminates corporate income tax, while privatisation doubles statutory tariff rates"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Corporatisation introduces commercial incentives, corporate tax equivalence, and independent boards to public enterprises (e.g. Australia Post), whereas privatisation sells shares to private investors.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Under the Fair Work Act 2009 (Cth), what are the National Employment Standards (NES)?",
+    options: [
+      "Mandatory wage targets that automatically link executive salaries to company share price growth",
+      "A set of voluntary corporate guidelines recommended by the Business Council of Australia",
+      "Eleven minimum legislated employment statutory conditions that apply to all national system employees regardless of award or contract",
+      "A schedule of protective tariffs designed to protect Australian manufacturing jobs"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "The 11 National Employment Standards (NES) form the non-negotiable legal safety net in Australia, covering maximum weekly hours, leave entitlements, notice of termination, and redundancy pay.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What role do Modern Awards fulfill within Australia\u0027s contemporary workplace relations framework?",
+    options: [
+      "They establish the annual cash rate target corridor for the Reserve Bank of Australia",
+      "They negotiate annual executive bonus packages for senior corporate managers",
+      "They determine the exact wholesale tariff rates applied to imported consumer electronics",
+      "They set legally binding industry-wide safety net minimum wages, overtime penalty rates, and working conditions for specific industries and occupations"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Modern Awards establish minimum terms and conditions for workers across broad industry or occupational sectors (such as the Retail Award or Hospitality Award), tailored above the NES.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the statutory purpose of the Better Off Overall Test (BOOT) conducted by the Fair Work Commission?",
+    options: [
+      "To ensure that each employee covered by a proposed enterprise bargaining agreement will be better off overall than under the applicable modern award",
+      "To evaluate whether a company\u0027s financial profit margin exceeds the official inflation rate",
+      "To verify that all registered trade unions contribute funds to the federal budget consolidation",
+      "To mandate that executive board directors receive higher compensation than full-time factory staff"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "The Fair Work Commission cannot approve an enterprise agreement unless it satisfies the BOOT, ensuring that employees do not trade away critical award conditions without superior overall compensation.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Why has enterprise bargaining (workplace-level collective agreements) been promoted as a key microeconomic reform since the early 1990s?",
+    options: [
+      "It legally mandates that all Australian employees must join a registered trade union",
+      "It ties wage increases directly to measurable enterprise-level productivity improvements, boosting efficiency without sparking inflationary wage-push spirals",
+      "It eliminates the requirement for businesses to maintain workplace health and safety standards",
+      "It ensures that all businesses in an industry pay identical wage rates regardless of profitability"
+    ],
+    correctIndex: 1,
+    timeLimit: 20,
+    explanation: "Enterprise bargaining allows employers and employees to tailor working arrangements to their specific workplace, incentivizing productivity trade-offs that support sustainable real wage growth.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "How does the Fair Work Commission determine the annual Minimum Wage decision?",
+    options: [
+      "Minimum wage rates are determined automatically by the percentage change in the Trade Weighted Index",
+      "The Commonwealth Treasurer issues an executive decree fixing the hourly rate for the upcoming financial year",
+      "An expert panel reviews economic submissions regarding inflation, business competitiveness, living costs, and employment to set the National Minimum Wage",
+      "The Reserve Bank Board adjusts the minimum wage in tandem with its monthly cash rate announcement"
+    ],
+    correctIndex: 2,
+    timeLimit: 20,
+    explanation: "Each year, an expert panel of the Fair Work Commission conducts a formal review, balancing social objectives (improving low-paid living standards) with economic criteria (competitiveness and employment).",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "Which policy represents an active labor market program designed to reduce long-term structural unemployment?",
+    options: [
+      "Lowering the official retirement age to 45 to reduce civilian labor force participation",
+      "An immediate across-the-board increase in the statutory minimum corporate tax rate",
+      "Imposing a 20% tariff on all imported automated industrial manufacturing equipment",
+      "Government-funded vocational education and retraining programs (such as Fee-Free TAFE and apprenticeships) targeted at industry skill shortages"
+    ],
+    correctIndex: 3,
+    timeLimit: 20,
+    explanation: "Active labor market programs (retraining, apprenticeships, wage subsidies) address structural skill mismatches by equipping jobseekers with competencies demanded in expanding industries.",
+    topic: "Topic 4: Economic Policies"
+  },
+  {
+    question: "What is the macro-policy stance if the federal government reduces tax rates while the Reserve Bank simultaneously lowers the official cash rate target?",
+    options: [
+      "Both fiscal policy and monetary policy are pursuing an expansionary stance designed to stimulate aggregate demand and economic growth",
+      "Both policies are pursuing a contractionary stance designed to crush consumer price inflation",
+      "Fiscal policy is contractionary while monetary policy is neutral",
+      "Monetary policy is expansionary while fiscal policy is operating counter-cyclically to curb external debt"
+    ],
+    correctIndex: 0,
+    timeLimit: 20,
+    explanation: "Tax cuts inject purchasing power into households (expansionary fiscal policy), while cash rate cuts reduce borrowing costs and encourage spending (expansionary monetary policy).",
+    topic: "Topic 4: Economic Policies"
+  }
+];
+
+// ===================================================
+// HSC ECONOMICS MASTER AGGREGATIONS
+// ===================================================
+const HSC_ECONOMICS_ALL_QUESTIONS = [
+  ...HSC_ECONOMICS_GLOBAL_ECONOMY,
+  ...HSC_ECONOMICS_AUSTRALIAS_PLACE,
+  ...HSC_ECONOMICS_ECONOMIC_ISSUES,
+  ...HSC_ECONOMICS_ECONOMIC_POLICIES
+];
+
+// Replicate actual 20-Question Section I HSC Examination (5 from each core topic)
+const HSC_ECONOMICS_TRIAL_EXAM_QUESTIONS = [
+  HSC_ECONOMICS_GLOBAL_ECONOMY[0],
+  HSC_ECONOMICS_GLOBAL_ECONOMY[2],
+  HSC_ECONOMICS_GLOBAL_ECONOMY[3],
+  HSC_ECONOMICS_GLOBAL_ECONOMY[8],
+  HSC_ECONOMICS_GLOBAL_ECONOMY[14],
+  HSC_ECONOMICS_AUSTRALIAS_PLACE[2],
+  HSC_ECONOMICS_AUSTRALIAS_PLACE[6],
+  HSC_ECONOMICS_AUSTRALIAS_PLACE[10],
+  HSC_ECONOMICS_AUSTRALIAS_PLACE[12],
+  HSC_ECONOMICS_AUSTRALIAS_PLACE[16],
+  HSC_ECONOMICS_ECONOMIC_ISSUES[1],
+  HSC_ECONOMICS_ECONOMIC_ISSUES[4],
+  HSC_ECONOMICS_ECONOMIC_ISSUES[7],
+  HSC_ECONOMICS_ECONOMIC_ISSUES[11],
+  HSC_ECONOMICS_ECONOMIC_ISSUES[19],
+  HSC_ECONOMICS_ECONOMIC_POLICIES[2],
+  HSC_ECONOMICS_ECONOMIC_POLICIES[5],
+  HSC_ECONOMICS_ECONOMIC_POLICIES[8],
+  HSC_ECONOMICS_ECONOMIC_POLICIES[12],
+  HSC_ECONOMICS_ECONOMIC_POLICIES[20]
+];
+
+
 const DEFAULT_QUIZZES = [
   {
     id: 'hsc-business-master',
@@ -2101,49 +3460,52 @@ const DEFAULT_QUIZZES = [
     questions: MEDIEVAL_ALL_QUESTIONS.slice(53, 65)
   },
   {
-    id: 'hsc-econ-core',
-    title: 'HSC Economics - Global Economy & Macro Policy',
-    category: 'Year 12 Economics',
-    description: 'Balance of Payments, Exchange Rates, Free Trade, and Macro Policy.',
-    badge: '\\uD83D\\uDCC8 HSC ECON',
-    questions: [
-      {
-        question: 'Which component of the Balance of Payments records Australian interest payments on foreign debt?',
-        options: [
-          'Net Primary Income (Current Account)',
-          'Capital Account',
-          'Net Secondary Income (Current Account)',
-          'Financial Account'
-        ],
-        correctIndex: 0,
-        timeLimit: 20,
-        explanation: 'Servicing foreign debt is classified under Net Primary Income.'
-      },
-      {
-        question: 'What is the primary target band of the Reserve Bank of Australia (RBA) for consumer price inflation (CPI)?',
-        options: [
-          '2% to 3% on average over the cycle',
-          '0% to 2% strictly annually',
-          '3% to 5% medium-term target',
-          '1.5% fixed target'
-        ],
-        correctIndex: 0,
-        timeLimit: 15,
-        explanation: 'The RBA conducts monetary policy to keep CPI inflation between 2% and 3% on average.'
-      },
-      {
-        question: 'A tariff placed on imported steel in Australia will typically cause which outcome?',
-        options: [
-          'A net deadweight loss to societal welfare',
-          'An increase in overall domestic consumer surplus',
-          'A reallocation of resources towards more efficient export industries',
-          'A decrease in Australian government tax revenue'
-        ],
-        correctIndex: 0,
-        timeLimit: 20,
-        explanation: 'Tariffs create production and consumption distortion losses (deadweight loss).'
-      }
-    ]
+    id: 'hsc-economics-master',
+    title: 'HSC Economics - Complete Master Arena',
+    category: 'HSC Economics',
+    description: 'The complete 100-question curriculum challenge covering The Global Economy, Australia in the Global Economy, Economic Issues, and Economic Policies.',
+    badge: '\uD83C\uDFC6 100 QUESTIONS',
+    questions: HSC_ECONOMICS_ALL_QUESTIONS
+  },
+  {
+    id: 'hsc-economics-trial-exam',
+    title: 'HSC Economics - 20-Question Past Paper Exam Simulator',
+    category: 'HSC Economics',
+    description: 'Authentic replica of Section I (Multiple Choice) of the HSC Examination with 5 questions drawn from each core topic.',
+    badge: '\uD83D\uDCDD 20-Q EXAM TRIAL',
+    questions: HSC_ECONOMICS_TRIAL_EXAM_QUESTIONS
+  },
+  {
+    id: 'hsc-economics-global',
+    title: 'HSC Economics 1: The Global Economy',
+    category: 'HSC Economics',
+    description: 'Globalisation, trade patterns, protectionism (tariffs, subsidies, quotas), FTAs, WTO/IMF/World Bank, and global distribution of income and wealth.',
+    badge: '\uD83C\uDF10 GLOBAL ECONOMY (25 Qs)',
+    questions: HSC_ECONOMICS_GLOBAL_ECONOMY
+  },
+  {
+    id: 'hsc-economics-bop',
+    title: 'HSC Economics 2: Australia in the Global Economy',
+    category: 'HSC Economics',
+    description: 'Balance of Payments (BOGS, NPI, NSI, CA, KAFA), CAD drivers, exchange rates (floating AUD, TWI, J-curve), foreign liabilities, and Terms of Trade.',
+    badge: '\uD83C\uDDE6\uD83C\uDDFA AUST & BOP (25 Qs)',
+    questions: HSC_ECONOMICS_AUSTRALIAS_PLACE
+  },
+  {
+    id: 'hsc-economics-issues',
+    title: 'HSC Economics 3: Economic Issues',
+    category: 'HSC Economics',
+    description: 'Economic growth (AD/AS, multiplier), unemployment types & NAIRU, inflation (CPI, headline vs core), Lorenz curve, Gini coefficient, and environment.',
+    badge: '\uD83D\uDCCA ISSUES (25 Qs)',
+    questions: HSC_ECONOMICS_ECONOMIC_ISSUES
+  },
+  {
+    id: 'hsc-economics-policies',
+    title: 'HSC Economics 4: Economic Policies & Management',
+    category: 'HSC Economics',
+    description: 'Monetary policy (cash rate, corridor, transmission channels), Fiscal policy (outcomes, stabilizers), Microeconomic reform, and Fair Work framework.',
+    badge: '\uD83C\uDFDB\uFE0F POLICIES (25 Qs)',
+    questions: HSC_ECONOMICS_ECONOMIC_POLICIES
   },
   {
     id: 'commerce-consumer-finance',
