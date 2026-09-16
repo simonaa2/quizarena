@@ -6,10 +6,10 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <title>Player Controller — Quiz Arena</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Real-time networking CDNs -->
-  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
-  <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Local Vendored Dependencies (Eliminates CDN delays & school firewall blocks) -->
+  <script src="vendor/mqtt.min.js"></script>
+  <script src="vendor/peerjs.min.js"></script>
+  <script src="vendor/confetti.browser.min.js"></script>
   <script src="config.js"></script>
   <script src="sound.js"></script>
   <script src="network.js"></script>
@@ -280,7 +280,7 @@
         }
       });
 
-      // Join Heartbeat: announce presence repeatedly until confirmed by host
+      // Join Heartbeat: announce presence until confirmed by host
       clearInterval(joinHeartbeatTimer);
       joinHeartbeatTimer = setInterval(() => {
         if (hasJoinedLobby) {
@@ -288,7 +288,7 @@
           return;
         }
         sendJoinBeacon();
-      }, 1200);
+      }, 2500);
 
       // Lobby Auto-Recovery: If connected but not confirmed on teacher board after 7s,
       // seamlessly rotate to next server in pool (teacher is listening on all of them)

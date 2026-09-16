@@ -30,9 +30,9 @@ const CONFIG = {
   // Real-time communication broker endpoints
   // Triple-redundancy: EMQX WSS + Mosquitto TLS + HiveMQ Public TLS + WebRTC PeerJS + BroadcastChannel
   MQTT_BROKERS: [
-    { url: 'wss://broker.emqx.io:8084/mqtt', name: 'EMQX Public TLS' },
     { url: 'wss://test.mosquitto.org:8081/mqtt', name: 'Mosquitto TLS' },
-    { url: 'wss://broker.hivemq.com:8884/mqtt', name: 'HiveMQ TLS' }
+    { url: 'wss://broker.hivemq.com:8884/mqtt', name: 'HiveMQ TLS' },
+    { url: 'wss://broker.emqx.io:8084/mqtt', name: 'EMQX Public TLS' }
   ],
   MQTT_TOPIC_PREFIX: 'quizarena/arena/'
 };
