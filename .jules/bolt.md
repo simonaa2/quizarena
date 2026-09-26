@@ -1,0 +1,3 @@
+## 2024-11-20 - [DOM Batching in Zero-Server Architecture]
+**Learning:** In a zero-server architecture where the host browser acts as the central processor, synchronous DOM manipulation (e.g., calling `appendChild` iteratively in a loop) creates major bottlenecks. When handling massive concurrent student connections, individual DOM mutations cause layout thrashing and event loop blocking, which degrades the host's real-time network sync.
+**Action:** Always batch DOM updates using string concatenation and `innerHTML` (or `DocumentFragment`) rather than updating the live DOM iteratively for each incoming state change.
