@@ -1,0 +1,3 @@
+## 2026-09-27 - [Iterative DOM Manipulation Blocks Main Thread]
+**Learning:** [The application uses a 'Zero-Server Real-Time Sync' architecture where the host browser acts as the central server handling concurrent student connections via WebRTC, MQTT, and BroadcastChannel. As a result, the main thread is highly sensitive to synchronous performance bottlenecks like iterative DOM manipulation.]
+**Action:** [Use DocumentFragment to batch DOM updates outside of the active DOM tree and append them all at once. This prevents multiple reflows/repaints, which is critical to avoid blocking the main thread from handling real-time sync events.]
