@@ -1,0 +1,3 @@
+## 2024-05-24 - Batching DOM Injections in the Host Loop
+**Learning:** In a Zero-Server architecture, the host acts as the server processing student responses directly in the main thread. Loops that insert elements directly into the DOM (e.g., updating lobbys or leaderboards) can cause layout thrashing and synchronously block the main thread, leading to noticeable performance degradation.
+**Action:** Use `DocumentFragment` to batch DOM node additions. Append elements to the fragment in the loop, and then perform a single DOM insertion of the fragment after the loop completes to minimize reflows and repaints.
