@@ -360,6 +360,7 @@
     let isGameStarted = false;
 
     let players = {};
+    let lobbyUpdateFrame = null;
     let roundAnswers = {};
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -530,7 +531,7 @@
           answers: []
         };
         Sound.lockIn();
-        updateLobbyUI();
+        scheduleLobbyUpdate();
       }
 
       // Acknowledge join so student controller knows it is visible on board
@@ -557,7 +558,7 @@
           answers: []
         };
         players[data.clientId] = player;
-        updateLobbyUI();
+        scheduleLobbyUpdate();
       }
 
       const currentQ = currentShuffledQuestion;
@@ -607,6 +608,21 @@
       }
     }
 
+    // ⚡ Bolt Optimization: Debounce lobby updates using requestAnimationFrame
+    // 🎯 Why: When many students join simultaneously, calling updateLobbyUI() repeatedly
+    // triggers synchronous layout thrashing (O(N^2) element creation) on the main thread.
+    // Since the app uses a Zero-Server WebRTC/MQTT mesh, blocking the main thread
+    // can cause network timeouts and connection drops.
+    // 📊 Impact: Batches multiple rapid-fire DOM updates into a single render frame,
+    // reducing DOM element creations from O(N^2) to O(N) during mass joins.
+    function scheduleLobbyUpdate() {
+      if (lobbyUpdateFrame) return;
+      lobbyUpdateFrame = requestAnimationFrame(() => {
+        updateLobbyUI();
+        lobbyUpdateFrame = null;
+      });
+    }
+
     function updateLobbyUI() {
       const chipsContainer = document.getElementById('player-chips');
       const countLabel = document.getElementById('player-count');
@@ -620,6 +636,10 @@
       }
 
       chipsContainer.innerHTML = '';
+
+      // ⚡ Bolt Optimization: Batch DOM insertions using DocumentFragment
+      // 🎯 Why: Avoids triggering a reflow for every single chip appended.
+      const fragment = document.createDocumentFragment();
       playerList.forEach(p => {
         const chip = document.createElement('div');
         chip.className = 'player-chip';
@@ -627,14 +647,15 @@
           <span>👤 ${escapeHtml(p.name)}</span>
           <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
         `;
-        chipsContainer.appendChild(chip);
+        fragment.appendChild(chip);
       });
+      chipsContainer.appendChild(fragment);
     }
 
     function kickPlayer(clientId) {
       if (players[clientId]) {
         delete players[clientId];
-        updateLobbyUI();
+        scheduleLobbyUpdate();
       }
     }
 
@@ -653,7 +674,7 @@
         answers: []
       };
       Sound.lockIn();
-      updateLobbyUI();
+      scheduleLobbyUpdate();
     }
 
     function updateAnswerCounterUI() {
@@ -876,6 +897,8 @@
 
       document.getElementById('btn-next-question').textContent = isFinalRound ? 'View Final Podium 👑' : 'Next Question ➔';
 
+      // ⚡ Bolt Optimization: DocumentFragment for batch appending leaderboard rows
+      const fragment = document.createDocumentFragment();
       sorted.slice(0, 5).forEach((p, idx) => {
         const row = document.createElement('div');
         row.className = `leaderboard-row rank-${idx + 1}`;
@@ -892,8 +915,9 @@
           </div>
           <div class="player-row-score">${p.score.toLocaleString()} pts</div>
         `;
-        container.appendChild(row);
+        fragment.appendChild(row);
       });
+      container.appendChild(fragment);
     }
 
     function proceedToNextQuestion() {
@@ -937,6 +961,9 @@
 
       const tbody = document.getElementById('podium-table-body');
       tbody.innerHTML = '';
+
+      // ⚡ Bolt Optimization: DocumentFragment for final podium table
+      const fragment = document.createDocumentFragment();
       sorted.forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
@@ -948,8 +975,9 @@
           <td style="padding: 0.8rem 1rem;">${p.correctCount} / ${quiz.questions.length}</td>
           <td style="padding: 0.8rem 1rem;">${pct}%</td>
         `;
-        tbody.appendChild(tr);
+        fragment.appendChild(tr);
       });
+      tbody.appendChild(fragment);
     }
 
     function triggerConfetti() {
