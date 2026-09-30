@@ -607,27 +607,37 @@
       }
     }
 
+    let _lobbyUpdateFrame = null;
     function updateLobbyUI() {
-      const chipsContainer = document.getElementById('player-chips');
-      const countLabel = document.getElementById('player-count');
-      const emptyHint = document.getElementById('lobby-empty-hint');
-      const playerList = Object.values(players);
+      // ⚡ Bolt Optimization: Debounce UI updates using requestAnimationFrame and build DOM via DocumentFragment
+      // This prevents layout thrashing and main thread blocking when many students join simultaneously.
+      if (_lobbyUpdateFrame) cancelAnimationFrame(_lobbyUpdateFrame);
 
-      countLabel.textContent = playerList.length;
+      _lobbyUpdateFrame = requestAnimationFrame(() => {
+        const chipsContainer = document.getElementById('player-chips');
+        const countLabel = document.getElementById('player-count');
+        const emptyHint = document.getElementById('lobby-empty-hint');
+        const playerList = Object.values(players);
 
-      if (playerList.length > 0) {
-        if (emptyHint) emptyHint.style.display = 'none';
-      }
+        countLabel.textContent = playerList.length;
 
-      chipsContainer.innerHTML = '';
-      playerList.forEach(p => {
-        const chip = document.createElement('div');
-        chip.className = 'player-chip';
-        chip.innerHTML = `
-          <span>👤 ${escapeHtml(p.name)}</span>
-          <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
-        `;
-        chipsContainer.appendChild(chip);
+        if (playerList.length > 0) {
+          if (emptyHint) emptyHint.style.display = 'none';
+        }
+
+        const fragment = document.createDocumentFragment();
+        playerList.forEach(p => {
+          const chip = document.createElement('div');
+          chip.className = 'player-chip';
+          chip.innerHTML = `
+            <span>👤 ${escapeHtml(p.name)}</span>
+            <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
+          `;
+          fragment.appendChild(chip);
+        });
+
+        chipsContainer.innerHTML = '';
+        chipsContainer.appendChild(fragment);
       });
     }
 
@@ -936,7 +946,10 @@
       }
 
       const tbody = document.getElementById('podium-table-body');
-      tbody.innerHTML = '';
+
+      // ⚡ Bolt Optimization: Build results table using DocumentFragment
+      // Minimizes DOM repaints when rendering results for large classes.
+      const fragment = document.createDocumentFragment();
       sorted.forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
@@ -948,8 +961,10 @@
           <td style="padding: 0.8rem 1rem;">${p.correctCount} / ${quiz.questions.length}</td>
           <td style="padding: 0.8rem 1rem;">${pct}%</td>
         `;
-        tbody.appendChild(tr);
+        fragment.appendChild(tr);
       });
+      tbody.innerHTML = '';
+      tbody.appendChild(fragment);
     }
 
     function triggerConfetti() {
