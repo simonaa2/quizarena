@@ -1,0 +1,3 @@
+## 2026-10-01 - [Refactored synchronous appendChild array loop into batched innerHTML]
+**Learning:** During real-time burst join events (like an entire class joining at once via QR scan), iterative DOM manipulation (creating elements and using `.appendChild` in a loop) blocks the main thread. Since the architecture relies heavily on synchronous JavaScript without Web Workers to handle network bridges, this causes severe UI locking.
+**Action:** Avoid iterative DOM append operations for real-time lists. Instead, build a single HTML string and inject it via `innerHTML`. Always use `requestAnimationFrame` to debounce the UI update to avoid unnecessary rendering during rapid event streams.
