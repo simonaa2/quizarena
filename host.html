@@ -607,27 +607,37 @@
       }
     }
 
+    let updateLobbyUI_RAF = null;
     function updateLobbyUI() {
-      const chipsContainer = document.getElementById('player-chips');
-      const countLabel = document.getElementById('player-count');
-      const emptyHint = document.getElementById('lobby-empty-hint');
-      const playerList = Object.values(players);
+      // ⚡ Bolt Optimization: Debounce UI updates using requestAnimationFrame to prevent main thread blocking during burst joins
+      if (updateLobbyUI_RAF) cancelAnimationFrame(updateLobbyUI_RAF);
 
-      countLabel.textContent = playerList.length;
+      updateLobbyUI_RAF = requestAnimationFrame(() => {
+        const chipsContainer = document.getElementById('player-chips');
+        const countLabel = document.getElementById('player-count');
+        const emptyHint = document.getElementById('lobby-empty-hint');
+        const playerList = Object.values(players);
 
-      if (playerList.length > 0) {
-        if (emptyHint) emptyHint.style.display = 'none';
-      }
+        countLabel.textContent = playerList.length;
 
-      chipsContainer.innerHTML = '';
-      playerList.forEach(p => {
-        const chip = document.createElement('div');
-        chip.className = 'player-chip';
-        chip.innerHTML = `
-          <span>👤 ${escapeHtml(p.name)}</span>
-          <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
-        `;
-        chipsContainer.appendChild(chip);
+        if (playerList.length > 0) {
+          if (emptyHint) emptyHint.style.display = 'none';
+        }
+
+        // ⚡ Bolt Optimization: Batch DOM operations by building a single HTML string
+        // Expected Impact: O(1) DOM insertion replaces O(N^2) synchronous node appends,
+        // saving substantial processing time per new student.
+        let htmlStr = '';
+        for (let i = 0; i < playerList.length; i++) {
+          const p = playerList[i];
+          htmlStr += `
+            <div class="player-chip">
+              <span>👤 ${escapeHtml(p.name)}</span>
+              <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
+            </div>
+          `;
+        }
+        chipsContainer.innerHTML = htmlStr;
       });
     }
 
