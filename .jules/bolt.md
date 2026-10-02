@@ -1,0 +1,3 @@
+## 2026-10-02 - [DOM Batching in Zero-Server Architecture]
+**Learning:** The application uses a "Zero-Server Real-Time Sync" architecture where the host browser acts as the central server for all active connections. Because it must handle concurrent data channels (WebRTC, MQTT) for multiple students, its main thread is particularly sensitive to synchronous blocking operations like layout thrashing caused by iterative DOM manipulations (e.g., using `innerHTML` or repeated `appendChild` in `host.html`).
+**Action:** When generating dynamic UI lists (e.g. updating the student lobby or leaderboard), always use `DocumentFragment` to batch DOM appends and minimize reflows/repaints, avoiding main thread starvation.
