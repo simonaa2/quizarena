@@ -619,7 +619,11 @@
         if (emptyHint) emptyHint.style.display = 'none';
       }
 
+      // ⚡ Bolt Optimization: Use DocumentFragment to batch DOM inserts.
+      // This prevents O(N) synchronous reflows on the main thread,
+      // which is critical to keep the WebRTC/MQTT loop unblocked during mass joins.
       chipsContainer.innerHTML = '';
+      const fragment = document.createDocumentFragment();
       playerList.forEach(p => {
         const chip = document.createElement('div');
         chip.className = 'player-chip';
@@ -627,8 +631,9 @@
           <span>👤 ${escapeHtml(p.name)}</span>
           <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
         `;
-        chipsContainer.appendChild(chip);
+        fragment.appendChild(chip);
       });
+      chipsContainer.appendChild(fragment);
     }
 
     function kickPlayer(clientId) {
@@ -869,6 +874,9 @@
 
     function renderLeaderboard() {
       const container = document.getElementById('leaderboard-container');
+      // ⚡ Bolt Optimization: Batch leaderboard rows into a DocumentFragment.
+      // Reduces layout thrashing and prevents O(N) reflows on the main thread
+      // when updating the UI while handling concurrent network events.
       container.innerHTML = '';
 
       const sorted = Object.values(players).sort((a, b) => b.score - a.score);
@@ -876,6 +884,7 @@
 
       document.getElementById('btn-next-question').textContent = isFinalRound ? 'View Final Podium 👑' : 'Next Question ➔';
 
+      const fragment = document.createDocumentFragment();
       sorted.slice(0, 5).forEach((p, idx) => {
         const row = document.createElement('div');
         row.className = `leaderboard-row rank-${idx + 1}`;
@@ -892,8 +901,9 @@
           </div>
           <div class="player-row-score">${p.score.toLocaleString()} pts</div>
         `;
-        container.appendChild(row);
+        fragment.appendChild(row);
       });
+      container.appendChild(fragment);
     }
 
     function proceedToNextQuestion() {
