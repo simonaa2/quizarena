@@ -487,13 +487,17 @@
       const select = document.getElementById('modal-quiz-select');
       select.innerHTML = '';
       const all = QuizRepository.getAllQuizzes();
+
+      // ⚡ Bolt: Batch DOM insertions using DocumentFragment to prevent O(N) reflows
+      const fragment = document.createDocumentFragment();
       all.forEach(q => {
         const opt = document.createElement('option');
         opt.value = q.id;
         opt.textContent = `${q.badge ? '[' + q.badge + '] ' : ''}${q.title} (${q.questions.length} Qs)`;
         if (q.id === quiz.id) opt.selected = true;
-        select.appendChild(opt);
+        fragment.appendChild(opt);
       });
+      select.appendChild(fragment);
       document.getElementById('modal-timer-select').value = String(questionTimerSeconds);
     }
 
@@ -620,6 +624,9 @@
       }
 
       chipsContainer.innerHTML = '';
+
+      // ⚡ Bolt: Batch DOM insertions using DocumentFragment to prevent O(N) reflows
+      const fragment = document.createDocumentFragment();
       playerList.forEach(p => {
         const chip = document.createElement('div');
         chip.className = 'player-chip';
@@ -627,8 +634,9 @@
           <span>👤 ${escapeHtml(p.name)}</span>
           <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
         `;
-        chipsContainer.appendChild(chip);
+        fragment.appendChild(chip);
       });
+      chipsContainer.appendChild(fragment);
     }
 
     function kickPlayer(clientId) {
@@ -876,6 +884,8 @@
 
       document.getElementById('btn-next-question').textContent = isFinalRound ? 'View Final Podium 👑' : 'Next Question ➔';
 
+      // ⚡ Bolt: Batch DOM insertions using DocumentFragment to prevent O(N) reflows
+      const fragment = document.createDocumentFragment();
       sorted.slice(0, 5).forEach((p, idx) => {
         const row = document.createElement('div');
         row.className = `leaderboard-row rank-${idx + 1}`;
@@ -892,8 +902,9 @@
           </div>
           <div class="player-row-score">${p.score.toLocaleString()} pts</div>
         `;
-        container.appendChild(row);
+        fragment.appendChild(row);
       });
+      container.appendChild(fragment);
     }
 
     function proceedToNextQuestion() {
@@ -937,6 +948,9 @@
 
       const tbody = document.getElementById('podium-table-body');
       tbody.innerHTML = '';
+
+      // ⚡ Bolt: Batch DOM insertions using DocumentFragment to prevent O(N) reflows
+      const fragment = document.createDocumentFragment();
       sorted.forEach((p, idx) => {
         const tr = document.createElement('tr');
         tr.style.borderBottom = '1px solid rgba(255,255,255,0.06)';
@@ -948,8 +962,9 @@
           <td style="padding: 0.8rem 1rem;">${p.correctCount} / ${quiz.questions.length}</td>
           <td style="padding: 0.8rem 1rem;">${pct}%</td>
         `;
-        tbody.appendChild(tr);
+        fragment.appendChild(tr);
       });
+      tbody.appendChild(fragment);
     }
 
     function triggerConfetti() {
