@@ -1,0 +1,3 @@
+## 2025-01-20 - [DOM Insertion Bottlenecks in Zero-Server Architecture]
+**Learning:** In the Zero-Server Real-Time Sync architecture, the main thread acts as a central server handling WebRTC, MQTT, and BroadcastChannel connections. Consequently, synchronous performance bottlenecks like iterative DOM manipulation (appending elements one by one within a loop to live DOM containers) cause significant main thread blocking (layout thrashing).
+**Action:** Always utilize `DocumentFragment` to batch DOM node creations and insertions before applying them to the live DOM. This prevents layout recalculations on every single iteration and keeps the main thread unblocked for network polling.
