@@ -185,6 +185,10 @@
       const urlParams = new URLSearchParams(window.location.search);
       const targetId = urlParams.get('quiz');
 
+      // ⚡ Bolt Performance Optimization:
+      // Using DocumentFragment prevents O(N) layout thrashing when dynamically rendering UI lists
+      const fragment = document.createDocumentFragment();
+
       quizzes.forEach(q => {
         const opt = document.createElement('option');
         opt.value = q.id;
@@ -192,8 +196,10 @@
         if (targetId && q.id === targetId) {
           opt.selected = true;
         }
-        picker.appendChild(opt);
+        fragment.appendChild(opt);
       });
+
+      picker.appendChild(fragment);
 
       updateQuizMeta(picker.value);
     });

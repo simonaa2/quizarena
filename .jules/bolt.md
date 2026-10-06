@@ -1,0 +1,3 @@
+## 2024-05-24 - Layout Thrashing in Zero-Server Architecture
+**Learning:** The zero-server architecture makes the host browser the central hub for the game state, making the main thread highly sensitive to synchronous performance bottlenecks. Specifically, using iterative DOM manipulation (`appendChild` in a loop) for dynamic lists like player chips and leaderboards causes layout thrashing which can degrade performance during high concurrent join rates.
+**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions before appending them to the DOM, reducing reflows from O(N) to O(1).
