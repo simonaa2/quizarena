@@ -1,0 +1,3 @@
+## 2026-10-07 - Prevent Layout Thrashing with DocumentFragment
+**Learning:** The Zero-Server architecture relies heavily on main-thread performance for the host to act as a concurrent server for all students. Iterative `.appendChild()` calls inside loops (like adding students to the lobby, populating the deck modal, or rendering leaderboards) cause layout thrashing and block the main thread, leading to jittery real-time synchronization.
+**Action:** Always batch DOM node creations and insertions using a `DocumentFragment` before appending the fragment to the live DOM exactly once. This single insertion prevents layout recalculation overhead during list rendering.
