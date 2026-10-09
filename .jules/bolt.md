@@ -1,0 +1,3 @@
+## 2024-03-24 - DOM Layout Thrashing in Zero-Server Architecture
+**Learning:** The application uses a 'Zero-Server Real-Time Sync' architecture where the host browser acts as the central server handling concurrent student connections via WebRTC, MQTT, and BroadcastChannel. The main thread is highly sensitive to synchronous performance bottlenecks. Iterative DOM manipulation (e.g., repeatedly calling `appendChild` in loops for lists like lobbies or leaderboards) causes layout thrashing which blocks the main thread and impacts the real-time sync performance.
+**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions instead of iterative DOM manipulation to prevent layout thrashing.
