@@ -1,0 +1,3 @@
+## 2025-02-15 - DocumentFragment Optimization
+**Learning:** In the Zero-Server architecture, the host browser acts as the central server and handles concurrent student connections. Iterative DOM manipulation in loops (like populating leaderboards or lobbies) causes layout thrashing and synchronously blocks the sensitive main thread.
+**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions when iterating over multiple elements, ensuring the DOM is only reflowed once per update loop.
