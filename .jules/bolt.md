@@ -1,0 +1,3 @@
+## 2025-05-18 - Batching DOM Updates to Prevent Main Thread Blocking
+**Learning:** The Zero-Server Real-Time Sync architecture relies on the host browser acting as a central server handling WebRTC/MQTT connections. This makes the main thread extremely sensitive to synchronous performance bottlenecks like layout thrashing caused by iterative DOM manipulations (e.g., repeatedly calling `appendChild` in loops).
+**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions when iterating over collections (e.g., player list updates, building the leaderboard, adding options to selects). This minimizes reflows and repaints, keeping the UI responsive while serving connections.
