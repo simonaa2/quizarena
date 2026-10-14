@@ -1,0 +1,3 @@
+## 2024-05-18 - Prevent synchronous layout thrashing using DocumentFragment
+**Learning:** This codebase uses a 'Zero-Server Real-Time Sync' architecture where the host browser acts as the central server and main thread performance is extremely critical for handling WebRTC and animations. Synchronously appending DOM elements one by one (e.g. loops inserting rows into the leaderboard) triggers layout recalculations on every append which can block the main thread.
+**Action:** Always wrap iterative DOM node creation and insertion inside a `DocumentFragment` before appending it to the active DOM. This batches the insertions into a single reflow/repaint cycle, significantly reducing main thread blocking time.
