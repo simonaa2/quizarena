@@ -1,0 +1,3 @@
+## 2024-05-24 - DOM Layout Thrashing Optimization
+**Learning:** The application uses a 'Zero-Server Real-Time Sync' architecture where the host browser acts as the central server. The main thread is highly sensitive to synchronous performance bottlenecks. Iterative DOM insertions (e.g., using `appendChild` in loops directly on live DOM elements) trigger multiple reflows and repaints, causing layout thrashing and degrading performance.
+**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions instead of iterative DOM manipulation. Append items to the fragment first, then append the fragment to the live DOM in a single operation.
