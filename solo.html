@@ -185,6 +185,9 @@
       const urlParams = new URLSearchParams(window.location.search);
       const targetId = urlParams.get('quiz');
 
+      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
+      // Impact: Reduces synchronous reflows from O(N) to O(1) during quiz picker render
+      const fragment = document.createDocumentFragment();
       quizzes.forEach(q => {
         const opt = document.createElement('option');
         opt.value = q.id;
@@ -192,8 +195,9 @@
         if (targetId && q.id === targetId) {
           opt.selected = true;
         }
-        picker.appendChild(opt);
+        fragment.appendChild(opt);
       });
+      picker.appendChild(fragment);
 
       updateQuizMeta(picker.value);
     });
