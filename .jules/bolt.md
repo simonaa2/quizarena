@@ -1,3 +1,3 @@
-## 2024-05-25 - Prevent Layout Thrashing in Zero-Server Main Thread Architecture
-**Learning:** In a 'Zero-Server Real-Time Sync' architecture where the host browser (`host.html`) handles all student connections, state management, and UI rendering concurrently, the main thread becomes highly sensitive to synchronous bottlenecks. Iterative DOM insertions (e.g., `container.appendChild(item)` inside loops for lobby updates or leaderboards) cause synchronous layout thrashing, severely degrading performance during mass student joins or end-of-round score calculations.
-**Action:** Always use `DocumentFragment` to batch DOM node creations and insertions. Append elements to the fragment first, then append the fragment to the container (O(1) reflow instead of O(N)).
+## 2024-06-25 - Layout Thrashing with DocumentFragment
+**Learning:** Found multiple instances where DOM elements were iteratively created and inserted in tight loops (e.g., `updateLobbyUI`, `renderLeaderboard`). Since this is a zero-server app that handles realtime sync on the host's main thread, sync performance bottlenecks like layout thrashing are fatal.
+**Action:** Always wrap iterative DOM manipulations in a `DocumentFragment` to batch layout recalculations and DOM inserts.

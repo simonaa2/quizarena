@@ -185,8 +185,7 @@
       const urlParams = new URLSearchParams(window.location.search);
       const targetId = urlParams.get('quiz');
 
-      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
-      // Impact: Reduces synchronous reflows from O(N) to O(1) during quiz picker render
+      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
       const fragment = document.createDocumentFragment();
       quizzes.forEach(q => {
         const opt = document.createElement('option');

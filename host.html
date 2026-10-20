@@ -487,8 +487,7 @@
       const select = document.getElementById('modal-quiz-select');
       select.innerHTML = '';
       const all = QuizRepository.getAllQuizzes();
-      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
-      // Impact: Reduces synchronous reflows from O(N) to O(1) during modal render
+      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
       const fragment = document.createDocumentFragment();
       all.forEach(q => {
         const opt = document.createElement('option');
@@ -624,8 +623,7 @@
       }
 
       chipsContainer.innerHTML = '';
-      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
-      // Impact: Reduces synchronous reflows from O(N) to O(1) during lobby updates
+      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
       const fragment = document.createDocumentFragment();
       playerList.forEach(p => {
         const chip = document.createElement('div');
@@ -884,8 +882,7 @@
 
       document.getElementById('btn-next-question').textContent = isFinalRound ? 'View Final Podium 👑' : 'Next Question ➔';
 
-      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
-      // Impact: Reduces synchronous reflows from O(N) to O(1) during leaderboard render
+      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
       const fragment = document.createDocumentFragment();
       sorted.slice(0, 5).forEach((p, idx) => {
         const row = document.createElement('div');
@@ -949,8 +946,7 @@
 
       const tbody = document.getElementById('podium-table-body');
       tbody.innerHTML = '';
-      // Bolt Optimization: Batch DOM insertions to prevent main thread layout thrashing
-      // Impact: Reduces synchronous reflows from O(N) to O(1) during podium render
+      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
       const fragment = document.createDocumentFragment();
       sorted.forEach((p, idx) => {
         const tr = document.createElement('tr');
