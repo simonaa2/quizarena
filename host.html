@@ -610,31 +610,40 @@
       }
     }
 
+    let updateLobbyUIPending = false;
     function updateLobbyUI() {
-      const chipsContainer = document.getElementById('player-chips');
-      const countLabel = document.getElementById('player-count');
-      const emptyHint = document.getElementById('lobby-empty-hint');
-      const playerList = Object.values(players);
+      if (updateLobbyUIPending) return;
+      updateLobbyUIPending = true;
+      // ⚡ Bolt: Debounce UI updates using requestAnimationFrame to coalesce
+      // rapid state changes during mass network events, preventing layout thrashing.
+      // Expected impact: Prevents main thread blocking and frame drops when N students join concurrently.
+      requestAnimationFrame(() => {
+        updateLobbyUIPending = false;
+        const chipsContainer = document.getElementById('player-chips');
+        const countLabel = document.getElementById('player-count');
+        const emptyHint = document.getElementById('lobby-empty-hint');
+        const playerList = Object.values(players);
 
-      countLabel.textContent = playerList.length;
+        countLabel.textContent = playerList.length;
 
-      if (playerList.length > 0) {
-        if (emptyHint) emptyHint.style.display = 'none';
-      }
+        if (playerList.length > 0) {
+          if (emptyHint) emptyHint.style.display = 'none';
+        }
 
-      chipsContainer.innerHTML = '';
-      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
-      const fragment = document.createDocumentFragment();
-      playerList.forEach(p => {
-        const chip = document.createElement('div');
-        chip.className = 'player-chip';
-        chip.innerHTML = `
-          <span>👤 ${escapeHtml(p.name)}</span>
-          <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
-        `;
-        fragment.appendChild(chip);
+        chipsContainer.innerHTML = '';
+        // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
+        const fragment = document.createDocumentFragment();
+        playerList.forEach(p => {
+          const chip = document.createElement('div');
+          chip.className = 'player-chip';
+          chip.innerHTML = `
+            <span>👤 ${escapeHtml(p.name)}</span>
+            <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
+          `;
+          fragment.appendChild(chip);
+        });
+        chipsContainer.appendChild(fragment);
       });
-      chipsContainer.appendChild(fragment);
     }
 
     function kickPlayer(clientId) {
@@ -662,11 +671,19 @@
       updateLobbyUI();
     }
 
+    let updateAnswerCounterUIPending = false;
     function updateAnswerCounterUI() {
-      const totalPlayers = Object.keys(players).length;
-      const answeredCount = Object.keys(roundAnswers).length;
-      document.getElementById('answer-count-val').textContent = answeredCount;
-      document.getElementById('answer-total-val').textContent = totalPlayers;
+      if (updateAnswerCounterUIPending) return;
+      updateAnswerCounterUIPending = true;
+      // ⚡ Bolt: Debounce counter updates to coalesce rapid changes during
+      // mass answer submissions, preventing unnecessary synchronous DOM updates.
+      requestAnimationFrame(() => {
+        updateAnswerCounterUIPending = false;
+        const totalPlayers = Object.keys(players).length;
+        const answeredCount = Object.keys(roundAnswers).length;
+        document.getElementById('answer-count-val').textContent = answeredCount;
+        document.getElementById('answer-total-val').textContent = totalPlayers;
+      });
     }
 
     // --- GAME FLOW ---
