@@ -1,3 +1,7 @@
 ## 2024-06-25 - Layout Thrashing with DocumentFragment
 **Learning:** Found multiple instances where DOM elements were iteratively created and inserted in tight loops (e.g., `updateLobbyUI`, `renderLeaderboard`). Since this is a zero-server app that handles realtime sync on the host's main thread, sync performance bottlenecks like layout thrashing are fatal.
 **Action:** Always wrap iterative DOM manipulations in a `DocumentFragment` to batch layout recalculations and DOM inserts.
+
+## 2026-10-26 - Debouncing Rapid Network UI Updates
+**Learning:** Found that `updateLobbyUI` in the host view was being triggered synchronously every time a student joined. In a real-world classroom scenario where 30 students scan a QR code and join concurrently, this creates 30 synchronous DOM rebuilds on the main thread instantly, causing layout thrashing and freezing the browser exactly when we need it to be responsive.
+**Action:** Debounce UI update functions that react to network events (like mass student joins) using `requestAnimationFrame`. This coalesces multiple rapid state changes into a single DOM update during the next visual frame, drastically reducing CPU usage and eliminating thrashing without complex state management.
