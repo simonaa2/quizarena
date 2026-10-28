@@ -358,6 +358,7 @@
     let activeBrokerIndex = 0;
     let lobbySyncTimer = null;
     let isGameStarted = false;
+    let lobbyUIUpdateScheduled = false;
 
     let players = {};
     let roundAnswers = {};
@@ -533,7 +534,7 @@
           answers: []
         };
         Sound.lockIn();
-        updateLobbyUI();
+        scheduleUpdateLobbyUI();
       }
 
       // Acknowledge join so student controller knows it is visible on board
@@ -560,7 +561,7 @@
           answers: []
         };
         players[data.clientId] = player;
-        updateLobbyUI();
+        scheduleUpdateLobbyUI();
       }
 
       const currentQ = currentShuffledQuestion;
@@ -610,6 +611,15 @@
       }
     }
 
+    function scheduleUpdateLobbyUI() {
+      if (lobbyUIUpdateScheduled) return;
+      lobbyUIUpdateScheduled = true;
+      requestAnimationFrame(() => {
+        updateLobbyUI();
+        lobbyUIUpdateScheduled = false;
+      });
+    }
+
     function updateLobbyUI() {
       const chipsContainer = document.getElementById('player-chips');
       const countLabel = document.getElementById('player-count');
@@ -640,7 +650,7 @@
     function kickPlayer(clientId) {
       if (players[clientId]) {
         delete players[clientId];
-        updateLobbyUI();
+        scheduleUpdateLobbyUI();
       }
     }
 
@@ -659,7 +669,7 @@
         answers: []
       };
       Sound.lockIn();
-      updateLobbyUI();
+      scheduleUpdateLobbyUI();
     }
 
     function updateAnswerCounterUI() {
