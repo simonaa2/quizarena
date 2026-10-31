@@ -610,31 +610,39 @@
       }
     }
 
+    let _lobbyUIUpdatePending = false;
     function updateLobbyUI() {
-      const chipsContainer = document.getElementById('player-chips');
-      const countLabel = document.getElementById('player-count');
-      const emptyHint = document.getElementById('lobby-empty-hint');
-      const playerList = Object.values(players);
+      if (_lobbyUIUpdatePending) return;
+      _lobbyUIUpdatePending = true;
 
-      countLabel.textContent = playerList.length;
+      requestAnimationFrame(() => {
+        _lobbyUIUpdatePending = false;
 
-      if (playerList.length > 0) {
-        if (emptyHint) emptyHint.style.display = 'none';
-      }
+        const chipsContainer = document.getElementById('player-chips');
+        const countLabel = document.getElementById('player-count');
+        const emptyHint = document.getElementById('lobby-empty-hint');
+        const playerList = Object.values(players);
 
-      chipsContainer.innerHTML = '';
-      // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
-      const fragment = document.createDocumentFragment();
-      playerList.forEach(p => {
-        const chip = document.createElement('div');
-        chip.className = 'player-chip';
-        chip.innerHTML = `
-          <span>👤 ${escapeHtml(p.name)}</span>
-          <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
-        `;
-        fragment.appendChild(chip);
+        countLabel.textContent = playerList.length;
+
+        if (playerList.length > 0) {
+          if (emptyHint) emptyHint.style.display = 'none';
+        }
+
+        chipsContainer.innerHTML = '';
+        // ⚡ Bolt: Batch DOM insertions to prevent layout thrashing
+        const fragment = document.createDocumentFragment();
+        playerList.forEach(p => {
+          const chip = document.createElement('div');
+          chip.className = 'player-chip';
+          chip.innerHTML = `
+            <span>👤 ${escapeHtml(p.name)}</span>
+            <button onclick="kickPlayer('${p.id}')" style="background:none; border:none; color:#ef4444; font-weight:800; cursor:pointer; margin-left:4px;" title="Remove student">✕</button>
+          `;
+          fragment.appendChild(chip);
+        });
+        chipsContainer.appendChild(fragment);
       });
-      chipsContainer.appendChild(fragment);
     }
 
     function kickPlayer(clientId) {
